@@ -21,7 +21,8 @@
     "rules": {
       "prettier/prettier" : [
         "error"
-      ]
+      ],
+      "@typescript-eslint/consistent-type-imports": 0
     }
   },
   "prettier": "@ionic/prettier-config",

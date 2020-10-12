@@ -1,13 +1,32 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import type { Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { FeedPage } from './feed.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FeedPage
-  }
+    component: FeedPage,
+    children: [
+      {
+        path: 'custom',
+        loadChildren: () =>
+          import('./custom/custom.module').then(m => m.CustomPageModule),
+      },
+      {
+        path: 'featured',
+
+        loadChildren: () =>
+          import('./featured/featured.module').then(m => m.FeaturedPageModule),
+      },
+      {
+        path: '',
+        redirectTo: 'featured',
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];
 
 @NgModule({
