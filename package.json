@@ -17,9 +17,11 @@
   "private": true,
   "eslintConfig": {
     "extends": "@ionic/eslint-config/recommended",
-    "plugins": ["prettier"],
+    "plugins": [
+      "prettier"
+    ],
     "rules": {
-      "prettier/prettier" : [
+      "prettier/prettier": [
         "error"
       ],
       "@typescript-eslint/consistent-type-imports": 0
@@ -44,7 +46,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.0",
-    "@angular/cli": "~10.0.5",
+    "@angular/cli": "10.0.8",
     "@angular/compiler": "~10.0.0",
     "@angular/compiler-cli": "~10.0.0",
     "@angular/language-service": "~10.0.0",
