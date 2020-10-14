@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./feed.page.scss'],
 })
 export class FeedPage implements OnInit {
+  public selectedSegment: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    this.selectedSegment = 'featured';
   }
-
 }

@@ -6,40 +6,74 @@ import { HomePage } from './home.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     component: HomePage,
     children: [
       {
         path: 'feed',
-        loadChildren: () =>
-          import('./feed/feed.module').then(m => m.FeedPageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./feed/feed.module').then(m => m.FeedPageModule),
+          },
+        ],
       },
       {
         path: 'search',
-        loadChildren: () =>
-          import('./search/search.module').then(m => m.SearchPageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./search/search.module').then(m => m.SearchPageModule),
+          },
+          {
+            path: ':petId',
+            loadChildren: () =>
+              import('./search/detail-donation/detail-donation.module').then(
+                m => m.DetailDonationPageModule,
+              ),
+          },
+        ],
       },
       {
         path: 'donate',
-        loadChildren: () =>
-          import('./donate/donate.module').then(m => m.DonatePageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./donate/donate.module').then(m => m.DonatePageModule),
+          },
+        ],
       },
       {
         path: 'messages',
-        loadChildren: () =>
-          import('./messages/messages.module').then(m => m.MessagesPageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./messages/messages.module').then(
+                m => m.MessagesPageModule,
+              ),
+          },
+        ],
       },
       {
         path: 'profile',
-        loadChildren: () =>
-          import('./profile/profile.module').then(m => m.ProfilePageModule),
-      },
-      {
-        path: '',
-        redirectTo: 'feed',
-        pathMatch: 'full',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./profile/profile.module').then(m => m.ProfilePageModule),
+          },
+        ],
       },
     ],
+  },
+  {
+    path: '',
+    redirectTo: '/home/tabs/feed',
+    pathMatch: 'full',
   },
 ];
 

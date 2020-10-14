@@ -2,17 +2,25 @@
   <ion-toolbar>
     <ion-title>Home</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selectedSegment">
+      <ion-segment-button value="featured">
+        <ion-label>Destaques</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="custom">
+        <ion-label>Pessoal</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-tabs>
-    <ion-tab-bar slot="top">
-      <ion-tab-button tab="featured">
-        <ion-label>Destaques</ion-label>
-      </ion-tab-button>  
-      <ion-tab-button tab="custom">
-        <ion-label>Personalizado</ion-label>
-      </ion-tab-button>
-      </ion-tab-bar>
-  </ion-tabs>
+<div [ngSwitch]="selectedSegment" >
+  <ion-grid *ngSwitchCase="'featured'">
+    conteúdo featured
+  </ion-grid>
+  <ion-grid *ngSwitchCase="'custom'">
+    conteúdo custom
+  </ion-grid>
+</div>
 </ion-content>

@@ -8,24 +8,6 @@ const routes: Routes = [
   {
     path: '',
     component: FeedPage,
-    children: [
-      {
-        path: 'custom',
-        loadChildren: () =>
-          import('./custom/custom.module').then(m => m.CustomPageModule),
-      },
-      {
-        path: 'featured',
-
-        loadChildren: () =>
-          import('./featured/featured.module').then(m => m.FeaturedPageModule),
-      },
-      {
-        path: '',
-        redirectTo: 'featured',
-        pathMatch: 'full',
-      },
-    ],
   },
 ];
 

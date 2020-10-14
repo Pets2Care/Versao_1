@@ -6,8 +6,22 @@ import { DonatePage } from './donate.page';
 const routes: Routes = [
   {
     path: '',
-    component: DonatePage
-  }
+    component: DonatePage,
+  },
+  {
+    path: 'new-donation',
+    loadChildren: () =>
+      import('./new-donation/new-donation.module').then(
+        m => m.NewDonationPageModule,
+      ),
+  },
+  {
+    path: 'edit-donation',
+    loadChildren: () =>
+      import('./edit-donation/edit-donation.module').then(
+        m => m.EditDonationPageModule,
+      ),
+  },
 ];
 
 @NgModule({
