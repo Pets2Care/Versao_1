@@ -16,7 +16,6 @@ export class SearchPage implements OnInit {
 
   ngOnInit(): void {
     this.selectedSegment = 'all';
-    console.log('pets = ', pets.default);
     this.items = pets.default;
     this.filteredItems = this.items;
   }

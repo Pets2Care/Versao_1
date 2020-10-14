@@ -6,9 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./photo-card.component.scss'],
 })
 export class PhotoCardComponent implements OnInit {
-  
-@Input() public photo;
-  constructor() { }
+  @Input() public item;
+  constructor() {}
   ngOnInit() {}
-
 }

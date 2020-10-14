@@ -18,10 +18,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let item of filteredItems">
-    <ion-item>
-      <h1>{{item.name}}</h1>
-      <p>{{item.description}}</p>
-    </ion-item>
-  </ion-list>
+  <ion-text color="primary">
+    <h1>
+      {{filteredItems.length}} Animais Encontrados
+    </h1>
+  </ion-text>
+      <app-photo-card [item]="i" *ngFor="let i of filteredItems"> </app-photo-card>
 </ion-content>

@@ -9,8 +9,8 @@ describe('PhotoCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhotoCardComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [PhotoCardComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PhotoCardComponent);
