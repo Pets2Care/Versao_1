@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import * as pets from '../../pets.json';
+import pets from '../../pets.js';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +16,7 @@ export class SearchPage implements OnInit {
 
   ngOnInit(): void {
     this.selectedSegment = 'all';
-    this.items = pets.default;
+    this.items = pets;
     this.filteredItems = this.items;
   }
 

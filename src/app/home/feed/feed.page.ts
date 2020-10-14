@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import * as pets from '../../pets.json';
+import pets from '../../pets.js';
 
 @Component({
   selector: 'app-feed',
@@ -14,7 +14,7 @@ export class FeedPage implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.items = pets.default;
+    this.items = pets;
     this.selectedSegment = 'featured';
   }
 }
