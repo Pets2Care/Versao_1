@@ -1,29 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
+import * as pets from '../../pets.json';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.page.html',
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-  public items: any[] = [
-    {
-      name: 'andre',
-      description: 'descricao andre',
-      type: 'dog',
-    },
-    {
-      name: 'bandre',
-      description: 'descricao bandre',
-      type: 'cat',
-    },
-    {
-      name: 'candre',
-      description: 'descricao candre',
-      type: 'dog',
-    },
-  ];
-
+  public items: any[];
   public filteredItems: any[];
   public selectedSegment: string;
 
@@ -31,6 +16,8 @@ export class SearchPage implements OnInit {
 
   ngOnInit(): void {
     this.selectedSegment = 'all';
+    console.log('pets = ', pets.default);
+    this.items = pets.default;
     this.filteredItems = this.items;
   }
 
