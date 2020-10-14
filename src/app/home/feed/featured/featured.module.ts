@@ -1,3 +1,4 @@
+import { PhotoCardComponent } from './../../../photo-card/photo-card.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,6 @@ import { FeaturedPage } from './featured.page';
     IonicModule,
     FeaturedPageRoutingModule
   ],
-  declarations: [FeaturedPage]
+  declarations: [FeaturedPage, PhotoCardComponent]
 })
 export class FeaturedPageModule {}
