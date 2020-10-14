@@ -18,3 +18,7 @@ import { CustomPage } from './custom.page';
   declarations: [CustomPage]
 })
 export class CustomPageModule {}
+
+
+
+
