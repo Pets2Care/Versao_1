@@ -10,6 +10,7 @@ import pets from '../../pets.js';
 })
 export class DonatePage implements OnInit {
   public userId = 2;
+  public userName = 'Maria do Carmo';
   public filteredItems: any[];
 
   constructor(private router: Router) {}
@@ -23,6 +24,10 @@ export class DonatePage implements OnInit {
   }
 
   createNewDonation(): void {
-    this.router.navigate(['/home/tabs/donate/new-donation/']);
+    this.router.navigate([
+      '/home/tabs/donate/new-donation/',
+      this.userId,
+      this.userName,
+    ]);
   }
 }

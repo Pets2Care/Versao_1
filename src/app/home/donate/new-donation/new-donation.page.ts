@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 const defaultPet = {
   createdAt: '',
@@ -18,18 +20,32 @@ const defaultPet = {
   styleUrls: ['./new-donation.page.scss'],
 })
 export class NewDonationPage implements OnInit {
-  public newPet = defaultPet;
+  public newPet = { ...defaultPet };
   public postedPet = null;
+  private userId: number;
+  private userName: string;
 
-  constructor() {}
+  constructor(
+    private alertController: AlertController,
+    private activatedRoute: ActivatedRoute,
+  ) {
+    this.userId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'));
+    this.userName = this.activatedRoute.snapshot.paramMap.get('userName');
+    console.log('userId = ', this.userId);
+    console.log('userName = ', this.userName);
+  }
 
   ngOnInit() {}
 
   postForm() {
     this.newPet.createdAt = new Date().toLocaleDateString();
-    console.log('newPet = ', this.newPet);
+    this.newPet.userId = this.userId;
+    this.newPet.userName = this.userName;
+    this.newPet.createdAt = new Date().toLocaleDateString();
+
     this.postedPet = this.newPet;
-    this.newPet = defaultPet;
+    this.newPet = { ...defaultPet };
+    this.presentAlert();
   }
 
   isFormComplete(): boolean {
@@ -41,5 +57,39 @@ export class NewDonationPage implements OnInit {
       this.newPet.type &&
       this.newPet.description
     );
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Doação criada com sucesso!',
+      subHeader: 'Dados enviados ao servidor:',
+      message:
+        '<div>' +
+        '<p>Nome:' +
+        this.postedPet.name +
+        '</p>' +
+        '<p>Localização:' +
+        this.postedPet.name +
+        '</p>' +
+        '<p>Imagem:' +
+        this.postedPet.url +
+        '</p>' +
+        '<p>Idade:' +
+        this.postedPet.age +
+        '</p>' +
+        '<p>Espécie:' +
+        this.postedPet.type +
+        '</p>' +
+        '<p>Descrição:' +
+        this.postedPet.description +
+        '</p>' +
+        '<p>Criado em:' +
+        this.postedPet.createdAt +
+        '</p>' +
+        '</div>',
+      buttons: ['Entendi'],
+    });
+
+    alert.present();
   }
 }

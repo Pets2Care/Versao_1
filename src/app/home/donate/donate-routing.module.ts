@@ -9,7 +9,7 @@ const routes: Routes = [
     component: DonatePage,
   },
   {
-    path: 'new-donation',
+    path: 'new-donation/:userId/:userName',
     loadChildren: () =>
       import('./new-donation/new-donation.module').then(
         m => m.NewDonationPageModule,
