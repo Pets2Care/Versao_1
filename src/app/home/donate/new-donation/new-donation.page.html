@@ -1,9 +1,49 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>new-donation</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home/tabs/donate"></ion-back-button>
+    </ion-buttons>
+    
+    <ion-title>Nova Adoção</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<form (ngSubmit)="postForm()">
+  <ion-col>
+    <ion-item>
+      <ion-label>Nome:</ion-label>
+      <ion-input type="text" name="name"[(ngModel)]="newPet.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Idade (meses):</ion-label>
+      <ion-input type="number" name="age"[(ngModel)]="newPet.age"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Cidade:</ion-label>
+      <ion-input type="text" name="place"[(ngModel)]="newPet.place"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Espécie:</ion-label>
+      <ion-select name="type" [(ngModel)]="newPet.type">
+        <ion-select-option value="cat">Gato</ion-select-option>
+        <ion-select-option value="dog">Cachorro</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Descrição:</ion-label>
+        <ion-textarea name="description" [(ngModel)]="newPet.description" rows="5" placeholder="Descreva as principais características do animal"></ion-textarea> 
+   </ion-item>
+   <ion-item>
+    <ion-label>Foto do Animal:</ion-label>
+    <ion-input type="file" name="url"[(ngModel)]="newPet.url"></ion-input>
+  </ion-item>
+  </ion-col>
+  <ion-button disabled={{isFormComplete()}} type="submit" >Confirmar</ion-button>
+</form>
+<div *ngIf="postedPet !== null" >
+  <pre>
+    {{postedPet | json}}
+  </pre>
+</div>
 </ion-content>

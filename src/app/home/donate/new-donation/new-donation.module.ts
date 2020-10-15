@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
 
 import { NewDonationPageRoutingModule } from './new-donation-routing.module';
-
 import { NewDonationPage } from './new-donation.page';
 
 @NgModule({
@@ -13,8 +11,8 @@ import { NewDonationPage } from './new-donation.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    NewDonationPageRoutingModule
+    NewDonationPageRoutingModule,
   ],
-  declarations: [NewDonationPage]
+  declarations: [NewDonationPage],
 })
 export class NewDonationPageModule {}
