@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>auth</ion-title>
+    <ion-title>Login de Usuário</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item  *ngFor="let i of users">
+      <ion-button (click)="loginUser(i.id)">Login {{i.name}} </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

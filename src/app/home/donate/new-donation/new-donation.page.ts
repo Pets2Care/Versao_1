@@ -1,18 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-const defaultPet = {
-  createdAt: '',
-  name: '',
-  place: '',
-  url: '',
-  userId: undefined,
-  userName: '',
-  age: undefined,
-  type: '',
-  description: '',
-};
+import { Pet } from '../../../interfaces/Pet';
+import { User } from '../../../interfaces/User';
+import { PetsDataService } from '../../../services/PetsDataService';
+import { UserDataService } from '../../../services/UserDataService';
 
 @Component({
   selector: 'app-new-donation',
@@ -20,32 +13,54 @@ const defaultPet = {
   styleUrls: ['./new-donation.page.scss'],
 })
 export class NewDonationPage implements OnInit {
-  public newPet = { ...defaultPet };
+  public defaultPet: Pet = {
+    id: undefined,
+    createdAt: '',
+    name: '',
+    place: '',
+    url: 'assets/img/default_pet.png',
+    userId: undefined,
+    userName: '',
+    age: undefined,
+    type: '',
+    description: '',
+  };
+
+  public newPet = this.defaultPet;
   public postedPet = null;
-  private userId: number;
-  private userName: string;
+  private user: User;
 
   constructor(
     private alertController: AlertController,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private petsDataService: PetsDataService,
+    private userDataService: UserDataService,
   ) {
-    this.userId = parseInt(this.activatedRoute.snapshot.paramMap.get('userId'));
-    this.userName = this.activatedRoute.snapshot.paramMap.get('userName');
-    console.log('userId = ', this.userId);
-    console.log('userName = ', this.userName);
+    this.loadData();
   }
 
   ngOnInit() {}
 
-  postForm() {
+  loadData() {
+    this.user = this.userDataService.get();
+  }
+
+  postForm(): void {
     this.newPet.createdAt = new Date().toLocaleDateString();
-    this.newPet.userId = this.userId;
-    this.newPet.userName = this.userName;
+    this.newPet.userId = this.user.id;
+    this.newPet.userName = this.user.name;
     this.newPet.createdAt = new Date().toLocaleDateString();
 
     this.postedPet = this.newPet;
-    this.newPet = { ...defaultPet };
-    this.presentAlert();
+    this.newPet = this.defaultPet;
+    const newPetId = this.petsDataService.create(this.postedPet);
+
+    if (newPetId >= 0) {
+      this.presentAlertSuccess();
+    } else {
+      this.presentAlertError();
+    }
   }
 
   isFormComplete(): boolean {
@@ -59,37 +74,37 @@ export class NewDonationPage implements OnInit {
     );
   }
 
-  async presentAlert() {
+  async presentAlertSuccess() {
     const alert = await this.alertController.create({
       header: 'Doação criada com sucesso!',
-      subHeader: 'Dados enviados ao servidor:',
-      message:
-        '<div>' +
-        '<p>Nome:' +
-        this.postedPet.name +
-        '</p>' +
-        '<p>Localização:' +
-        this.postedPet.name +
-        '</p>' +
-        '<p>Imagem:' +
-        this.postedPet.url +
-        '</p>' +
-        '<p>Idade:' +
-        this.postedPet.age +
-        '</p>' +
-        '<p>Espécie:' +
-        this.postedPet.type +
-        '</p>' +
-        '<p>Descrição:' +
-        this.postedPet.description +
-        '</p>' +
-        '<p>Criado em:' +
-        this.postedPet.createdAt +
-        '</p>' +
-        '</div>',
-      buttons: ['Entendi'],
+      buttons: [
+        {
+          text: 'Entendi',
+          handler: () => {
+            console.log('clicou, volta pra lista de doações');
+            this.router.navigate(['/home/tabs/donate/']);
+          },
+        },
+      ],
     });
 
-    alert.present();
+    await alert.present();
+  }
+
+  async presentAlertError() {
+    const alert = await this.alertController.create({
+      header: 'Houve um erro na criação da doação',
+      message: 'Por favor tente novamente mais tarde',
+      buttons: [
+        {
+          text: 'Entendi',
+          handler: () => {
+            this.router.navigate(['/home/tabs/donate/']);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
   }
 }

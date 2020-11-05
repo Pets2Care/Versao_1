@@ -1,11 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-<img src="../../../assets/img/logo_pequeno.png" alt="Pets2care" class="main-logo">
-
-    </ion-title>
-  </ion-toolbar>
-  <ion-toolbar>
     <ion-segment [(ngModel)]="selectedSegment">
       <ion-segment-button value="featured">
         <ion-label>Destaques</ion-label>
@@ -20,10 +14,12 @@
 <ion-content>
 <div [ngSwitch]="selectedSegment" >
   <ion-grid *ngSwitchCase="'featured'">
-    <app-photo-card [item]="i" *ngFor="let i of items"> </app-photo-card>
+    <app-photo-card [item]="i" *ngFor="let i of petsData"> </app-photo-card>
   </ion-grid>
   <ion-grid *ngSwitchCase="'custom'">
-    conteúdo custom
+    <ion-item>
+      conteúdo custom do usuário {{currentUser.name}}
+    </ion-item>
   </ion-grid>
 </div>
 </ion-content>

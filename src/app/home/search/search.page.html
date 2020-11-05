@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Buscar Pet</ion-title>
-  </ion-toolbar>
-  <ion-toolbar>
     <ion-segment [(ngModel)]="selectedSegment" (ionChange)="applySegmentFilter($event)">
       <ion-segment-button value="all">
         <ion-label>Todos</ion-label>
@@ -19,9 +16,9 @@
 
 <ion-content>
   <ion-text color="primary">
-    <h1>
-      {{filteredItems.length}} Animais Encontrados
+    <h1 class="ion-text-center">
+      {{filteredPetsData.length}} Animais Encontrados
     </h1>
   </ion-text>
-      <app-photo-card [item]="i" *ngFor="let i of filteredItems"> </app-photo-card>
+      <app-photo-card [item]="i" *ngFor="let i of filteredPetsData"> </app-photo-card>
 </ion-content>

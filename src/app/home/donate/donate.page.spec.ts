@@ -9,8 +9,8 @@ describe('DonatePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DonatePage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [DonatePage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DonatePage);

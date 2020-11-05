@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import pets from '../../pets.js';
+import { Pet } from '../../interfaces/Pet';
+import { PetsDataService } from '../../services/PetsDataService';
 
 @Component({
   selector: 'app-search',
@@ -8,26 +9,29 @@ import pets from '../../pets.js';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-  public items: any[];
-  public filteredItems: any[];
-  public selectedSegment: string;
+  public petsData: Readonly<Pet[]>;
+  public filteredPetsData: Readonly<Pet[]>;
+  public selectedSegment = 'all';
 
-  constructor() {}
+  constructor(private petsDataService: PetsDataService) {
+    this.loadData();
+  }
 
-  ngOnInit(): void {
-    this.selectedSegment = 'all';
-    this.items = pets;
-    this.filteredItems = this.items;
+  ngOnInit(): void {}
+
+  loadData() {
+    this.petsData = this.petsDataService.getAll();
+    this.filteredPetsData = this.petsDataService.getAll();
   }
 
   applySegmentFilter(ev: any): void {
     const type = ev.detail.value;
     console.log('type = ', type);
     if (type === 'all') {
-      this.filteredItems = this.items;
+      this.filteredPetsData = this.petsData;
     } else {
-      this.filteredItems = this.items.filter(i => i.type === type);
-      console.log('filtrados = ', this.filteredItems);
+      this.filteredPetsData = this.petsData.filter(i => i.type === type);
+      console.log('filtrados = ', this.filteredPetsData);
     }
   }
 }

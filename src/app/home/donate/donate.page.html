@@ -1,16 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Anúncios de Adoção</ion-title>
+  <ion-title>Minhas Doações ({{filteredItems.length}})</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <ion-button (click)="createNewDonation()">Criar nova doação</ion-button>
-  <ion-text color="primary">
-    <h1>
-      {{filteredItems.length}} Meus Anúncios
-    </h1>
-  </ion-text>
-      <app-photo-card [item]="i" *ngFor="let i of filteredItems"> </app-photo-card>
+  <app-photo-card [item]="i" *ngFor="let i of filteredItems"> </app-photo-card>  
+  <ion-button expand="full" (click)="createNewDonation()">Criar nova doação</ion-button>
 </ion-content>

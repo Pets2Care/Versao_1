@@ -1,7 +1,4 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Perfil de Usuário</ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -30,11 +27,11 @@
         <ion-icon slot="end" name="logo-ionic"></ion-icon>
         <ion-label>Informações Legais</ion-label>
       </ion-item>
-      <ion-item href="home/tabs/profile/user-logout">
+      <ion-item (click)="userLogout()">
         <ion-icon slot="end" name="logo-ionic"></ion-icon>
         <ion-label>Sair da Conta</ion-label>
       </ion-item>
-      <ion-item href="home/tabs/profile/user-delete">
+      <ion-item (click)="userDelete()">
         <ion-icon slot="end" name="logo-ionic"></ion-icon>
         <ion-label>Excluir Conta</ion-label>
       </ion-item>

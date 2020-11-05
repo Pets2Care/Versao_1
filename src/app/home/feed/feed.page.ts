@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import pets from '../../pets.js';
+import { Pet } from '../../interfaces/Pet';
+import { User } from '../../interfaces/User';
+import { PetsDataService } from '../../services/PetsDataService';
+import { UserDataService } from '../../services/UserDataService';
 
 @Component({
   selector: 'app-feed',
@@ -8,13 +11,23 @@ import pets from '../../pets.js';
   styleUrls: ['./feed.page.scss'],
 })
 export class FeedPage implements OnInit {
-  public items: any[];
+  public petsData: Readonly<Pet[]>;
+  public currentUser: User;
   public selectedSegment: string;
 
-  constructor() {}
+  constructor(
+    private petsDataService: PetsDataService,
+    private userDataService: UserDataService,
+  ) {
+    this.loadData();
+  }
 
-  ngOnInit() {
-    this.items = pets;
+  ngOnInit(): void {
     this.selectedSegment = 'featured';
+  }
+
+  loadData() {
+    this.petsData = this.petsDataService.getAll();
+    this.currentUser = this.userDataService.get();
   }
 }
