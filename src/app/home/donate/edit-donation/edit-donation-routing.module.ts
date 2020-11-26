@@ -6,8 +6,8 @@ import { EditDonationPage } from './edit-donation.page';
 const routes: Routes = [
   {
     path: '',
-    component: EditDonationPage
-  }
+    component: EditDonationPage,
+  },
 ];
 
 @NgModule({

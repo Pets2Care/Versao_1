@@ -9,8 +9,8 @@ describe('SobrePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SobrePage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SobrePage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SobrePage);

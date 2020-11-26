@@ -5,10 +5,10 @@
       <ion-card-subtitle>{{item.place}}</ion-card-subtitle>      
   </ion-card-header>
   <ion-card-content>
-    <ion-img [src]="item.url" alt={{item.url}}></ion-img>
+    <ion-img [src]="item && item.images[0] && item.images[0].url" alt={{item.name}}></ion-img>
     <p>
           {{item.description}}<br>
-          <small>Anúncio criado em: {{item.createdAt}}</small><br>
+          <small>Anúncio criado em: {{getFormattedDate()}}</small><br>
           <small>Idade: {{item.age}} {{item.age > 1 ? 'Meses' : 'Mês'}} </small><br>          
           <small>Tutor temporário: {{item.userName}} </small>
       </p>

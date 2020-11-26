@@ -9,8 +9,8 @@ describe('EditDonationPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditDonationPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [EditDonationPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EditDonationPage);

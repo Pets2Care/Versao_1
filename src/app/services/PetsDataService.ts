@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
+import { environment } from '../../environments/environment';
 import { Pet } from '../interfaces/Pet';
 import pets from '../pets.js';
 
@@ -10,7 +12,7 @@ import pets from '../pets.js';
 export class PetsDataService {
   private data: Pet[] = [];
 
-  constructor(private storage: Storage) {
+  constructor(private storage: Storage, private http: HttpClient) {
     this.loadData();
   }
 
@@ -76,5 +78,15 @@ export class PetsDataService {
     this.storeData();
 
     return newData.length;
+  }
+
+  public async getAllAPI(): Promise<Pet[]> {
+    const url = `${environment.API_URL}/adverts`;
+    return (await this.http.get(url).toPromise()) as Pet[];
+  }
+
+  public async getByIdAPI(id: number): Promise<Pet> {
+    const url = `${environment.API_URL}/adverts/${id}`;
+    return (await this.http.get(url).toPromise()) as Pet;
   }
 }

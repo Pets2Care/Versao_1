@@ -6,7 +6,7 @@ const pets = [
     createdAt: '09/01/2020',
     name: 'Paçoca',
     place: 'São Paulo',
-    url: '../assets/img/1.jpg',
+    images: ['../assets/img/1.jpg'],
     age: 5,
     type: 'dog',
     description:
@@ -19,7 +19,7 @@ const pets = [
     createdAt: '27/03/2020',
     name: 'Darth Vader',
     place: 'Campinas',
-    url: '../assets/img/2.jpg',
+    images: ['../assets/img/2.jpg'],
     age: 4,
     type: 'cat',
     description:
@@ -32,7 +32,7 @@ const pets = [
     createdAt: '11/07/2020',
     name: 'Bolinha',
     place: 'Rio Branco',
-    url: '../assets/img/3.jpg',
+    images: ['../assets/img/3.jpg'],
     age: 3,
     type: 'dog',
     description:
@@ -45,7 +45,7 @@ const pets = [
     createdAt: '24/07/2020',
     name: 'Patinha',
     place: 'Manaus',
-    url: '../assets/img/4.jpg',
+    images: ['../assets/img/4.jpg'],
     age: 2,
     type: 'cat',
     description:
@@ -58,7 +58,7 @@ const pets = [
     createdAt: '12/11/2020',
     name: 'Brothers',
     place: 'São Carlos',
-    url: '../assets/img/5.jpg',
+    images: ['../assets/img/5.jpg'],
     age: 1,
     type: 'dog',
     description:
