@@ -5,20 +5,19 @@
         <ion-label>Destaques</ion-label>
       </ion-segment-button>
       <ion-segment-button value="custom">
-        <ion-label>Pessoal</ion-label>
+        <ion-label>Personalizado</ion-label>
       </ion-segment-button>
     </ion-segment>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="filterArray($event)" placeholder="Buscar animal"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 <div [ngSwitch]="selectedSegment" >
   <ion-grid *ngSwitchCase="'featured'">
-    <ion-toolbar>
-      <br>
-      <ion-searchbar placeholder="Buscar animal"></ion-searchbar>
-    </ion-toolbar>
-    <app-photo-card [item]="i" *ngFor="let i of petsData"> </app-photo-card>
+    <app-photo-card [item]="i" *ngFor="let i of result"> </app-photo-card>
   </ion-grid>
   <ion-grid *ngSwitchCase="'custom'">
     <ion-item>
