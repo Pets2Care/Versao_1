@@ -14,6 +14,10 @@
 <ion-content>
 <div [ngSwitch]="selectedSegment" >
   <ion-grid *ngSwitchCase="'featured'">
+    <ion-toolbar>
+      <br>
+      <ion-searchbar placeholder="Buscar animal"></ion-searchbar>
+    </ion-toolbar>
     <app-photo-card [item]="i" *ngFor="let i of petsData"> </app-photo-card>
   </ion-grid>
   <ion-grid *ngSwitchCase="'custom'">
