@@ -12,17 +12,16 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="filterArray($event)" placeholder="Buscar animal"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-toolbar>
-    <br>
-    <ion-searchbar placeholder="Buscar animal"></ion-searchbar>
-  </ion-toolbar>
   <ion-text color="primary">
     <h1 class="ion-text-center">
-      {{filteredPetsData.length}} Animais Encontrados
+      {{result.length}} Animais Encontrados
     </h1>
   </ion-text>
-      <app-photo-card [item]="i" *ngFor="let i of filteredPetsData"> </app-photo-card>
+      <app-photo-card [item]="i" *ngFor="let i of result"> </app-photo-card>
 </ion-content>
