@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PetsDataService } from '../../services/PetsDataService';
 import { UserDataService } from '../../services/UserDataService';
 import { UsersDataService } from '../../services/UsersDataService';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -16,21 +17,67 @@ export class ProfilePage implements OnInit {
     private userDataService: UserDataService,
     private usersDataService: UsersDataService,
     private petsDataService: PetsDataService,
+    private alertController: AlertController,
     private router: Router,
   ) {}
 
   ngOnInit() {}
 
-  //TODO: mostrar primeiro um modal de alerta confirmando a ação e depois esse modal joga pra home
-  userLogout(): void {
-    this.userDataService.clear();
-    this.router.navigate(['/auth']);
+  async presentAlertLogout() {
+    const alert = await this.alertController.create({
+      header: 'Atenção!',
+      message: 'Deseja realmente sair?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cancela Operação');
+          }
+        }, {
+          text: 'Sim',
+          handler: () => {
+            console.log('Confirma Operação');
+            this.userDataService.clear();
+            this.router.navigate(['/auth']);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
-  //TODO: mostrar primeiro um modal de alerta confirmando a ação e depois esse modal joga pra home
+  async presentAlertDelete() {
+    const alert = await this.alertController.create({
+      header: 'Atenção!',
+      message: 'Essa operação não poderá ser revertida. Deseja realmente excluir a conta?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cancela Operação');
+          }
+        }, {
+          text: 'Sim',
+          handler: () => {
+          this.usersDataService.delete(this.userDataService.get());
+          this.petsDataService.deleteByUserId(this.userDataService.get().id);
+          this.router.navigate(['/auth']);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  userLogout(): void {
+    this.presentAlertLogout();
+  }
+
   userDelete(): void {
-    this.usersDataService.delete(this.userDataService.get());
-    this.petsDataService.deleteByUserId(this.userDataService.get().id);
-    this.router.navigate(['/auth']);
+    this.presentAlertDelete();
   }
 }
