@@ -1,9 +1,11 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, map } from 'rxjs/operators';
+import { User } from 'src/app/interfaces/User';
 
 import { Pet } from '../../interfaces/Pet';
-import { User } from '../../interfaces/User';
-import { PetsDataService } from '../../services/PetsDataService';
+import { PetsDataServiceNew } from '../../services/PetsDataServiceNew';
 import { UserDataService } from '../../services/UserDataService';
 
 @Component({
@@ -11,29 +13,46 @@ import { UserDataService } from '../../services/UserDataService';
   templateUrl: './donate.page.html',
   styleUrls: ['./donate.page.scss'],
 })
-export class DonatePage implements OnInit {
-  public user: User;
-  public filteredItems: Readonly<Pet[]>;
+export class DonatePage implements OnInit, OnDestroy {
+  private subject = new Subject();
+  public isLoading = false;
+  public userData: User;
+  public filteredPetData: Observable<Pet[]>;
 
   constructor(
     private router: Router,
-    private petsDataService: PetsDataService,
+    private petsDataService: PetsDataServiceNew,
     private userDataService: UserDataService,
-  ) {
-    this.loadData();
+  ) {}
+
+  ngOnInit(): void {
+    this.userData = this.userDataService.get();
+    console.log('cucucucucu');
+
+    this.filteredPetData = this.petsDataService.get().pipe(
+      map(data => {
+        console.log('data = ', data);
+        return data.filter(i => i.userId === this.userData.id);
+      }),
+    );
+    // .subscribe(data => {
+    //   this.filteredPetData = data.filter(i => i.userId === this.userData.id);
+    // });
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.subject.next();
+    this.subject.complete();
+  }
 
+  //Preciso desse? Ele acaba dando um novo fetch toda vez que entra nessa tela
   ionViewWillEnter(): void {
-    this.loadData();
-  }
-
-  loadData(): void {
-    this.user = this.userDataService.get();
-    console.log('DonatePage -> this.user = ', this.user);
-    this.filteredItems = this.petsDataService.getByUserId(this.user.id);
-    console.log('DonatePage -> this.filteredItems = ', this.filteredItems);
+    console.log('donate.page -> ionViewWillEnter');
+    this.userData = this.userDataService.get();
+    this.isLoading = true;
+    this.petsDataService.fetch().subscribe(() => {
+      this.isLoading = false;
+    });
   }
 
   createNewDonation(): void {

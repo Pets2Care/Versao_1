@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 import { User } from '../../../interfaces/User';
@@ -28,7 +28,6 @@ export class NewDonationPage implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private petsDataService: PetsDataServiceNew,
     private userDataService: UserDataService,
@@ -61,16 +60,16 @@ export class NewDonationPage implements OnInit {
 
   isFormComplete(): boolean {
     return !(
-      this.newPet.name.length > 0 &&
-      this.newPet.place.length > 0 &&
-      this.newPet.images &&
-      this.newPet.age &&
-      this.newPet.type.length > 0 &&
-      this.newPet.description.length > 0
+      this.newPet?.name?.length > 0 &&
+      this.newPet?.place?.length > 0 &&
+      this.newPet?.images &&
+      this.newPet?.age &&
+      this.newPet?.type?.length > 0 &&
+      this.newPet?.description?.length > 0
     );
   }
 
-  async presentAlertSuccess() {
+  async presentAlertSuccess(): Promise<any> {
     const alert = await this.alertController.create({
       header: 'Doação criada com sucesso!',
       buttons: [
@@ -87,7 +86,7 @@ export class NewDonationPage implements OnInit {
     await alert.present();
   }
 
-  async presentAlertError() {
+  async presentAlertError(): Promise<any> {
     const alert = await this.alertController.create({
       header: 'Houve um erro na criação da doação',
       message: 'Por favor tente novamente mais tarde',

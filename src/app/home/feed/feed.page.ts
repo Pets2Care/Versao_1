@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { Pet } from '../../interfaces/Pet';
 import { User } from '../../interfaces/User';
@@ -12,11 +13,11 @@ import { UserDataService } from '../../services/UserDataService';
   styleUrls: ['./feed.page.scss'],
 })
 export class FeedPage implements OnInit, OnDestroy {
-  private petsSubscription: Subscription;
+  private subject = new Subject();
   public isLoading = false;
   public petsData: Readonly<Pet[]>;
-  public currentUser: User;
-  public selectedSegment: string;
+  public userData: User;
+  public selectedSegment = 'featured';
 
   constructor(
     private petsDataService: PetsDataServiceNew,
@@ -24,23 +25,25 @@ export class FeedPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.currentUser = this.userDataService.get();
-    this.selectedSegment = 'featured';
-    this.petsSubscription = this.petsDataService.get().subscribe(data => {
-      this.petsData = data;
-    });
+    this.userData = this.userDataService.get();
+    this.petsDataService
+      .get()
+      .pipe(takeUntil(this.subject))
+      .subscribe(data => {
+        this.petsData = data;
+      });
   }
 
+  ngOnDestroy(): void {
+    this.subject.next();
+    this.subject.complete();
+  }
+
+  //Preciso desse? Ele acaba dando um novo fetch toda vez que entra nessa tela
   ionViewWillEnter(): void {
     this.isLoading = true;
     this.petsDataService.fetch().subscribe(() => {
       this.isLoading = false;
     });
-  }
-
-  ngOnDestroy(): void {
-    if (this.petsSubscription) {
-      this.petsSubscription.unsubscribe();
-    }
   }
 }

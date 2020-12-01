@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
-  <ion-title>Minhas Doações ({{filteredItems.length}})</ion-title>
+  <ion-title>Minhas Doações ({{(filteredPetData | async)?.length}})</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-photo-card [item]="i" *ngFor="let i of filteredItems"> </app-photo-card>  
   <ion-button expand="full" (click)="createNewDonation()">Criar nova doação</ion-button>
+  <app-pet-card-donation-page [item]="i" *ngFor="let i of (filteredPetData | async)"> </app-pet-card-donation-page>  
 </ion-content>

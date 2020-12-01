@@ -10,7 +10,7 @@ export class PhotoCardComponent implements OnInit {
   constructor() {}
   ngOnInit() {}
 
-  public getFormattedDate() {
+  public getFormattedDate(): string {
     return new Date(this.item.createdAt).toLocaleDateString('pt-BR');
   }
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { PetsDataServiceNew } from '../../services/PetsDataServiceNew';
 
 @Component({
   selector: 'app-pet-card-donation-page',
@@ -6,7 +9,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pet-card-donation-page.component.scss'],
 })
 export class PetCardDonationPageComponent implements OnInit {
-  constructor() {}
-
+  @Input() public item;
+  constructor(
+    private router: Router,
+    private petsDataService: PetsDataServiceNew,
+  ) {}
   ngOnInit() {}
+
+  public getFormattedDate(): string {
+    return new Date(this.item.createdAt).toLocaleDateString('pt-BR');
+  }
+
+  editDonation(): void {
+    console.log('editDonation -> this.item.id = ', this.item.id);
+    //this.router.navigate(['/home/tabs/donate/edit-donation/'], this.item.id);
+  }
+
+  pauseDonation(): void {
+    console.log('pauseDonation -> this.item.id = ', this.item.id);
+    //this.petsDataService.pause(this.item.id);
+  }
+
+  deleteDonation(): void {
+    console.log('deleteDonation -> this.item.id = ', this.item.id);
+    this.petsDataService.delete(this.item.id).subscribe();
+  }
 }
