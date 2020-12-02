@@ -26,17 +26,14 @@ export class UserDataService {
   }
 
   private storeData() {
-    console.log('UserDataService -> storeData() -> this.data = ', this.data);
     this.storage.set('user', this.data);
   }
 
   public get(): User {
-    console.log('UserDataService -> get() -> this.data = ', this.data);
     return this.data;
   }
 
   public set(newData: User): void {
-    console.log('UserDataService -> set() -> newData = ', newData);
     this.data = newData;
     this.storeData();
   }

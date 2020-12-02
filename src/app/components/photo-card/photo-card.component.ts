@@ -22,16 +22,25 @@ export class PhotoCardComponent implements OnInit {
   async presentAlertDonation(contact: string): Promise<any> {
     const alert = await this.alertController.create({
       header: 'Oba!',
+<<<<<<< HEAD
       message:
         'Para combinar os detalhes da adoção com o tutor temporário, por favor entre em contato através do e-mail: ' +
         contact,
       buttons: ['OK'],
+=======
+      message: 'Para combinar os detalhes da adoção com o tutor temporário, entre em contato através do e-mail: <strong>'  + contact + '</strong>',
+      buttons: ['OK']
+>>>>>>> d41bfcbedbff5b7f377d613d1cd4a2b75d486f47
     });
 
     await alert.present();
   }
 
+<<<<<<< HEAD
   async presentAlertDetails(): Promise<any> {
+=======
+  async presentAlertDetails() {
+>>>>>>> d41bfcbedbff5b7f377d613d1cd4a2b75d486f47
     const alert = await this.alertController.create({
       header: 'Atenção!',
       message: 'Você disponibilizou esse animal para adoção.',
