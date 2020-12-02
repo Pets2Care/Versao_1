@@ -35,6 +35,8 @@ export class DonatePage implements OnInit, OnDestroy {
         return data.filter(i => i.userId === this.userData.id);
       }),
     );
+
+    console.log('filterPetData', this.filteredPetData);
     // .subscribe(data => {
     //   this.filteredPetData = data.filter(i => i.userId === this.userData.id);
     // });

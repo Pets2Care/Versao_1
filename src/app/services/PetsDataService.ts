@@ -81,12 +81,12 @@ export class PetsDataService {
   }
 
   public async getAllAPI(): Promise<Pet[]> {
-    const url = `${environment.API_URL}/adverts`;
+    const url = `${environment.API_URL}/pets`;
     return (await this.http.get(url).toPromise()) as Pet[];
   }
 
   public async getByIdAPI(id: number): Promise<Pet> {
-    const url = `${environment.API_URL}/adverts/${id}`;
+    const url = `${environment.API_URL}/pets/${id}`;
     return (await this.http.get(url).toPromise()) as Pet;
   }
 }
