@@ -20,13 +20,13 @@ export class PhotoCardComponent implements OnInit {
   async presentAlertDonation(contact: string) {
     const alert = await this.alertController.create({
       header: 'Oba!',
-      message: 'Para combinar os detalhes da adoção com o tutor temporário, por favor entre em contato através do e-mail: '  + contact,
+      message: 'Para combinar os detalhes da adoção com o tutor temporário, entre em contato através do e-mail: <strong>'  + contact + '</strong>',
       buttons: ['OK']
     });
 
     await alert.present();
   }
-  
+
   async presentAlertDetails() {
     const alert = await this.alertController.create({
       header: 'Atenção!',
