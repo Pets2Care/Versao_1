@@ -23,8 +23,9 @@ export class PhotoCardComponent implements OnInit {
     const alert = await this.alertController.create({
       header: 'Oba!',
       message:
-        'Para combinar os detalhes da adoção com o tutor temporário, por favor entre em contato através do e-mail: ' +
-        contact,
+        'Para combinar os detalhes da adoção com o tutor temporário, entre em contato através do e-mail: <strong>' +
+        contact +
+        '</strong>',
       buttons: ['OK'],
     });
 
