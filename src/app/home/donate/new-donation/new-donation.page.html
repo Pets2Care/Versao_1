@@ -34,16 +34,10 @@
       <ion-textarea name="description" [(ngModel)]="newPet.description" rows="5" placeholder="Descreva as principais características do animal"></ion-textarea> 
    </ion-item>
    <ion-item>
-      <ion-label position="stacked">Foto do Animal (desabilitado temporariamente):</ion-label>
-      <ion-input type="file" [disabled]="true" name="url"[(ngModel)]="newPet.url"></ion-input>
+    <ion-label position="stacked">Foto do Animal:</ion-label>
+    <ion-input type="file" name="images" (change)="uploadFiles($event)"></ion-input>
   </ion-item>
   </ion-col>
   <ion-button disabled={{isFormComplete()}} type="submit" >Confirmar</ion-button>
 </form>
-<!-- para mostrar o json na tela -->
-<!-- <div *ngIf="postedPet !== null" >
-  <pre>
-    {{postedPet | json}}
-  </pre>
-</div> -->
 </ion-content>

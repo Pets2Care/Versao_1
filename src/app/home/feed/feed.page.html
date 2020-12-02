@@ -17,11 +17,19 @@
 <ion-content>
 <div [ngSwitch]="selectedSegment" >
   <ion-grid *ngSwitchCase="'featured'">
-    <app-photo-card [item]="i" *ngFor="let i of result"> </app-photo-card>
+    <div *ngIf="isLoading" class="ion-text-center">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <div *ngIf="!isLoading && petsData.length <= 0">
+      <p>Nenhum Anúncio Encontrado!</p>
+    </div>
+    <div *ngIf="!isLoading && petsData.length > 0">
+      <app-photo-card [item]="i" *ngFor="let i of petsData"> </app-photo-card>
+    </div>   
   </ion-grid>
   <ion-grid *ngSwitchCase="'custom'">
     <ion-item>
-      conteúdo custom do usuário {{currentUser.name}}
+      conteúdo custom do usuário {{userData.name}}
     </ion-item>
   </ion-grid>
 </div>

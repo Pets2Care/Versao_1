@@ -3,7 +3,7 @@ export interface Pet {
   createdAt: string;
   name: string;
   place: string;
-  url: string;
+  images: string[];
   userName: string;
   userId: number;
   age: number;

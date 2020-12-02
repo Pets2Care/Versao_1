@@ -1,33 +1,52 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { Pet } from '../../interfaces/Pet';
-import { PetsDataService } from '../../services/PetsDataService';
+import { PetsDataServiceNew } from '../../services/PetsDataServiceNew';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.page.html',
   styleUrls: ['./search.page.scss'],
 })
-export class SearchPage implements OnInit {
+export class SearchPage implements OnInit, OnDestroy {
+  private subject = new Subject();
+  public isLoading = false;
   public petsData: Readonly<Pet[]>;
   public filteredPetsData: Readonly<Pet[]>;
   public selectedSegment = 'all';
   public result: Readonly<Pet[]>;
 
-  constructor(private petsDataService: PetsDataService) {
-    this.loadData();
+  constructor(private petsDataService: PetsDataServiceNew) {}
+
+  ngOnInit(): void {
+    this.petsDataService
+      .get()
+      .pipe(takeUntil(this.subject))
+      .subscribe(data => {
+        this.petsData = data;
+      });
+
+    this.applySegmentFilter(this.selectedSegment);
   }
 
-  ngOnInit(): void {}
-
-  loadData() {
-    this.petsData = this.petsDataService.getAll();
-    this.filteredPetsData = this.petsDataService.getAll();
-    this.result = this.filteredPetsData;
+  ngOnDestroy(): void {
+    this.subject.next();
+    this.subject.complete();
   }
 
-  applySegmentFilter(ev: any): void {
-    const type = ev.detail.value;
-    console.log('type = ', type);
+  //Preciso desse? Ele acaba dando um novo fetch toda vez que entra nessa tela
+  ionViewWillEnter(): void {
+    this.isLoading = true;
+    this.petsDataService.fetch().subscribe(() => {
+      this.isLoading = false;
+    });
+  }
+
+  applySegmentFilter(type: string): void {
+    console.log('applySegmentFilter -> type = ', type);
+
     if (type === 'all') {
       this.filteredPetsData = this.petsData;
     } else {
@@ -37,22 +56,21 @@ export class SearchPage implements OnInit {
     this.result = this.filteredPetsData;
   }
 
-  filterArray(ev: any)
-  {
+  filterArray(ev: any): Readonly<Pet[]> {
     this.result = this.filteredPetsData;
     const val = ev.target.value;
-    if (val && val.trim() !== '')
-    {
-      this.result = this.result.filter((item) => {
-      return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-              item.place.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-              item.userName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-              item.age.toString().indexOf(val.toLowerCase()) > -1 ||
-              item.description.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-              item.createdAt.toLowerCase().indexOf(val.toLowerCase()) > -1 );
+    if (val && val.trim() !== '') {
+      this.result = this.result.filter(item => {
+        return (
+          item.name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.place.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.userName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.age.toString().indexOf(val.toLowerCase()) > -1 ||
+          item.description.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.createdAt.toLowerCase().indexOf(val.toLowerCase()) > -1
+        );
       });
-    }
-    else{
+    } else {
       return this.filteredPetsData;
     }
   }

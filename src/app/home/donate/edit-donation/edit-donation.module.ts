@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
 
 import { EditDonationPageRoutingModule } from './edit-donation-routing.module';
-
 import { EditDonationPage } from './edit-donation.page';
 
 @NgModule({
@@ -13,8 +11,8 @@ import { EditDonationPage } from './edit-donation.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    EditDonationPageRoutingModule
+    EditDonationPageRoutingModule,
   ],
-  declarations: [EditDonationPage]
+  declarations: [EditDonationPage],
 })
 export class EditDonationPageModule {}

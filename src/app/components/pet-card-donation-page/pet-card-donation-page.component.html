@@ -1,0 +1,36 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title><strong>{{item.name}}</strong></ion-card-title>
+  </ion-card-header>
+  <img class="cardImg" [src]="item && item.images[0] && item.images[0].url" alt={{item.name}}/>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button disabled="true" fill="clear" expand="full" (click)="editDonation()">
+            <span>
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon><br>
+              <small>Editar</small>
+            </span>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button disabled="true" fill="clear" expand="full" (click)="pauseDonation()">
+            <span>
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon><br>
+              <small>Pausar</small>
+            </span>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button fill="clear" expand="full" (click)="deleteDonation()">
+            <span>
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon><br>
+              <small>Excluir</small>
+            </span>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

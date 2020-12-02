@@ -1,11 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-import { Pet } from '../../../interfaces/Pet';
 import { User } from '../../../interfaces/User';
-import { PetsDataService } from '../../../services/PetsDataService';
+import { PetsDataServiceNew } from '../../../services/PetsDataServiceNew';
 import { UserDataService } from '../../../services/UserDataService';
+
+class PetFormData {
+  name: string;
+  place: string;
+  images: FileList;
+  userId: number;
+  userName: string;
+  age: number;
+  type: string;
+  description: string;
+}
 
 @Component({
   selector: 'app-new-donation',
@@ -13,68 +23,53 @@ import { UserDataService } from '../../../services/UserDataService';
   styleUrls: ['./new-donation.page.scss'],
 })
 export class NewDonationPage implements OnInit {
-  public defaultPet: Pet = {
-    id: undefined,
-    createdAt: '',
-    name: '',
-    place: '',
-    url: 'assets/img/default_pet.png',
-    userId: undefined,
-    userName: '',
-    age: undefined,
-    type: '',
-    description: '',
-  };
-
-  public newPet = this.defaultPet;
-  public postedPet = null;
+  public newPet = new PetFormData();
   private user: User;
 
   constructor(
     private alertController: AlertController,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private petsDataService: PetsDataService,
+    private petsDataService: PetsDataServiceNew,
     private userDataService: UserDataService,
   ) {
     this.loadData();
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  loadData() {
+  loadData(): void {
     this.user = this.userDataService.get();
   }
 
+  uploadFiles(event: any): void {
+    const files = (event.target as HTMLInputElement).files;
+    console.log('uploadFiles -> files = ', files);
+
+    this.newPet.images = files;
+  }
+
   postForm(): void {
-    this.newPet.createdAt = new Date().toLocaleDateString();
     this.newPet.userId = this.user.id;
     this.newPet.userName = this.user.name;
-    this.newPet.createdAt = new Date().toLocaleDateString();
 
-    this.postedPet = this.newPet;
-    this.newPet = this.defaultPet;
-    const newPetId = this.petsDataService.create(this.postedPet);
-
-    if (newPetId >= 0) {
+    this.petsDataService.create(this.newPet).subscribe(() => {
+      this.newPet = new PetFormData();
       this.presentAlertSuccess();
-    } else {
-      this.presentAlertError();
-    }
+    });
   }
 
   isFormComplete(): boolean {
     return !(
-      this.newPet.name.length > 0 &&
-      this.newPet.place &&
-      this.newPet.url &&
-      this.newPet.age &&
-      this.newPet.type &&
-      this.newPet.description
+      this.newPet?.name?.length > 0 &&
+      this.newPet?.place?.length > 0 &&
+      this.newPet?.images &&
+      this.newPet?.age &&
+      this.newPet?.type?.length > 0 &&
+      this.newPet?.description?.length > 0
     );
   }
 
-  async presentAlertSuccess() {
+  async presentAlertSuccess(): Promise<any> {
     const alert = await this.alertController.create({
       header: 'Doação criada com sucesso!',
       buttons: [
@@ -91,7 +86,7 @@ export class NewDonationPage implements OnInit {
     await alert.present();
   }
 
-  async presentAlertError() {
+  async presentAlertError(): Promise<any> {
     const alert = await this.alertController.create({
       header: 'Houve um erro na criação da doação',
       message: 'Por favor tente novamente mais tarde',

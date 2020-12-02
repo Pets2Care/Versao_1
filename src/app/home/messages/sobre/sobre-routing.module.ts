@@ -6,8 +6,8 @@ import { SobrePage } from './sobre.page';
 const routes: Routes = [
   {
     path: '',
-    component: SobrePage
-  }
+    component: SobrePage,
+  },
 ];
 
 @NgModule({
