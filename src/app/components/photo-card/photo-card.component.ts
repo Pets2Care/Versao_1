@@ -10,16 +10,16 @@ import { UsersDataService } from '../../services/UsersDataService';
 })
 export class PhotoCardComponent implements OnInit {
   @Input() public item;
-  public donationUser;
-  public currentUser;
+
   constructor(
     private usersDataService: UsersDataService,
     private alertController: AlertController,
     private userDataService: UserDataService,
   ) {}
+
   ngOnInit() {}
 
-  async presentAlertDonation(contact: string) {
+  async presentAlertDonation(contact: string): Promise<any> {
     const alert = await this.alertController.create({
       header: 'Oba!',
       message:
@@ -31,7 +31,7 @@ export class PhotoCardComponent implements OnInit {
     await alert.present();
   }
 
-  async presentAlertDetails() {
+  async presentAlertDetails(): Promise<any> {
     const alert = await this.alertController.create({
       header: 'Atenção!',
       message: 'Você disponibilizou esse animal para adoção.',
@@ -41,11 +41,12 @@ export class PhotoCardComponent implements OnInit {
     await alert.present();
   }
 
-  selectAnimal(donationUserId: number) {
-    this.currentUser = this.userDataService.get();
-    this.donationUser = this.usersDataService.getById(donationUserId);
-    if (this.currentUser.id !== this.donationUser.id) {
-      this.presentAlertDonation(this.donationUser.email);
+  selectAnimal(donationUserId: number): void {
+    const currentUser = this.userDataService.get();
+    const donationUser = this.usersDataService.getById(donationUserId);
+
+    if (currentUser.id !== donationUser.id) {
+      this.presentAlertDonation(donationUser.email);
     } else {
       this.presentAlertDetails();
     }

@@ -46,23 +46,4 @@ export class FeedPage implements OnInit, OnDestroy {
       this.isLoading = false;
     });
   }
-
-  filterArray(ev: any): Readonly<Pet[]> {
-    this.result = this.petsData;
-    const val = ev.target.value;
-    if (val && val.trim() !== '') {
-      this.result = this.result.filter(item => {
-        return (
-          item.name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.place.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.userName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.age.toString().indexOf(val.toLowerCase()) > -1 ||
-          item.description.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.createdAt.toLowerCase().indexOf(val.toLowerCase()) > -1
-        );
-      });
-    } else {
-      return this.petsData;
-    }
-  }
 }

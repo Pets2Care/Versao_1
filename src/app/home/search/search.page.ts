@@ -57,6 +57,7 @@ export class SearchPage implements OnInit, OnDestroy {
   }
 
   filterArray(ev: any): Readonly<Pet[]> {
+    console.log('filterArray -> ev.target.value = ', ev.target.value);
     this.result = this.filteredPetsData;
     const val = ev.target.value;
     if (val && val.trim() !== '') {
@@ -65,9 +66,7 @@ export class SearchPage implements OnInit, OnDestroy {
           item.name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.place.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.userName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.age.toString().indexOf(val.toLowerCase()) > -1 ||
-          item.description.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.createdAt.toLowerCase().indexOf(val.toLowerCase()) > -1
+          item.description.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     } else {
