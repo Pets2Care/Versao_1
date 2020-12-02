@@ -1,13 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login de Usuário</ion-title>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item  *ngFor="let i of users">
-      <ion-button (click)="loginUser(i.id)">Login {{i.name}} </ion-button>
-    </ion-item>
-  </ion-list>
+  <ion-item>
+    <ion-label>E-mail</ion-label>
+    <ion-input clearInput type="email" [(ngModel)]="userName"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Senha</ion-label>
+    <ion-input clearInput type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+  <br>
+
+  <div style="text-align: center">
+    <ion-button (click)="verifyUser()" >Login</ion-button>
+  </div>
+  <br>
+
+  <br>
+  <div style="text-align: center">
+    <ion-button fill="clear">
+      <span>
+        <ion-icon name="man-outline"></ion-icon><br>
+      <small> Ainda não tem uma conta? Registre-se Aqui!</small> 
+      </span> 
+    </ion-button>
+  </div>
 </ion-content>
