@@ -59,6 +59,6 @@ export class AuthPage implements OnInit {
   }
 
   createUser(): void{
-    this.router.navigate(['/home']);
+    this.router.navigate(['/auth/new-user']);
   }
 }

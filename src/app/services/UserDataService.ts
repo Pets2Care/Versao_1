@@ -17,10 +17,6 @@ export class UserDataService {
     console.log('UserDataService -> loadData()');
     const storageData = (await this.storage.get('user')) as User;
     if (storageData) {
-      console.log(
-        'UserDataService -> loadData() -> storageData =',
-        storageData,
-      );
       this.data = storageData;
     }
   }

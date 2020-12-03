@@ -70,11 +70,8 @@ export class PetsDataService {
   }
 
   public deleteByUserId(id: number): number {
-    console.log('PetsDataService -> deleteByUserId -> id = ', id);
     const newData = this.data.filter(pet => pet.userId !== id);
-    console.log('PetsDataService -> deleteByUserId -> newData = ', newData);
     this.data = [...newData];
-    console.log('PetsDataService -> deleteByUserId -> this.data = ', this.data);
     this.storeData();
 
     return newData.length;

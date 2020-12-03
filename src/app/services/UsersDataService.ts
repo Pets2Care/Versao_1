@@ -54,12 +54,10 @@ export class UsersDataService {
   }
 
   public delete(entry: User): number {
-    console.log('UsersDataService -> delete, entry = ', entry);
     const id = this.data.findIndex(i => i.id === entry.id);
     if (id >= 0) {
       this.data.splice(id, 1);
       this.storeData();
-      console.log('UsersDataService -> delete, was deleted');
     }
     return id;
   }
