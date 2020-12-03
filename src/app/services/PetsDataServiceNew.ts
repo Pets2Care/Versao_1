@@ -69,7 +69,7 @@ export class PetsDataServiceNew {
     const formData = this.formatFormData(data);
 
     return this.http
-      .put<any>(`${environment.API_URL}/pets/${data.id}`, formData)
+      .put<any>(`${environment.API_URL}/pet/${data.id}`, formData)
       .pipe(
         tap(response => {
           console.log('update response = ', response);
@@ -80,7 +80,7 @@ export class PetsDataServiceNew {
 
   public delete(id: number): Observable<any> {
     console.log('PetsDataServiceNew -> delete() -> chamou -> id = ', id);
-    return this.http.delete<any>(`${environment.API_URL}/pets/${id}`).pipe(
+    return this.http.delete<any>(`${environment.API_URL}/pet/${id}`).pipe(
       tap(response => {
         console.log('delete response = ', response);
         this.fetch().subscribe();
