@@ -110,7 +110,8 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
-              }
+              },
+              "src/_redirects"
             ]
           },
           "configurations": {
