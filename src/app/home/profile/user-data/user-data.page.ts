@@ -10,4 +10,8 @@ export class UserDataPage implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  ionViewWillEnter() {
+    console.log('cu');
+  }
 }
