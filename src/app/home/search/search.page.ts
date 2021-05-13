@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Pet } from '../../interfaces/Pet';
-import { PetsDataServiceNew } from '../../services/PetsDataServiceNew';
+import { PetsDataService } from '../../services/PetsDataService';
 
 @Component({
   selector: 'app-search',
@@ -18,7 +18,7 @@ export class SearchPage implements OnInit, OnDestroy {
   public selectedSegment = 'all';
   public result: Readonly<Pet[]>;
 
-  constructor(private petsDataService: PetsDataServiceNew) {}
+  constructor(private petsDataService: PetsDataService) {}
 
   ngOnInit(): void {
     this.petsDataService

@@ -10,7 +10,7 @@ import { Pet } from '../interfaces/Pet';
 @Injectable({
   providedIn: 'root',
 })
-export class PetsDataServiceNew {
+export class UsersDataServiceNew {
   private dataStream = new BehaviorSubject<Pet[]>([]);
 
   public get(): Observable<Pet[]> {
@@ -79,7 +79,7 @@ export class PetsDataServiceNew {
   }
 
   public delete(id: number): Observable<any> {
-    console.log('PetsDataServiceNew -> delete() -> chamou -> id = ', id);
+    console.log('PetsDataService -> delete() -> chamou -> id = ', id);
     return this.http.delete<any>(`${environment.API_URL}/pet/${id}`).pipe(
       tap(response => {
         console.log('delete response = ', response);

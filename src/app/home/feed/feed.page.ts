@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { Pet } from '../../interfaces/Pet';
 import { User } from '../../interfaces/User';
-import { PetsDataServiceNew } from '../../services/PetsDataServiceNew';
+import { PetsDataService } from '../../services/PetsDataService';
 import { UserDataService } from '../../services/UserDataService';
 
 @Component({
@@ -20,7 +20,7 @@ export class FeedPage implements OnInit, OnDestroy {
   public selectedSegment = 'featured';
 
   constructor(
-    private petsDataService: PetsDataServiceNew,
+    private petsDataService: PetsDataService,
     private userDataService: UserDataService,
   ) {}
 

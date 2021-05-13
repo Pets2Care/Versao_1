@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PetsDataServiceNew } from '../../services/PetsDataServiceNew';
+import { PetsDataService } from '../../services/PetsDataService';
 
 @Component({
   selector: 'app-pet-card-donation-page',
@@ -12,7 +12,7 @@ export class PetCardDonationPageComponent implements OnInit {
   @Input() public item;
   constructor(
     private router: Router,
-    private petsDataService: PetsDataServiceNew,
+    private petsDataService: PetsDataService,
   ) {}
   ngOnInit() {}
 

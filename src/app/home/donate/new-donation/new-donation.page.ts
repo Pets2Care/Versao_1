@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 import { User } from '../../../interfaces/User';
-import { PetsDataServiceNew } from '../../../services/PetsDataServiceNew';
+import { PetsDataService } from '../../../services/PetsDataService';
 import { UserDataService } from '../../../services/UserDataService';
 
 class PetFormData {
@@ -29,7 +29,7 @@ export class NewDonationPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private petsDataService: PetsDataServiceNew,
+    private petsDataService: PetsDataService,
     private userDataService: UserDataService,
   ) {
     this.loadData();

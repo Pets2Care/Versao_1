@@ -5,7 +5,7 @@ import { takeUntil, map } from 'rxjs/operators';
 import { User } from 'src/app/interfaces/User';
 
 import { Pet } from '../../interfaces/Pet';
-import { PetsDataServiceNew } from '../../services/PetsDataServiceNew';
+import { PetsDataService } from '../../services/PetsDataService';
 import { UserDataService } from '../../services/UserDataService';
 
 @Component({
@@ -21,7 +21,7 @@ export class DonatePage implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private petsDataService: PetsDataServiceNew,
+    private petsDataService: PetsDataService,
     private userDataService: UserDataService,
   ) {}
 
