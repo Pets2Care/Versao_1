@@ -4,9 +4,9 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 import { User } from 'src/app/interfaces/User';
 
-import { Pet } from '../../interfaces/Pet';
-import { PetsDataService } from '../../services/PetsDataService';
-import { UserDataService } from '../../services/UserDataService';
+import { Pet } from '../../../interfaces/Pet';
+import { PetsDataService } from '../../../services/PetsDataService';
+import { UserDataService } from '../../../services/UserDataService';
 
 @Component({
   selector: 'app-donate',

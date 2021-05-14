@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-import { User } from '../interfaces/User';
-import { UserDataService } from '../services/UserDataService';
-import { UsersDataService } from '../services/UsersDataService';
+import { User } from '../../interfaces/User';
+import { UserDataService } from '../../services/UserDataService';
+import { UsersDataService } from '../../services/UsersDataService';
 
 @Component({
   selector: 'app-auth',
@@ -31,14 +31,13 @@ export class AuthPage implements OnInit {
     this.users = this.usersDataService.getAll();
   }
 
-  verifyUser(ev: any){
+  verifyUser(ev: any) {
     const hasUser = this.users.find(e => e.email === this.userName);
-    if (hasUser){
-      if (hasUser.password === this.password){
+    if (hasUser) {
+      if (hasUser.password === this.password) {
         this.loginUser(hasUser.id);
       }
-    }
-    else{
+    } else {
       this.presentAlertError();
     }
   }
@@ -47,7 +46,7 @@ export class AuthPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Atenção!',
       message: 'Usuário e/ou Senha incorretos!',
-      buttons: ['OK']
+      buttons: ['OK'],
     });
     await alert.present();
   }
@@ -58,7 +57,7 @@ export class AuthPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  createUser(): void{
+  createUser(): void {
     this.router.navigate(['/auth/new-user']);
   }
 }

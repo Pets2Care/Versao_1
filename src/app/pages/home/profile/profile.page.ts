@@ -1,11 +1,11 @@
 import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { PetsDataService } from '../../services/PetsDataService';
-import { UserDataService } from '../../services/UserDataService';
-import { UsersDataService } from '../../services/UsersDataService';
 import { AlertController } from '@ionic/angular';
+
+import { PetsDataService } from '../../../services/PetsDataService';
+import { UserDataService } from '../../../services/UserDataService';
+import { UsersDataService } from '../../../services/UsersDataService';
 
 @Component({
   selector: 'app-profile',
@@ -34,16 +34,17 @@ export class ProfilePage implements OnInit {
           cssClass: 'secondary',
           handler: () => {
             console.log('Cancela Operação');
-          }
-        }, {
+          },
+        },
+        {
           text: 'Sim',
           handler: () => {
             console.log('Confirma Operação');
             this.userDataService.clear();
             this.router.navigate(['/auth']);
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     await alert.present();
   }
@@ -51,7 +52,8 @@ export class ProfilePage implements OnInit {
   async presentAlertDelete() {
     const alert = await this.alertController.create({
       header: 'Atenção!',
-      message: 'Essa operação não poderá ser revertida. Deseja realmente excluir a conta?',
+      message:
+        'Essa operação não poderá ser revertida. Deseja realmente excluir a conta?',
       buttons: [
         {
           text: 'Não',
@@ -59,16 +61,17 @@ export class ProfilePage implements OnInit {
           cssClass: 'secondary',
           handler: () => {
             console.log('Cancela Operação');
-          }
-        }, {
+          },
+        },
+        {
           text: 'Sim',
           handler: () => {
-          this.usersDataService.delete(this.userDataService.get());
-          this.petsDataService.deleteByUserId(this.userDataService.get().id);
-          this.router.navigate(['/auth']);
-          }
-        }
-      ]
+            this.usersDataService.delete(this.userDataService.get());
+            this.petsDataService.deleteByUserId(this.userDataService.get().id);
+            this.router.navigate(['/auth']);
+          },
+        },
+      ],
     });
     await alert.present();
   }

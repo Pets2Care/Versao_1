@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Pet } from '../../interfaces/Pet';
-import { User } from '../../interfaces/User';
-import { PetsDataService } from '../../services/PetsDataService';
-import { UserDataService } from '../../services/UserDataService';
+import { Pet } from '../../../interfaces/Pet';
+import { User } from '../../../interfaces/User';
+import { PetsDataService } from '../../../services/PetsDataService';
+import { UserDataService } from '../../../services/UserDataService';
 
 @Component({
   selector: 'app-feed',

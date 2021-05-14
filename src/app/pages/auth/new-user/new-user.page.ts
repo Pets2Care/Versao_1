@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../../interfaces/User';
-import { UserDataService } from '../../services/UserDataService';
-import { UsersDataService } from '../../services/UsersDataService';
 import { AlertController } from '@ionic/angular';
+
+import { User } from '../../../interfaces/User';
+import { UserDataService } from '../../../services/UserDataService';
+import { UsersDataService } from '../../../services/UsersDataService';
 
 class Usuario {
   id: number;
@@ -31,11 +32,10 @@ export class NewUserPage implements OnInit {
     this.loadData();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  loadData(){
-    this.user = {id: 0, email: '', name: '', password: '', pets: []};
+  loadData() {
+    this.user = { id: 0, email: '', name: '', password: '', pets: [] };
   }
 
   loginUser(userId: number): void {
@@ -54,19 +54,18 @@ export class NewUserPage implements OnInit {
   }
 
   postForm(): void {
-    if (this.verifyPassword()){
+    if (this.verifyPassword()) {
       this.newUser = this.usersDataService.create(this.user);
-      if (this.newUser){
+      if (this.newUser) {
         this.loginUser(this.newUser);
       }
     }
   }
 
-  verifyPassword(): boolean{
-    if (this.user.password === this.confirmPassword){
+  verifyPassword(): boolean {
+    if (this.user.password === this.confirmPassword) {
       return true;
-    }
-    else{
+    } else {
       this.presentAlertErrorPassword();
       return false;
     }
@@ -76,9 +75,8 @@ export class NewUserPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Atenção!',
       message: 'Senhas não coincidem!',
-      buttons: ['OK']
+      buttons: ['OK'],
     });
     await alert.present();
   }
-
 }

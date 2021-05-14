@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
-import { UserDataService } from '../../services/UserDataService';
-import { UsersDataService } from '../../services/UsersDataService';
+import { UserDataService } from '../../../services/UserDataService';
+import { UsersDataService } from '../../../services/UsersDataService';
 @Component({
   selector: 'app-photo-card',
   templateUrl: './photo-card.component.html',

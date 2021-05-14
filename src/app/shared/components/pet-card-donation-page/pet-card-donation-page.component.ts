@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PetsDataService } from '../../services/PetsDataService';
+import { PetsDataService } from '../../../services/PetsDataService';
 
 @Component({
   selector: 'app-pet-card-donation-page',

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { PhotoCardComponent } from '../../components/photo-card/photo-card.component';
+import { PhotoCardComponent } from '../../../shared/components/photo-card/photo-card.component';
 
 import { FeedPageRoutingModule } from './feed-routing.module';
 import { FeedPage } from './feed.page';
