@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-import { User } from '../../../interfaces/User';
-import { UserDataService } from '../../../services/UserDataService';
-import { UsersDataService } from '../../../services/UsersDataService';
+import { UserDataService } from '../../../services/user.service';
+import { UsersDataService } from '../../../services/users.service';
+import { User } from '../../../shared/models/user.model';
 
 class Usuario {
   id: number;

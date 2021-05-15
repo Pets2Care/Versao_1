@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
-import { UserDataService } from '../../../services/UserDataService';
-import { UsersDataService } from '../../../services/UsersDataService';
+import { UserDataService } from '../../../services/user.service';
+import { UsersDataService } from '../../../services/users.service';
 @Component({
-  selector: 'app-photo-card',
-  templateUrl: './photo-card.component.html',
-  styleUrls: ['./photo-card.component.scss'],
+  selector: 'app-pet-card',
+  templateUrl: './pet-card.component.html',
+  styleUrls: ['./pet-card.component.scss'],
 })
-export class PhotoCardComponent implements OnInit {
+export class PetCardComponent implements OnInit {
   @Input() public item;
 
   constructor(

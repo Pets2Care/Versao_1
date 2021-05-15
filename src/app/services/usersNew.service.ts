@@ -5,12 +5,12 @@ import { take, map, tap, switchMap, filter } from 'rxjs/operators';
 import { format } from 'util';
 
 import { environment } from '../../environments/environment';
-import { Pet } from '../interfaces/Pet';
+import { Pet } from '../shared/models/pet.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PetsDataService {
+export class UsersDataServiceNew {
   private dataStream = new BehaviorSubject<Pet[]>([]);
 
   public get(): Observable<Pet[]> {
@@ -81,19 +81,6 @@ export class PetsDataService {
   public delete(id: number): Observable<any> {
     console.log('PetsDataService -> delete() -> chamou -> id = ', id);
     return this.http.delete<any>(`${environment.API_URL}/pet/${id}`).pipe(
-      tap(response => {
-        console.log('delete response = ', response);
-        this.fetch().subscribe();
-      }),
-    );
-  }
-
-  public deleteByUserId(userId: number): Observable<any> {
-    console.log(
-      'PetsDataService -> deleteByUserId() -> chamou -> userId = ',
-      userId,
-    );
-    return this.http.delete<any>(`${environment.API_URL}/pets/${userId}`).pipe(
       tap(response => {
         console.log('delete response = ', response);
         this.fetch().subscribe();

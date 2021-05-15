@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-import { User } from '../../../../interfaces/User';
-import { PetsDataService } from '../../../../services/PetsDataService';
-import { UserDataService } from '../../../../services/UserDataService';
+import { PetsDataService } from '../../../../services/pets.service';
+import { UserDataService } from '../../../../services/user.service';
+import { User } from '../../../../shared/models/user.model';
 
 class PetFormData {
   name: string;

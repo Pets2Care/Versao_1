@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Pet } from '../../../interfaces/Pet';
-import { PetsDataService } from '../../../services/PetsDataService';
+import { PetsDataService } from '../../../services/pets.service';
+import { Pet } from '../../../shared/models/pet.model';
 
 @Component({
   selector: 'app-search',

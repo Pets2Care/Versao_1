@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
-import { User } from 'src/app/interfaces/User';
 
-import { Pet } from '../../../interfaces/Pet';
-import { PetsDataService } from '../../../services/PetsDataService';
-import { UserDataService } from '../../../services/UserDataService';
+import { PetsDataService } from '../../../services/pets.service';
+import { UserDataService } from '../../../services/user.service';
+import { Pet } from '../../../shared/models/pet.model';
+import { User } from '../../../shared/models/user.model';
 
 @Component({
   selector: 'app-donate',

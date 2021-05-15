@@ -1,3 +1,5 @@
+//usado pelo guard
+
 import {
   HTTP_INTERCEPTORS,
   HttpInterceptor,

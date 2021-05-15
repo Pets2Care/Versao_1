@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-import { PetsDataService } from '../../../services/PetsDataService';
-import { UserDataService } from '../../../services/UserDataService';
-import { UsersDataService } from '../../../services/UsersDataService';
+import { PetsDataService } from '../../../services/pets.service';
+import { UserDataService } from '../../../services/user.service';
+import { UsersDataService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-profile',
