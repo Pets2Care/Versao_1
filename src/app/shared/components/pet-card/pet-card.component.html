@@ -5,20 +5,18 @@
     <ion-card-subtitle>Criado em: {{getFormattedDate()}}</ion-card-subtitle>
     <ion-card-subtitle>Tutor temporário: {{item.userName}}</ion-card-subtitle>
   </ion-card-header>
-<ion-card-content>
-  <ion-img class="cardImg" [src]="item && item.images[0] && item.images[0].url" alt={{item.name}}></ion-img>
-  <ion-item lines="full">
-    <ion-label class="ion-text-wrap">{{item.description}}</ion-label>
-  </ion-item>  
-</ion-card-content>
-  
-
+  <ion-card-content>
+    <ion-img class="cardImg" [src]="item && item.images[0] && item.images[0].url" alt={{item.name}}></ion-img>
+    <ion-item lines="full">
+      <ion-label class="ion-text-wrap">{{item.description}}</ion-label>
+    </ion-item>
+  </ion-card-content>
   <ion-row>
     <ion-col>
-      <ion-button fill="clear" (click)="selectAnimal(item.userId)">
+      <ion-button fill="clear" [routerLink]="['/', 'root', 'tabs', 'pet-details', item?.id]" routerDirection="forward">
         <span>
           <ion-icon slot="icon-only" name="paw-outline"></ion-icon>
-          <small> Cuidar </small>
+          <small> Mais Informações </small>
         </span>
       </ion-button>
     </ion-col>

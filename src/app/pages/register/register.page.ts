@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-import { UserDataService } from '../../services/user.service';
-import { UsersDataService } from '../../services/users.service';
 import { User } from '../../shared/models/user.model';
+import { UserDataService } from '../../shared/services/user.service';
+import { UsersDataService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'app-register',

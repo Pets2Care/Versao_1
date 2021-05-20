@@ -14,20 +14,10 @@
 <ion-content>
 <div [ngSwitch]="selectedSegment" >
   <ion-grid *ngSwitchCase="'featured'">
-    <div *ngIf="isLoading" class="ion-text-center">
-      <ion-spinner color="primary"></ion-spinner>
-    </div>
-    <div *ngIf="!isLoading && petsData.length <= 0">
-      <p>Nenhum Anúncio Encontrado!</p>
-    </div>
-    <div *ngIf="!isLoading && petsData.length > 0">
-      <app-pet-card [item]="i" *ngFor="let i of petsData"> </app-pet-card>
-    </div>   
+  <app-feed [isLoading]="isLoading" [petsData]="petsData"></app-feed>
   </ion-grid>
   <ion-grid *ngSwitchCase="'custom'">
-    <ion-item>
-      conteúdo custom do usuário {{userData.name}}
-    </ion-item>
+    <app-custom-feed [userData]="userData"></app-custom-feed>
   </ion-grid>
 </div>
 </ion-content>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-import { User } from '../shared/models/user.model';
-import users from '../users.js';
+import { User } from '../../shared/models/user.model';
+import users from '../../users.js';
 
 @Injectable({
   providedIn: 'root',

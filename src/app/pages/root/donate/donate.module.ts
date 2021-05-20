@@ -5,10 +5,10 @@ import { IonicModule } from '@ionic/angular';
 
 import { DonatePageRoutingModule } from './donate-routing.module';
 import { DonatePage } from './donate.page';
-import { PetCardDonationPageComponent } from './pet-card-donation-page/pet-card-donation-page.component';
+import { DonationItemComponent } from './donation-item/donation-item.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, DonatePageRoutingModule],
-  declarations: [DonatePage, PetCardDonationPageComponent],
+  declarations: [DonatePage, DonationItemComponent],
 })
 export class DonatePageModule {}

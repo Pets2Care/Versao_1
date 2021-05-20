@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 
-import { PetsDataService } from '../../../services/pets.service';
-import { UserDataService } from '../../../services/user.service';
 import { Pet } from '../../../shared/models/pet.model';
 import { User } from '../../../shared/models/user.model';
+import { PetsDataService } from '../../../shared/services/pets.service';
+import { UserDataService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-donate',
@@ -32,7 +32,7 @@ export class DonatePage implements OnInit, OnDestroy {
     this.filteredPetData = this.petsDataService.get().pipe(
       map(data => {
         console.log('data = ', data);
-        return data.filter(i => i.userId === this.userData.id);
+        return data?.filter(i => i.userId === this.userData.id);
       }),
     );
 

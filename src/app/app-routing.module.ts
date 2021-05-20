@@ -5,7 +5,7 @@ import { PreloadAllModules, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'root',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {

@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PetsDataService } from '../../../../services/pets.service';
+import { PetsDataService } from '../../../../shared/services/pets.service';
 
 @Component({
-  selector: 'app-pet-card-donation-page',
-  templateUrl: './pet-card-donation-page.component.html',
-  styleUrls: ['./pet-card-donation-page.component.scss'],
+  selector: 'app-donation-item',
+  templateUrl: './donation-item.component.html',
+  styleUrls: ['./donation-item.component.scss'],
 })
-export class PetCardDonationPageComponent implements OnInit {
+export class DonationItemComponent implements OnInit {
   @Input() public item;
   constructor(
     private router: Router,

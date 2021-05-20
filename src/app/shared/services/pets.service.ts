@@ -4,13 +4,13 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { take, map, tap, switchMap, filter } from 'rxjs/operators';
 import { format } from 'util';
 
-import { environment } from '../../environments/environment';
-import { Pet } from '../shared/models/pet.model';
+import { environment } from '../../../environments/environment';
+import { Pet } from '../models/pet.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersDataServiceNew {
+export class PetsDataService {
   private dataStream = new BehaviorSubject<Pet[]>([]);
 
   public get(): Observable<Pet[]> {
@@ -27,7 +27,7 @@ export class UsersDataServiceNew {
     );
   }
 
-  public getById(id: number): Observable<any> {
+  public getById(id: number | string): Observable<any> {
     return this.http.get<any>(`${environment.API_URL}/pets/${id}`).pipe(
       tap(response => {
         this.dataStream.next(response);
@@ -81,6 +81,19 @@ export class UsersDataServiceNew {
   public delete(id: number): Observable<any> {
     console.log('PetsDataService -> delete() -> chamou -> id = ', id);
     return this.http.delete<any>(`${environment.API_URL}/pet/${id}`).pipe(
+      tap(response => {
+        console.log('delete response = ', response);
+        this.fetch().subscribe();
+      }),
+    );
+  }
+
+  public deleteByUserId(userId: number): Observable<any> {
+    console.log(
+      'PetsDataService -> deleteByUserId() -> chamou -> userId = ',
+      userId,
+    );
+    return this.http.delete<any>(`${environment.API_URL}/pets/${userId}`).pipe(
       tap(response => {
         console.log('delete response = ', response);
         this.fetch().subscribe();

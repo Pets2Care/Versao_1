@@ -1,0 +1,53 @@
+visitar as disciplinas UAM (inclusive a EAD)
+
+
+HOME:
+- feed
+   - estrutura básica da página
+   - componente carrousel destaques
+   - componente avatar usuário
+
+- custom feed
+   - estrutura básica da página
+
+
+SEARCH:
+   - estrutura básica da tela
+   - filtros de busca
+      - ajustar o filro superio para ser todos/cachorros/gatos
+      - filtro do proximidade/geolocalização
+      - filtro palavra-chave
+      - filtros por parâmetros preenchíveis no anúncio (checkbox)
+      - critérios de ordenação dos resultados
+   - lista de resultados
+
+
+DONATE:
+  - estrutura básica da tela
+  - lista de anúncios de doação + botão de criar nova adoção
+  - página nova doação 
+  - pagina editar doação
+  
+
+
+MESSAGE:
+   - estrutura básica da tela
+   - lista mensagens em aberto
+       - componente de mensagem (com opcão de "ver conversa", "excluir conversa", "bloquear contato", etc.
+   - página conversa (com os balões de mensagem de cada lado)
+
+PROFILE:
+   - estrutura básica da tela
+   - preencher as telas "política de privacidade", "aspectos legais" e "ajuda ao usuário" com textos relevantes e pertinentes
+   - 
+
+
+SHARED:
+   - user-card: (avatar do usuário)
+   - pet-card: card de detalhes do pet utilizado em diferentes partes da aplicação
+
+
+
+- criar component detalhe pet que mostra os detalhes do anúncio
+- revisar os formulários de preenchimento das paginas (new donation, edit donation, login, register, update user, etc.)
+- adicionar os filtros extras do buscador de pets

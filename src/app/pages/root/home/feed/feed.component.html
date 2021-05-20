@@ -1,0 +1,9 @@
+<div *ngIf="isLoading" class="ion-text-center">
+  <ion-spinner color="primary"></ion-spinner>
+</div>
+<div *ngIf="!isLoading && petsData.length <= 0">
+  <p>Nenhum Anúncio Encontrado!</p>
+</div>
+<div *ngIf="!isLoading && petsData.length > 0">
+  <app-pet-card [item]="i" *ngFor="let i of petsData"> </app-pet-card>
+</div>   

@@ -6,5 +6,5 @@
 
 <ion-content>
   <ion-button expand="full" (click)="createNewDonation()">Criar nova doação</ion-button>
-  <app-pet-card-donation-page [item]="i" *ngFor="let i of (filteredPetData | async)"> </app-pet-card-donation-page>  
+  <app-donation-item [item]="i" *ngFor="let i of (filteredPetData | async)"> </app-donation-item>  
 </ion-content>

@@ -10,12 +10,24 @@ const routes: Routes = [
     component: RootPage,
     children: [
       {
-        path: 'feed',
+        path: 'home',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('./feed/feed.module').then(m => m.FeedPageModule),
+              import('./home/home.module').then(m => m.HomePageModule),
+          },
+        ],
+      },
+      {
+        path: 'pet-details',
+        children: [
+          {
+            path: ':id',
+            loadChildren: () =>
+              import('./pet-details/pet-details.module').then(
+                m => m.PetDetailsPageModule,
+              ),
           },
         ],
       },
@@ -26,13 +38,6 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('./search/search.module').then(m => m.SearchPageModule),
-          },
-          {
-            path: ':petId',
-            loadChildren: () =>
-              import('./search/detail-donation/detail-donation.module').then(
-                m => m.DetailDonationPageModule,
-              ),
           },
         ],
       },
@@ -72,7 +77,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/root/tabs/feed',
+    redirectTo: '/root/tabs/home',
     pathMatch: 'full',
   },
 ];

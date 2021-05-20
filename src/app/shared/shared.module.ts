@@ -3,8 +3,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-//import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { PetCardComponent } from './components/pet-card/pet-card.component';
+//import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { FooterComponent } from './components/footer/footer.component';
 //import { HeaderComponent } from './components/header/header.component';
 //import { LoginFormComponent } from './components/login-form/login-form.component';
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
+    PetCardComponent,
     // HeaderComponent,
     // FooterComponent,
     // SpinningLoaderComponent,
@@ -23,14 +25,9 @@ import { RouterModule } from '@angular/router';
     // SidebarComponent,
     //SelectAccountPlanComponent
   ],
-  imports: [
-    CommonModule,
-    // 	FontAwesomeModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule,
-  ],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
   exports: [
+    PetCardComponent,
     // 	HeaderComponent,
     // 	FooterComponent,
     // 	SpinningLoaderComponent,

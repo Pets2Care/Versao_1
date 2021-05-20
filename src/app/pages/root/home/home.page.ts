@@ -2,17 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { PetsDataService } from '../../../services/pets.service';
-import { UserDataService } from '../../../services/user.service';
 import { Pet } from '../../../shared/models/pet.model';
 import { User } from '../../../shared/models/user.model';
+import { PetsDataService } from '../../../shared/services/pets.service';
+import { UserDataService } from '../../../shared/services/user.service';
 
 @Component({
-  selector: 'app-feed',
-  templateUrl: './feed.page.html',
-  styleUrls: ['./feed.page.scss'],
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
-export class FeedPage implements OnInit, OnDestroy {
+export class HomePage implements OnInit, OnDestroy {
   private subject = new Subject();
   public isLoading = false;
   public petsData: Readonly<Pet[]>;
