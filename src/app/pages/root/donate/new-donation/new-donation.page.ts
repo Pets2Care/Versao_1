@@ -1,20 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { PetRequest } from 'src/app/shared/models/petRequest.model';
 
 import { User } from '../../../../shared/models/user.model';
 import { PetsDataService } from '../../../../shared/services/pets.service';
 import { UserDataService } from '../../../../shared/services/user.service';
 
-class PetFormData {
+class PetFormData implements PetRequest {
   name: string;
-  place: string;
-  images: FileList;
-  userId: number;
-  userName: string;
-  age: number;
+  birthDate: string;
+  gender: string;
   type: string;
+  breed: string;
   description: string;
+  vaccinated: boolean;
+  dewormed: boolean;
+  castrated: boolean;
+  deficit: boolean;
+  userId: number;
+  cep: string;
+  street: string;
+  number: string;
+  complement: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  images: any;
 }
 
 @Component({
@@ -50,20 +62,21 @@ export class NewDonationPage implements OnInit {
 
   postForm(): void {
     this.newPet.userId = this.user.id;
-    this.newPet.userName = this.user.name;
-
     this.petsDataService.create(this.newPet).subscribe(() => {
       this.newPet = new PetFormData();
+
+      //TODO: se desse erro teria que validar, não? Aqui sempre mostra sucesso
       this.presentAlertSuccess();
     });
   }
 
+  //todo: mexer nisso
   isFormComplete(): boolean {
     return !(
       this.newPet?.name?.length > 0 &&
-      this.newPet?.place?.length > 0 &&
+      this.newPet?.cep?.length > 0 &&
       this.newPet?.images &&
-      this.newPet?.age &&
+      this.newPet?.birthDate &&
       this.newPet?.type?.length > 0 &&
       this.newPet?.description?.length > 0
     );

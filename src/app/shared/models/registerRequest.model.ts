@@ -1,7 +1,7 @@
-export interface User {
-  id: number;
+export interface RegisterRequest {
   name: string;
   email: string;
+  password: string;
   gender: string;
   cep: string;
   street: string;
@@ -12,7 +12,6 @@ export interface User {
   state: string;
   birthDate: string;
   telephone: string;
-  createdAt: number;
   //description: string;
   //avatarUrl: string;
   //websiteUrl: string;

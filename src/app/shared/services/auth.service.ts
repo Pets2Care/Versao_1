@@ -1,29 +1,78 @@
-import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
-import { Usuario } from '../models/usuario.model';
-import { tokenService } from '../utils/localStorage';
+import { LoginRequest } from '../models/loginRequest.model';
+import { LoginResponse } from '../models/loginResponse.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements OnInit {
-  usuario: any;
+export class AuthService {
+  user: any;
   token: string | undefined;
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
-  ngOnInit() {}
+  login(loginRequest: LoginRequest): Observable<LoginResponse> {
+    return this.httpClient
+      .post<LoginResponse>(`${environment.API_URL}/user`, loginRequest)
+      .pipe(
+        tap(response => {
+          const responseData = this.parseJwt(response.token);
 
-  getUser(): Usuario {
-    if (this.usuario) {
-      return this.usuario;
+          const loggedUser = {
+            id: responseData.id,
+            name: responseData.name,
+            email: responseData.email,
+            gender: responseData.gender,
+            cep: responseData.cep,
+            street: responseData.street,
+            number: responseData.number,
+            complement: responseData.complement,
+            neighborhood: responseData.neighborhood,
+            city: responseData.city,
+            state: responseData.state,
+            birthDate: responseData.birthDate,
+            telephone: responseData.telephone,
+            createdAt: responseData.createdAt,
+          };
+
+          this.setUser(loggedUser);
+          this.setToken(response.token);
+        }),
+      );
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    delete this.user;
+    delete this.token;
+  }
+
+  isLogged(): boolean {
+    return !!(this.getUser() && this.getToken());
+  }
+
+  getUser(): User {
+    if (this.user) {
+      return this.user;
     }
 
-    const tempUsuario = localStorage.getItem('usuario');
-    if (tempUsuario) {
-      this.usuario = JSON.parse(tempUsuario) as Usuario;
+    const localUser = localStorage.getItem('user');
+    if (localUser) {
+      this.user = JSON.parse(localUser) as User;
     }
-    return this.usuario;
+    return this.user;
+  }
+
+  setUser(user: User | null): void {
+    this.user = user;
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   getToken(): string | undefined {
@@ -31,17 +80,12 @@ export class AuthService implements OnInit {
       return this.token;
     }
 
-    const tokenGuardado = localStorage.getItem('token');
-    if (tokenGuardado) {
-      this.token = tokenGuardado;
+    const localToken = localStorage.getItem('token');
+    if (localToken) {
+      this.token = localToken;
     }
 
     return this.token;
-  }
-
-  setUser(usuario: Usuario | null): void {
-    this.usuario = usuario;
-    localStorage.setItem('usuario', JSON.stringify(usuario));
   }
 
   setToken(token: string): void {
@@ -49,22 +93,26 @@ export class AuthService implements OnInit {
     localStorage.setItem('token', token);
   }
 
-  isLogged(): boolean {
-    return !!(this.getUser() && this.getToken());
-  }
-
   isValidToken(): boolean {
     if (!this.getToken()) {
       return false;
     }
-    const tokenInfo = tokenService.parseJwt(this.getToken() as string);
+    const tokenInfo = this.parseJwt(this.getToken() as string);
     return new Date() < new Date(tokenInfo.exp * 1000);
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
-    delete this.usuario;
-    delete this.token;
+  parseJwt(token: string): any {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join(''),
+    );
+
+    return JSON.parse(jsonPayload);
   }
 }

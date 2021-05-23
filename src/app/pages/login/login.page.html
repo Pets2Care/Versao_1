@@ -4,30 +4,4 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-item>
-    <ion-label>E-mail</ion-label>
-    <ion-input clearInput type="email" [(ngModel)]="userName"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Senha</ion-label>
-    <ion-input clearInput type="password" [(ngModel)]="password"></ion-input>
-  </ion-item>
-  <br>
-
-  <div style="text-align: center">
-    <ion-button (click)="verifyUser($event)" >Login</ion-button>
-  </div>
-  <br>
-
-  <br>
-  <div style="text-align: center">
-    <ion-button fill="clear" (click)="createUser()">
-      <span>
-        <ion-icon name="man-outline"></ion-icon><br>
-      <small> Ainda não tem uma conta? Registre-se Aqui!</small> 
-      </span> 
-    </ion-button>
-  </div>
-</ion-content>
+<app-login-form></app-login-form>

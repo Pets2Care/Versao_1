@@ -1,7 +1,4 @@
-import { PetImage } from './petImage.model';
-
-export interface Pet {
-  id: number;
+export interface PetRequest {
   name: string;
   birthDate: string;
   gender: string;
@@ -12,6 +9,7 @@ export interface Pet {
   dewormed: boolean;
   castrated: boolean;
   deficit: boolean;
+  userId: number;
   cep: string;
   street: string;
   number: string;
@@ -19,6 +17,5 @@ export interface Pet {
   neighborhood: string;
   city: string;
   state: string;
-  createdAt: string;
-  images: PetImage[];
+  images: FileList;
 }
