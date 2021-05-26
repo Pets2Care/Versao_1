@@ -1,122 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoadingController, AlertController } from '@ionic/angular';
-import { RegisterRequest } from 'src/app/shared/models/registerRequest.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-
-interface State {
-  sigla: string;
-  nome: string;
-  cidades: string[];
-}
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss'],
+  selector: 'app-city-select',
+  templateUrl: './city-select.component.html',
+  styleUrls: ['./city-select.component.scss'],
 })
-export class RegisterFormComponent implements OnInit {
-  isLoading = false;
-  uploadedAvatar = null;
+export class CitySelectComponent {
   public selectedState = null;
 
   selectState(value: string): void {
     this.selectedState = this.states.find(obj => obj.sigla == value);
     console.log('selectedState = ', this.selectedState);
-  }
-
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController,
-  ) {}
-
-  ngOnInit(): void {}
-
-  uploadFiles(event: any): void {
-    const files = (event.target as HTMLInputElement).files;
-    console.log('uploadFiles -> files = ', files);
-
-    this.uploadedAvatar = files[0];
-  }
-
-  authenticate(request: RegisterRequest): void {
-    this.isLoading = true;
-    this.loadingCtrl
-      .create({ keyboardClose: true, message: 'Carregando...' })
-      .then(loadingEl => {
-        loadingEl.present();
-        const authObs = this.authService.register(request);
-
-        authObs.subscribe(
-          resData => {
-            console.log(resData);
-            this.isLoading = false;
-            loadingEl.dismiss();
-            this.router.navigateByUrl('/root/home/feed');
-          },
-          errRes => {
-            loadingEl.dismiss();
-            console.log('errRes', errRes);
-            this.showAlert(
-              'Falha na Requisição',
-              errRes?.error?.message || 'erro não identificado',
-            );
-            this.isLoading = false;
-          },
-        );
-      });
-  }
-
-  passwordsMatch(form: NgForm): void {
-    if (form.value.password !== form.value.confirmPassword) {
-      console.log('bla');
-      return;
-    }
-  }
-
-  onSubmit(form: NgForm): void {
-    if (!form.valid) {
-      return;
-    }
-
-    const data: RegisterRequest = {
-      email: form.value.email,
-      password: form.value.password,
-      name: form.value.name,
-      gender: form.value.gender, //errado
-      cep: form.value.cep,
-      street: form.value.street,
-      number: form.value.number,
-      complement: form.value.complement,
-      neighborhood: form.value.neighborhood,
-      city: form.value.city,
-      state: form.value.state,
-      birthDate: form.value.birthDate,
-      telephone: form.value.telephone,
-      description: form.value.description,
-      avatar: this.uploadedAvatar,
-      website: form.value.websiteUrl,
-    };
-
-    console.log('data = ', data);
-
-    this.authenticate(data);
-    form.reset();
-  }
-
-  private showAlert(header: string, message: string) {
-    this.alertCtrl
-      .create({
-        header: header,
-        message: message,
-        buttons: ['Entendi'],
-      })
-      .then(alertEl => {
-        alertEl.present();
-      });
   }
 
   states: State[] = [

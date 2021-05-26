@@ -27,7 +27,7 @@ export class DonatePage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userData = this.userDataService.get();
-    console.log('cucucucucu');
+    console.log('donate.page.ts');
 
     this.filteredPetData = this.petsDataService.get().pipe(
       map(data => {

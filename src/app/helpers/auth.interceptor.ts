@@ -10,7 +10,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
-import { tokenService } from '../shared/utils/localStorage';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 

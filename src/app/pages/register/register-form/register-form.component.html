@@ -1,3 +1,258 @@
-<p>
-  register-form works!
-</p>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <ion-grid>
+    <ion-row color="primary" class="ion-justify-content-center">
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <div class="ion-text-center">
+          <h3>Registrar Conta</h3>
+        </div>
+        <!-- E-MAIL -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">E-Mail</ion-label>
+            <ion-input ngModel #emailCtrl="ngModel" type="email" name="email" required
+              pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!emailCtrl.valid && emailCtrl.touched">
+            <ion-note>
+              Campo obrigatório. E-mail deve ter formatado válido. Ex: eu@meudominio.com.
+              <!-- Email address, most used cases -->
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- PASSWORD -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Senha</ion-label>
+            <!-- <ion-input ngModel #passwordCtrl="ngModel" type="password" name="password" required pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.\-_*])([a-zA-Z0-9@#$%^&+=*.\-_]){3,}$"></ion-input> -->
+            <ion-input ngModel #passwordCtrl="ngModel" type="password" name="password" required pattern=""></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!passwordCtrl.valid && passwordCtrl.touched">
+            <ion-note>
+              Campo obrigatório. Mínimo de um número, um carácter especial, uma letra minúscula e uma maíuscula.
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- CONFIRM PASSWORD -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Confirmação Senha</ion-label>
+            <!-- <ion-input ngModel #confirmPasswordCtrl="ngModel" type="password" name="confirmPassword" required pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.\-_*])([a-zA-Z0-9@#$%^&+=*.\-_]){3,}$"></ion-input> -->
+            <ion-input ngModel #confirmPasswordCtrl="ngModel" type="password" name="confirmPassword" required
+              pattern=""></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!confirmPasswordCtrl.valid && confirmPasswordCtrl.touched">
+            <ion-note>
+              Campo obrigatório. Mínimo de um número, um carácter especial, uma letra minúscula e uma maíuscula.
+            </ion-note>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="confirmPasswordCtrl.value !== passwordCtrl.value">
+            <ion-note>
+              Senhas devem ser iguais.
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- NAME -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Nome</ion-label>
+            <ion-input ngModel #nameCtrl="ngModel" type="text" name="name" required pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]{1,50}$">
+            </ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!nameCtrl.valid && nameCtrl.touched">
+            <ion-note>
+              Campo obrigatório. Mínimo 1 carácter.
+              <!-- Safe Password that allow only with a number, a lowercase, a uppercase, and a special character -->
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- GENDER -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Identidade de Gênero</ion-label>
+            <ion-select ngModel #genderCtrl="ngModel" name="gender" placeholder="Selecione um" required>
+              <ion-select-option [value]="Female">Feminina</ion-select-option>
+              <ion-select-option [value]="Male">Masculina</ion-select-option>
+              <ion-select-option [value]="Other">Prefiro não informar</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!genderCtrl.valid && genderCtrl.touched">
+            <ion-note>
+              Campo obrigatório.
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- BIRTHDATE -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Data de Nascimento</ion-label>
+            <ion-datetime ngModel #birthDateCtrl="ngModel" name="birthDate" displayFormat="D MMM, YYYY" min="1990" max="2021" value="2020-01-01" required></ion-datetime>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!birthDateCtrl.valid && birthDateCtrl.touched">
+            <ion-note>
+              Campo obrigatório.
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- AVATAR -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="stacked">Avatar</ion-label>
+            <ion-input type="file" name="avatar" (change)="uploadFiles($event)" accept="image/png, image/jpeg">
+            </ion-input>
+          </ion-item>
+        </div>
+        <!-- WEBSITE URL -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Website Pessoal</ion-label>
+            <ion-input ngModel #websiteUrlCtrl="ngModel" type="text" name="websiteUrl"
+              pattern="(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)">
+            </ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!telephoneCtrl.valid && telephoneCtrl.touched">
+            <ion-note>
+              Endereço Inválido.
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- DESCRIPTION -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Sobre mim (opcional)</ion-label>
+            <ion-textarea ngModel #descriptionCtrl="ngModel" autoGrow="true" name="description" pattern="^.{0,500}$">
+            </ion-textarea>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!descriptionCtrl.valid && descriptionCtrl.touched">
+            <ion-note>
+              Máximo de 500 carácteres.
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- TELEPHONE -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Telefone</ion-label>
+            <ion-input ngModel #telephoneCtrl="ngModel" type="tel" name="telephone" required
+              pattern="((\(?\d{2}\)?\s?)(\d{4,5}-?\d{4}))"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!telephoneCtrl.valid && telephoneCtrl.touched">
+            <ion-note>
+              Campo obrigatório. Ex: 11987654321, (11)98765-4321
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- CEP -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">CEP</ion-label>
+            <ion-input ngModel #cepCtrl="ngModel" type="text" name="cep" required pattern="^\d{5}-?\d{3}$"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!cepCtrl.valid && cepCtrl.touched">
+            <ion-note>
+              Campo obrigatório. Minímo 9 carácteres. Ex: 12345-000, 12345000
+              <!-- Safe Password that allow only with a number, a lowercase, a uppercase, and a special character -->
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- STREET -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Endereço</ion-label>
+            <ion-input ngModel #streetCtrl="ngModel" type="text" name="street" required
+              pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]{1,100}$"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!streetCtrl.valid && streetCtrl.touched">
+            <ion-note>
+              Campo obrigatório. Mínimo 1 carácter.
+              <!-- Safe Password that allow only with a number, a lowercase, a uppercase, and a special character -->
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- NUMBER -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Número</ion-label>
+            <ion-input ngModel #numberCtrl="ngModel" type="text" name="number" required pattern="^[0-9]{1,10}$">
+            </ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!numberCtrl.valid && numberCtrl.touched">
+            <ion-note>
+              Campo obrigatório. Mínimo de um carácter.
+              <!-- Safe Password that allow only with a number, a lowercase, a uppercase, and a special character -->
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- COMPLEMENT -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Complemento</ion-label>
+            <ion-input ngModel #complementCtrl="ngModel" type="text" name="complement" required
+              pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s]{1,50}$"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!complementCtrl.valid && complementCtrl.touched">
+            <ion-note>
+              Campo obrigatório. Mínimo de um carácter.
+              <!-- Safe Password that allow only with a number, a lowercase, a uppercase, and a special character -->
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- NEIGHBORHOOD -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Bairro</ion-label>
+            <ion-input ngModel #neighborhoodCtrl="ngModel" type="text" name="neighborhood" required
+              pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]{1,50}$"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!neighborhoodCtrl.valid && neighborhoodCtrl.touched">
+            <ion-note>
+              Campo obrigatório. Mínimo de um carácter.
+              <!-- Safe Password that allow only with a number, a lowercase, a uppercase, and a special character -->
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- STATE -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Estado</ion-label>
+            <ion-select ngModel #stateCtrl="ngModel" name="state" required
+              (ionChange)="selectState($event.target.value)">
+              <ion-select-option *ngFor="let state of states; index as i" [value]="state.sigla">{{state.sigla}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!stateCtrl.valid && stateCtrl.touched">
+            <ion-note>
+              Campo obrigatório.
+            </ion-note>
+          </ion-item>
+        </div>
+        <!-- CITY -->
+        <div>
+          <ion-item lines="inset">
+            <ion-label position="floating">Cidade</ion-label>
+            <ion-select ngModel #cityCtrl="ngModel" name="city" required [disabled]="!selectedState">
+              <ion-select-option *ngFor="let city of selectedState?.cidades; index as i" [value]="city">{{city}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="none" class="input-label" *ngIf="!cityCtrl.valid && cityCtrl.touched">
+            <ion-note>
+              Campo obrigatório.
+            </ion-note>
+          </ion-item>
+        </div>
+        <div class="ion-padding">
+          <ion-button type="submit" color="primary" expand="block"
+            [disabled]="!f.valid || isLoading || !(confirmPasswordCtrl.value === passwordCtrl.value)">
+            Registrar
+          </ion-button>
+        </div>
+        <div class="ion-padding">
+          <a routerLink="/login">
+            Já possui uma conta? Entre Aqui!
+          </a>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>

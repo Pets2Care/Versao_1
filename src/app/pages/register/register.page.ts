@@ -1,10 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-
-import { User } from '../../shared/models/user.model';
-import { UserDataService } from '../../shared/services/user.service';
-import { UsersDataService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'app-register',
@@ -12,64 +6,68 @@ import { UsersDataService } from '../../shared/services/users.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  public user: User;
-  private newUser: number;
-  public confirmPassword: string;
-
-  constructor(
-    private usersDataService: UsersDataService,
-    private userDataService: UserDataService,
-    private alertController: AlertController,
-    private router: Router,
-  ) {
-    this.loadData();
-  }
+  constructor() {}
 
   ngOnInit() {}
 
-  loadData() {
-    this.user = { id: 0, email: '', name: '', password: '', pets: [] };
-  }
+  // public user: User;
+  // private newUser: number;
+  // public confirmPassword: string;
 
-  loginUser(userId: number): void {
-    const user = this.usersDataService.getById(userId);
-    this.userDataService.set(user);
-    this.router.navigate(['/root']);
-  }
+  // constructor(
+  //   private usersDataService: UsersDataService,
+  //   private userDataService: UserDataService,
+  //   private alertController: AlertController,
+  //   private router: Router,
+  // ) {
+  //   this.loadData();
+  // }
 
-  isFormComplete(): boolean {
-    return !(
-      this.user?.name?.length > 0 &&
-      this.user?.email?.length > 0 &&
-      this.user?.password &&
-      this.confirmPassword
-    );
-  }
+  // ngOnInit() {}
 
-  postForm(): void {
-    if (this.verifyPassword()) {
-      this.newUser = this.usersDataService.create(this.user);
-      if (this.newUser) {
-        this.loginUser(this.newUser);
-      }
-    }
-  }
+  // loadData() {
+  //   this.user = { id: 0, email: '', name: '', password: '', pets: [] };
+  // }
 
-  verifyPassword(): boolean {
-    if (this.user.password === this.confirmPassword) {
-      return true;
-    } else {
-      this.presentAlertErrorPassword();
-      return false;
-    }
-  }
+  // loginUser(userId: number): void {
+  //   const user = this.usersDataService.getById(userId);
+  //   this.userDataService.set(user);
+  //   this.router.navigate(['/root']);
+  // }
 
-  async presentAlertErrorPassword() {
-    const alert = await this.alertController.create({
-      header: 'Atenção!',
-      message: 'Senhas não coincidem!',
-      buttons: ['OK'],
-    });
-    await alert.present();
-  }
+  // isFormComplete(): boolean {
+  //   return !(
+  //     this.user?.name?.length > 0 &&
+  //     this.user?.email?.length > 0 &&
+  //     this.user?.password &&
+  //     this.confirmPassword
+  //   );
+  // }
+
+  // postForm(): void {
+  //   if (this.verifyPassword()) {
+  //     this.newUser = this.usersDataService.create(this.user);
+  //     if (this.newUser) {
+  //       this.loginUser(this.newUser);
+  //     }
+  //   }
+  // }
+
+  // verifyPassword(): boolean {
+  //   if (this.user.password === this.confirmPassword) {
+  //     return true;
+  //   } else {
+  //     this.presentAlertErrorPassword();
+  //     return false;
+  //   }
+  // }
+
+  // async presentAlertErrorPassword() {
+  //   const alert = await this.alertController.create({
+  //     header: 'Atenção!',
+  //     message: 'Senhas não coincidem!',
+  //     buttons: ['OK'],
+  //   });
+  //   await alert.present();
+  // }
 }

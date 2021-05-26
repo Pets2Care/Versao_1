@@ -28,7 +28,17 @@ export class PetsDataService {
     );
   }
 
-  public getById(id: number | string): Observable<any> {
+  public fetchByUserId(userId: number | string): Observable<Pet> {
+    return this.http
+      .get<any>(`${environment.API_URL}/pets/user/${userId}`)
+      .pipe(
+        tap(response => {
+          this.dataStream.next(response);
+        }),
+      );
+  }
+
+  public fetchById(id: number | string): Observable<Pet> {
     return this.http.get<any>(`${environment.API_URL}/pets/${id}`).pipe(
       tap(response => {
         this.dataStream.next(response);

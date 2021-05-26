@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { LoginRequest } from 'src/app/shared/models/loginRequest.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -20,61 +20,61 @@ export class LoginFormComponent implements OnInit {
     private alertCtrl: AlertController,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  authenticate(email: string, password: string) {
+  authenticate(request: LoginRequest): void {
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Carregando...' })
       .then(loadingEl => {
         loadingEl.present();
-        let authObs: Observable<AuthResponseData>;
-
-        authObs = this.authService.login(email, password);
+        const authObs = this.authService.login(request);
 
         authObs.subscribe(
           resData => {
             console.log(resData);
             this.isLoading = false;
             loadingEl.dismiss();
-            this.router.navigateByUrl('/places/tabs/discover');
+            this.router.navigateByUrl('/root/home/feed');
           },
           errRes => {
             loadingEl.dismiss();
-            const code = errRes.error.error.message;
-            let message = 'Could not sign you up, please try again.';
-            if (code === 'EMAIL_EXISTS') {
-              message = 'This email address exists already!';
-            } else if (code === 'EMAIL_NOT_FOUND') {
-              message = 'E-Mail address could not be found.';
-            } else if (code === 'INVALID_PASSWORD') {
-              message = 'This password is not correct.';
-            }
-            this.showAlert(message);
+            console.log('errRes', errRes);
+            this.showAlert(
+              'Falha na Requisição',
+              errRes?.error?.message || 'erro não identificado',
+            );
+            this.isLoading = false;
           },
         );
       });
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit(form: NgForm): void {
     if (!form.valid) {
       return;
     }
 
-    const email = form.value.email;
-    const password = form.value.password;
+    const data: LoginRequest = {
+      login: form.value.email,
+      password: form.value.password,
+    };
 
-    this.authenticate(email, password);
+    console.log('data = ', data);
+
+    this.authenticate(data);
     form.reset();
   }
 
-  private showAlert(message: string) {
+  private showAlert(header: string, message: string) {
     this.alertCtrl
       .create({
-        header: 'Authentication failed',
+        header: header,
         message: message,
-        buttons: ['Okay'],
+        buttons: ['Entendi'],
       })
-      .then(alertEl => alertEl.present());
+      .then(alertEl => {
+        alertEl.present();
+      });
   }
 }

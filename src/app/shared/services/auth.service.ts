@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 
 import { LoginRequest } from '../models/loginRequest.model';
 import { LoginResponse } from '../models/loginResponse.model';
+import { RegisterRequest } from '../models/registerRequest.model';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -17,32 +18,77 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) {}
 
-  login(loginRequest: LoginRequest): Observable<LoginResponse> {
+  register(registerRequest: RegisterRequest): Observable<any> {
+    //mudar esse any para outra coisa?
     return this.httpClient
-      .post<LoginResponse>(`${environment.API_URL}/user`, loginRequest)
+      .post<LoginResponse>(`${environment.API_URL}/register`, registerRequest)
       .pipe(
         tap(response => {
-          const responseData = this.parseJwt(response.token);
+          console.log('register response', response);
+          const responseData = this.parseJwt(response?.token);
+          console.log('parsed response', responseData);
 
-          const loggedUser = {
-            id: responseData.id,
-            name: responseData.name,
-            email: responseData.email,
-            gender: responseData.gender,
-            cep: responseData.cep,
-            street: responseData.street,
-            number: responseData.number,
-            complement: responseData.complement,
-            neighborhood: responseData.neighborhood,
-            city: responseData.city,
-            state: responseData.state,
-            birthDate: responseData.birthDate,
-            telephone: responseData.telephone,
-            createdAt: responseData.createdAt,
-          };
+          if (responseData) {
+            const loggedUser = {
+              id: responseData?.id,
+              name: responseData?.name,
+              email: responseData?.email,
+              gender: responseData?.gender,
+              cep: responseData?.cep,
+              street: responseData?.street,
+              number: responseData?.number,
+              complement: responseData?.complement,
+              neighborhood: responseData?.neighborhood,
+              city: responseData?.city,
+              state: responseData?.state,
+              birthDate: responseData?.birthDate,
+              telephone: responseData?.telephone,
+              createdAt: responseData?.createdAt,
+            };
 
-          this.setUser(loggedUser);
-          this.setToken(response.token);
+            console.log('loggedUser', loggedUser);
+            console.log('loggedToken', response?.token);
+
+            this.setUser(loggedUser);
+            this.setToken(response.token);
+          }
+        }),
+      );
+  }
+
+  login(loginRequest: LoginRequest): Observable<LoginResponse> {
+    return this.httpClient
+      .post<LoginResponse>(`${environment.API_URL}/authenticate`, loginRequest)
+      .pipe(
+        tap(response => {
+          console.log('login response', response);
+          const responseData = this.parseJwt(response?.token);
+          console.log('parsed response', responseData);
+
+          if (responseData) {
+            const loggedUser = {
+              id: responseData?.id,
+              name: responseData?.name,
+              email: responseData?.email,
+              gender: responseData?.gender,
+              cep: responseData?.cep,
+              street: responseData?.street,
+              number: responseData?.number,
+              complement: responseData?.complement,
+              neighborhood: responseData?.neighborhood,
+              city: responseData?.city,
+              state: responseData?.state,
+              birthDate: responseData?.birthDate,
+              telephone: responseData?.telephone,
+              createdAt: responseData?.createdAt,
+            };
+
+            console.log('loggedUser', loggedUser);
+            console.log('loggedToken', response?.token);
+
+            this.setUser(loggedUser);
+            this.setToken(response.token);
+          }
         }),
       );
   }

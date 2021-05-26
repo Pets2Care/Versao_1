@@ -20,7 +20,7 @@ export class PetDetailsPage implements OnInit {
   ngOnInit() {
     const selectedId = this.activatedRoute.snapshot.paramMap.get('id');
     console.log(this.activatedRoute);
-    this.petsDataService.getById(selectedId).subscribe(result => {
+    this.petsDataService.fetchById(selectedId).subscribe(result => {
       this.selectedPet = result;
     });
   }

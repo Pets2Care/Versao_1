@@ -63,9 +63,11 @@ export class SearchPage implements OnInit, OnDestroy {
     if (val && val.trim() !== '') {
       this.result = this.result.filter(item => {
         return (
+          //TODO: adicionar outros filtros válidos aqui também?
+          //item.userName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.place.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.userName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.city.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.neighborhood.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.description.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });

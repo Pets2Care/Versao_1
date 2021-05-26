@@ -1,0 +1,59 @@
+<div>
+  <div>
+    <ion-item lines="inset">
+      <ion-label position="floating">Estado</ion-label>
+      <ion-select ngModel #stateCtrl="ngModel" name="state" required (ionChange)="selectState($event.target.value)">
+        <ion-select-option *ngFor="let state of states; index as i" [value]="state.sigla">{{state.sigla}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="none" class="input-label" *ngIf="!stateCtrl.valid && stateCtrl.touched">
+      <ion-note>
+        Campo obrigatório.
+      </ion-note>
+    </ion-item>
+  </div>
+  
+    <div>
+    <ion-item lines="inset">
+      <ion-label position="floating">Cidade</ion-label>
+      <ion-select ngModel #cityCtrl="ngModel" name="city" required [disabled]="!selectedState">
+        <ion-select-option *ngFor="let city of selectedState?.cidades; index as i" [value]="cidade">{{cidade}}</ion-select-option>
+      </ion-select>
+    </ion-item>  
+    <ion-item lines="none" class="input-label" *ngIf="!cityCtrl.valid && cityCtrl.touched">
+      <ion-note>
+        Campo obrigatório.
+      </ion-note>
+    </ion-item>
+  </div>
+  
+</div>
+
+
+<!-- <ion-item lines="inset">
+  <ion-label position="floating">Estado</ion-label>
+  <ion-select [compareWith]="compareWith">
+    <ion-select-option *ngFor="let estado of estados" [value]="selectedEstado">{{estados.nome}}</ion-select-option>
+  </ion-select>
+  <ion-label position="floating">Cidade</ion-label>
+  <ion-select [compareWith]="compareWith" [disabled]="!selectedEstado">
+    <ion-select-option *ngFor="let cidade of selectedEstado" [value]="selectedCidade">{{estados.cidades}}</ion-select-option>
+  </ion-select>
+</ion-item> -->
+
+
+
+<!-- <div>
+  <ion-item lines="inset">
+    <ion-label position="floating">Estado</ion-label>
+    <ion-select (ionChange)="selectEstado($event.target.value)">
+      <ion-select-option *ngFor="let estado of estados; index as i" [attr.data-index]="i" [value]="estado.sigla">{{estado.sigla}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item lines="inset">
+    <ion-label position="floating">Cidade</ion-label>
+    <ion-select (ionChange)="selectCidade($event.target.value)">
+      <ion-select-option *ngFor="let cidade of selectedEstado?.cidades; index as i" [value]="i">{{cidade}}</ion-select-option>
+    </ion-select>
+  </ion-item>  
+</div> -->

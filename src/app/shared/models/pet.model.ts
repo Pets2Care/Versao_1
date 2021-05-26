@@ -12,6 +12,7 @@ export interface Pet {
   dewormed: boolean;
   castrated: boolean;
   deficit: boolean;
+  userId: number;
   cep: string;
   street: string;
   number: string;

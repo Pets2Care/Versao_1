@@ -35,7 +35,7 @@
    </ion-item>
    <ion-item>
     <ion-label position="stacked">Foto do Animal:</ion-label>
-    <ion-input type="file" name="images" (change)="uploadFiles($event)"></ion-input>
+    <ion-input type="file" name="images" (change)="uploadFiles($event)" multiple></ion-input>
   </ion-item>
   </ion-col>
   <ion-button disabled={{isFormComplete()}} type="submit" >Confirmar</ion-button>

@@ -12,7 +12,7 @@ export interface RegisterRequest {
   state: string;
   birthDate: string;
   telephone: string;
-  //description: string;
-  //avatarUrl: string;
-  //websiteUrl: string;
+  description: string;
+  avatar: FileList;
+  website: string;
 }
