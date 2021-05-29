@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 import { Pet } from '../../../shared/models/pet.model';
 import { User } from '../../../shared/models/user.model';
@@ -14,33 +15,18 @@ import { UserDataService } from '../../../shared/services/user.service';
   styleUrls: ['./donate.page.scss'],
 })
 export class DonatePage implements OnInit, OnDestroy {
-  private subject = new Subject();
+  //private subject = new Subject();
   public isLoading = false;
   public userData: User;
-  public filteredPetData: Observable<Pet[]>;
+  public petsData: Pet[];
 
   constructor(
     private router: Router,
     private petsDataService: PetsDataService,
-    private userDataService: UserDataService,
+    private authService: AuthService,
   ) {}
 
-  ngOnInit(): void {
-    // this.userData = this.userDataService.get();
-    // console.log('donate.page.ts');
-
-    // this.filteredPetData = this.petsDataService.get().pipe(
-    //   map(data => {
-    //     console.log('data = ', data);
-    //     return data?.filter(i => i.userId === this.userData.id);
-    //   }),
-    //);
-
-    console.log('filterPetData', this.filteredPetData);
-    // .subscribe(data => {
-    //   this.filteredPetData = data.filter(i => i.userId === this.userData.id);
-    // });
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     // this.subject.next();
@@ -49,15 +35,18 @@ export class DonatePage implements OnInit, OnDestroy {
 
   //Preciso desse? Ele acaba dando um novo fetch toda vez que entra nessa tela
   ionViewWillEnter(): void {
-    // console.log('donate.page -> ionViewWillEnter');
-    // this.userData = this.userDataService.get();
-    // this.isLoading = true;
-    // this.petsDataService.fetch().subscribe(() => {
-    //   this.isLoading = false;
-    // });
+    console.log('donate.page -> ionViewWillEnter');
+    this.isLoading = true;
+    this.petsDataService
+      .fetchByUserId(this.authService.getUser().id)
+      .subscribe(response => {
+        console.log('fetch pet response', response);
+        this.isLoading = false;
+        this.petsData = response;
+      });
   }
 
   createNewDonation(): void {
-    //this.router.navigate(['/root/tabs/donate/new-donation/']);
+    this.router.navigate(['/root/tabs/donate/new-donation/']);
   }
 }

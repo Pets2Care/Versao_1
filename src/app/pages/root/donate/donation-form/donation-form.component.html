@@ -3,7 +3,7 @@
     <ion-row color="primary" class="ion-justify-content-center">
       <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
         <div class="ion-text-center">
-          <h3>Cadastrar novo Pet</h3>
+          <h3>Preencha as informações que aparecerão no anúncio</h3>
         </div>
         <!-- NAME -->
         <div>
@@ -94,14 +94,14 @@
         <!-- DEFICIT -->
         <div>
           <ion-item lines="inset">
-            <ion-label>Possui algum deficit?</ion-label>
+            <ion-label>Necessidades Especiais? </ion-label>
             <ion-checkbox slot="end" #deficitCtrl="ngModel" name="deficit" [(ngModel)]="isDeficit"></ion-checkbox>
           </ion-item>
         </div>
         <!-- DESCRIPTION -->
         <div>
           <ion-item lines="inset">
-            <ion-label position="floating">Sobre mim (opcional)</ion-label>
+            <ion-label position="floating">Descrição (opcional)</ion-label>
             <ion-textarea ngModel #descriptionCtrl="ngModel" autoGrow="true" name="description" pattern="^.{0,500}$">
             </ion-textarea>
           </ion-item>
@@ -223,13 +223,8 @@
         <div class="ion-padding">
           <ion-button type="submit" color="primary" expand="block"
             [disabled]="!f.valid || isLoading">
-            Registrar
+            Cadastrar
           </ion-button>
-        </div>
-        <div class="ion-padding">
-          <a routerLink="/login">
-            Já possui uma conta? Entre Aqui!
-          </a>
         </div>
       </ion-col>
     </ion-row>

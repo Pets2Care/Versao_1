@@ -27,7 +27,7 @@ export class PetsDataService {
     );
   }
 
-  public fetchByUserId(userId: number | string): Observable<Pet> {
+  public fetchByUserId(userId: number | string): Observable<Pet[]> {
     return this.http
       .get<any>(`${environment.API_URL}/pets/user/${userId}`)
       .pipe(
@@ -104,12 +104,13 @@ export class PetsDataService {
 
   public delete(id: number): Observable<any> {
     console.log('PetsDataService -> delete() -> chamou -> id = ', id);
-    return this.http.delete<any>(`${environment.API_URL}/pet/${id}`).pipe(
-      tap(response => {
-        console.log('delete response = ', response);
-        this.fetch().subscribe();
-      }),
-    );
+    return null;
+    // return this.http.delete<any>(`${environment.API_URL}/pet/${id}`).pipe(
+    //   tap(response => {
+    //     console.log('delete response = ', response);
+    //     this.fetch().subscribe();
+    //   }),
+    // );
   }
 
   public deleteByUserId(userId: number): Observable<any> {
@@ -123,5 +124,16 @@ export class PetsDataService {
         this.fetch().subscribe();
       }),
     );
+  }
+
+  public pause(id: number | string): Observable<any> {
+    console.log('PetsDataService -> pause() -> petId = ', id);
+    return null;
+    // return this.http.put<any>(`${environment.API_URL}/pet/pause/`, id).pipe(
+    //   tap(response => {
+    //     console.log('update response = ', response);
+    //     this.fetch().subscribe();
+    //   }),
+    // );
   }
 }

@@ -19,19 +19,4 @@ export class DonationItemComponent implements OnInit {
   public getFormattedDate(): string {
     return new Date(this.item.createdAt).toLocaleDateString('pt-BR');
   }
-
-  editDonation(): void {
-    console.log('editDonation -> this.item.id = ', this.item.id);
-    //this.router.navigate(['/root/tabs/donate/edit-donation/'], this.item.id);
-  }
-
-  pauseDonation(): void {
-    console.log('pauseDonation -> this.item.id = ', this.item.id);
-    //this.petsDataService.pause(this.item.id);
-  }
-
-  deleteDonation(): void {
-    console.log('deleteDonation -> this.item.id = ', this.item.id);
-    this.petsDataService.delete(this.item.id).subscribe();
-  }
 }

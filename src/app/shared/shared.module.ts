@@ -3,6 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { PetCardComponent } from './components/pet-card/pet-card.component';
 
@@ -26,7 +28,14 @@ import { PetCardComponent } from './components/pet-card/pet-card.component';
     // SidebarComponent,
     //SelectAccountPlanComponent
   ],
-  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
+  ],
   exports: [
     PetCardComponent,
     // 	HeaderComponent,

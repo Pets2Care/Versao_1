@@ -5,10 +5,6 @@ import { DonatePage } from './donate.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: DonatePage,
-  },
-  {
     path: 'new-donation',
     loadChildren: () =>
       import('./new-donation/new-donation.module').then(
@@ -17,10 +13,19 @@ const routes: Routes = [
   },
   {
     path: 'edit-donation',
-    loadChildren: () =>
-      import('./edit-donation/edit-donation.module').then(
-        m => m.EditDonationPageModule,
-      ),
+    children: [
+      {
+        path: ':id',
+        loadChildren: () =>
+          import('./edit-donation/edit-donation.module').then(
+            m => m.EditDonationPageModule,
+          ),
+      },
+    ],
+  },
+  {
+    path: '',
+    component: DonatePage,
   },
 ];
 
