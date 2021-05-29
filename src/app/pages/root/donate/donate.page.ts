@@ -26,15 +26,15 @@ export class DonatePage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.userData = this.userDataService.get();
-    console.log('donate.page.ts');
+    // this.userData = this.userDataService.get();
+    // console.log('donate.page.ts');
 
-    this.filteredPetData = this.petsDataService.get().pipe(
-      map(data => {
-        console.log('data = ', data);
-        return data?.filter(i => i.userId === this.userData.id);
-      }),
-    );
+    // this.filteredPetData = this.petsDataService.get().pipe(
+    //   map(data => {
+    //     console.log('data = ', data);
+    //     return data?.filter(i => i.userId === this.userData.id);
+    //   }),
+    //);
 
     console.log('filterPetData', this.filteredPetData);
     // .subscribe(data => {
@@ -43,21 +43,21 @@ export class DonatePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subject.next();
-    this.subject.complete();
+    // this.subject.next();
+    // this.subject.complete();
   }
 
   //Preciso desse? Ele acaba dando um novo fetch toda vez que entra nessa tela
   ionViewWillEnter(): void {
-    console.log('donate.page -> ionViewWillEnter');
-    this.userData = this.userDataService.get();
-    this.isLoading = true;
-    this.petsDataService.fetch().subscribe(() => {
-      this.isLoading = false;
-    });
+    // console.log('donate.page -> ionViewWillEnter');
+    // this.userData = this.userDataService.get();
+    // this.isLoading = true;
+    // this.petsDataService.fetch().subscribe(() => {
+    //   this.isLoading = false;
+    // });
   }
 
   createNewDonation(): void {
-    this.router.navigate(['/root/tabs/donate/new-donation/']);
+    //this.router.navigate(['/root/tabs/donate/new-donation/']);
   }
 }

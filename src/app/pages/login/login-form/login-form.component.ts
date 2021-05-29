@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
   isLoading = false;
 
   constructor(
@@ -19,8 +19,6 @@ export class LoginFormComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
   ) {}
-
-  ngOnInit(): void {}
 
   authenticate(request: LoginRequest, form: NgForm): void {
     this.isLoading = true;

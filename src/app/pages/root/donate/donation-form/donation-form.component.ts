@@ -20,7 +20,7 @@ interface State {
 })
 export class DonationFormComponent implements OnInit {
   @Input() isEdit = false;
-  @Input() petData: Pet = null;
+  //@Input() petData: Pet = null;
   isLoading = false;
   uploadedImages = null;
   public selectedState = null;
@@ -45,7 +45,7 @@ export class DonationFormComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('isEdit = ', this.isEdit);
-    console.log('petData = ', this.petData);
+    //console.log('petData = ', this.petData);
   }
 
   uploadFiles(event: any): void {
@@ -94,7 +94,7 @@ export class DonationFormComponent implements OnInit {
     }
 
     const data: PetRequest = {
-      id: this.petData?.id || undefined,
+      id: undefined, //this.petData?.id || undefined,
       name: form?.value?.name,
       birthDate: form?.value?.birthDate?.split('T')[0],
       gender: form?.value?.gender,
