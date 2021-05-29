@@ -22,7 +22,7 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  authenticate(request: LoginRequest): void {
+  authenticate(request: LoginRequest, form: NgForm): void {
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Carregando...' })
@@ -34,8 +34,9 @@ export class LoginFormComponent implements OnInit {
           resData => {
             console.log(resData);
             this.isLoading = false;
+            form.reset();
             loadingEl.dismiss();
-            this.router.navigateByUrl('/root/home/feed');
+            this.router.navigate(['root']);
           },
           errRes => {
             loadingEl.dismiss();
@@ -56,14 +57,13 @@ export class LoginFormComponent implements OnInit {
     }
 
     const data: LoginRequest = {
-      login: form.value.email,
+      email: form.value.email,
       password: form.value.password,
     };
 
     console.log('data = ', data);
 
-    this.authenticate(data);
-    form.reset();
+    this.authenticate(data, form);
   }
 
   private showAlert(header: string, message: string) {

@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
+import { DonationFormComponent } from '../donation-form/donation-form.component';
+
 import { EditDonationPageRoutingModule } from './edit-donation-routing.module';
 import { EditDonationPage } from './edit-donation.page';
 
@@ -13,6 +15,6 @@ import { EditDonationPage } from './edit-donation.page';
     IonicModule,
     EditDonationPageRoutingModule,
   ],
-  declarations: [EditDonationPage],
+  declarations: [EditDonationPage, DonationFormComponent],
 })
 export class EditDonationPageModule {}

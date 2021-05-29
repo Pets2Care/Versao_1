@@ -5,8 +5,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './edit-donation.page.html',
   styleUrls: ['./edit-donation.page.scss'],
 })
-export class EditDonationPage implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class EditDonationPage {}

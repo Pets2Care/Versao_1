@@ -1,16 +1,135 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoadingController, AlertController } from '@ionic/angular';
+import { Pet } from 'src/app/shared/models/pet.model';
+import { PetRequest } from 'src/app/shared/models/petRequest.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { PetsDataService } from 'src/app/shared/services/pets.service';
+
+interface State {
+  sigla: string;
+  nome: string;
+  cidades: string[];
+}
 
 @Component({
-  selector: 'app-city-select',
-  templateUrl: './city-select.component.html',
-  styleUrls: ['./city-select.component.scss'],
+  selector: 'app-donation-form',
+  templateUrl: './donation-form.component.html',
+  styleUrls: ['./donation-form.component.scss'],
 })
-export class CitySelectComponent {
+export class DonationFormComponent implements OnInit {
+  @Input() isEdit = false;
+  @Input() petData: Pet = null;
+  isLoading = false;
+  uploadedImages = null;
   public selectedState = null;
+
+  public isVaccinated = false;
+  public isDewormed = false;
+  public isCastrated = false;
+  public isDeficit = false;
 
   selectState(value: string): void {
     this.selectedState = this.states.find(obj => obj.sigla == value);
     console.log('selectedState = ', this.selectedState);
+  }
+
+  constructor(
+    private authService: AuthService,
+    private petsDataService: PetsDataService,
+    private router: Router,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+  ) {}
+
+  ngOnInit(): void {
+    console.log('isEdit = ', this.isEdit);
+    console.log('petData = ', this.petData);
+  }
+
+  uploadFiles(event: any): void {
+    const files = (event.target as HTMLInputElement).files;
+    console.log('uploadFiles -> files = ', files);
+
+    this.uploadedImages = files;
+    console.log('uploadedImages = ', this.uploadedImages);
+  }
+
+  authenticate(request: PetRequest, form: NgForm): void {
+    this.isLoading = true;
+    this.loadingCtrl
+      .create({ keyboardClose: true, message: 'Carregando...' })
+      .then(loadingEl => {
+        loadingEl.present();
+
+        const authObs = this.isEdit
+          ? this.petsDataService.update(request)
+          : this.petsDataService.create(request);
+
+        authObs.subscribe(
+          resData => {
+            console.log(resData);
+            this.isLoading = false;
+            form.reset();
+            loadingEl.dismiss();
+            this.router.navigate(['root']);
+          },
+          errRes => {
+            loadingEl.dismiss();
+            console.log('errRes', errRes);
+            this.showAlert(
+              'Falha na Requisição',
+              errRes?.error?.message || 'erro não identificado',
+            );
+            this.isLoading = false;
+          },
+        );
+      });
+  }
+
+  onSubmit(form: NgForm): void {
+    if (!form.valid) {
+      return;
+    }
+
+    const data: PetRequest = {
+      id: this.petData?.id || undefined,
+      name: form?.value?.name,
+      birthDate: form?.value?.birthDate?.split('T')[0],
+      gender: form?.value?.gender,
+      type: form?.value?.type,
+      breed: form?.value?.breed,
+      description: form?.value?.description,
+      vaccinated: this.isVaccinated,
+      dewormed: this.isDewormed,
+      castrated: this.isCastrated,
+      deficit: this.isDeficit,
+      userId: this.authService.getUser()?.id,
+      cep: form?.value?.cep,
+      street: form?.value?.street,
+      number: form?.value?.number,
+      complement: form?.value?.complement,
+      neighborhood: form?.value?.neighborhood,
+      city: form?.value?.city,
+      state: form?.value?.state,
+      images: this.uploadedImages,
+    };
+
+    console.log('data = ', data);
+    this.authenticate(data, form);
+  }
+
+  private showAlert(header: string, message: string) {
+    this.alertCtrl
+      .create({
+        header: header,
+        message: message,
+        buttons: ['Entendi'],
+      })
+      .then(alertEl => {
+        alertEl.present();
+      });
   }
 
   states: State[] = [

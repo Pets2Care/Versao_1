@@ -48,17 +48,18 @@ export class PetsDataService {
 
   private formatFormData(data: PetRequest): FormData {
     const formData = new FormData();
+    formData.append('id', data?.id?.toString());
     formData.append('name', data?.name);
     formData.append('birthDate', data?.birthDate);
     formData.append('gender', data?.gender);
     formData.append('type', data?.type);
     formData.append('breed', data?.breed);
     formData.append('description', data?.description);
-    formData.append('vaccinated', data?.vaccinated.toString());
-    formData.append('dewormed', data?.dewormed.toString());
-    formData.append('castrated', data?.castrated.toString());
-    formData.append('deficit', data?.deficit.toString());
-    formData.append('userId', data?.userId.toString());
+    formData.append('vaccinated', data?.vaccinated?.toString());
+    formData.append('dewormed', data?.dewormed?.toString());
+    formData.append('castrated', data?.castrated?.toString());
+    formData.append('deficit', data?.deficit?.toString());
+    formData.append('userId', data?.userId?.toString());
     formData.append('cep', data?.cep);
     formData.append('street', data?.street);
     formData.append('number', data?.number);
@@ -67,8 +68,12 @@ export class PetsDataService {
     formData.append('city', data?.city);
     formData.append('state', data?.state);
 
-    for (const image of Array.from(data.images)) {
-      formData.append('images', image);
+    if (data?.images) {
+      console.log('imagens anexadas, passando no for');
+      for (const image of Array.from(data.images)) {
+        console.log('image = ', image);
+        formData.append('images', image);
+      }
     }
 
     return formData;
@@ -90,14 +95,12 @@ export class PetsDataService {
     console.log('petDataService -> update -> data = ', data);
     const formData = this.formatFormData(data);
 
-    return this.http
-      .put<any>(`${environment.API_URL}/pet/${data.id}`, formData)
-      .pipe(
-        tap(response => {
-          console.log('update response = ', response);
-          this.fetch().subscribe();
-        }),
-      );
+    return this.http.put<any>(`${environment.API_URL}/pets`, formData).pipe(
+      tap(response => {
+        console.log('update response = ', response);
+        this.fetch().subscribe();
+      }),
+    );
   }
 
   public delete(id: number): Observable<any> {

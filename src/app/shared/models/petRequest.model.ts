@@ -1,4 +1,5 @@
 export interface PetRequest {
+  id: number;
   name: string;
   birthDate: string;
   gender: string;

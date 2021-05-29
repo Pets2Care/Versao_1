@@ -20,7 +20,9 @@
         <div>
           <ion-item lines="inset">
             <ion-label position="floating">Senha</ion-label>
-            <ion-input ngModel #passwordCtrl="ngModel" type="password" name="password" required pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.\-_*])([a-zA-Z0-9@#$%^&+=*.\-_]){3,}$"></ion-input>
+            <!-- <ion-input ngModel #passwordCtrl="ngModel" type="password" name="password" required pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.\-_*])([a-zA-Z0-9@#$%^&+=*.\-_]){3,}$"></ion-input> -->
+            <ion-input ngModel #passwordCtrl="ngModel" type="password" name="password" required></ion-input>
+            
           </ion-item>
           <ion-item lines="none" class="input-label" *ngIf="!passwordCtrl.valid && passwordCtrl.touched">
             <ion-note>

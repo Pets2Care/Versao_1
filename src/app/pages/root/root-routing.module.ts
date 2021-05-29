@@ -73,11 +73,16 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
     ],
   },
   {
     path: '',
-    redirectTo: '/root/tabs/home',
+    redirectTo: 'tabs',
     pathMatch: 'full',
   },
 ];

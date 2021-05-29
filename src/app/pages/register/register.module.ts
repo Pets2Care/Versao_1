@@ -14,7 +14,7 @@ import { RegisterPage } from './register.page';
     FormsModule,
     IonicModule,
     RegisterPageRoutingModule,
-    SharedModule,
+    SharedModule, //TODO: remover isso?
   ],
   declarations: [RegisterPage, RegisterFormComponent],
 })

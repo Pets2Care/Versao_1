@@ -70,9 +70,9 @@
           <ion-item lines="inset">
             <ion-label position="floating">Identidade de Gênero</ion-label>
             <ion-select ngModel #genderCtrl="ngModel" name="gender" placeholder="Selecione um" required>
-              <ion-select-option [value]="Female">Feminina</ion-select-option>
-              <ion-select-option [value]="Male">Masculina</ion-select-option>
-              <ion-select-option [value]="Other">Prefiro não informar</ion-select-option>
+              <ion-select-option value="Female">Feminina</ion-select-option>
+              <ion-select-option value="Male">Masculina</ion-select-option>
+              <ion-select-option value="Other">Prefiro não informar</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item lines="none" class="input-label" *ngIf="!genderCtrl.valid && genderCtrl.touched">
@@ -106,7 +106,7 @@
           <ion-item lines="inset">
             <ion-label position="floating">Website Pessoal</ion-label>
             <ion-input ngModel #websiteUrlCtrl="ngModel" type="text" name="websiteUrl"
-              pattern="(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)">
+              pattern="(https?:\/\/)(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)">
             </ion-input>
           </ion-item>
           <ion-item lines="none" class="input-label" *ngIf="!telephoneCtrl.valid && telephoneCtrl.touched">
@@ -186,7 +186,7 @@
         <div>
           <ion-item lines="inset">
             <ion-label position="floating">Complemento</ion-label>
-            <ion-input ngModel #complementCtrl="ngModel" type="text" name="complement" required
+            <ion-input ngModel #complementCtrl="ngModel" type="text" name="complement"
               pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s]{1,50}$"></ion-input>
           </ion-item>
           <ion-item lines="none" class="input-label" *ngIf="!complementCtrl.valid && complementCtrl.touched">

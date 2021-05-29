@@ -12,8 +12,9 @@ export interface User {
   state: string;
   birthDate: string;
   telephone: string;
+  description: string;
+  website: string;
+  avatar: string;
   createdAt: number;
-  //description: string;
-  //avatarUrl: string;
-  //websiteUrl: string;
+  token: string;
 }

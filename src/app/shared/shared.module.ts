@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { CitySelectComponent } from './components/city-select/city-select.component';
 import { PetCardComponent } from './components/pet-card/pet-card.component';
 
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -19,7 +18,6 @@ import { PetCardComponent } from './components/pet-card/pet-card.component';
 @NgModule({
   declarations: [
     PetCardComponent,
-    CitySelectComponent,
     // HeaderComponent,
     // FooterComponent,
     // SpinningLoaderComponent,
@@ -31,7 +29,6 @@ import { PetCardComponent } from './components/pet-card/pet-card.component';
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
   exports: [
     PetCardComponent,
-    CitySelectComponent,
     // 	HeaderComponent,
     // 	FooterComponent,
     // 	SpinningLoaderComponent,

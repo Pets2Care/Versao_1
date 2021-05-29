@@ -2,6 +2,7 @@ import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 import { PetsDataService } from '../../../shared/services/pets.service';
 import { UserDataService } from '../../../shared/services/user.service';
@@ -14,8 +15,7 @@ import { UsersDataService } from '../../../shared/services/users.service';
 })
 export class ProfilePage implements OnInit {
   constructor(
-    private userDataService: UserDataService,
-    private usersDataService: UsersDataService,
+    private authService: AuthService,
     private petsDataService: PetsDataService,
     private alertController: AlertController,
     private router: Router,
@@ -40,8 +40,8 @@ export class ProfilePage implements OnInit {
           text: 'Sim',
           handler: () => {
             console.log('Confirma Operação');
-            this.userDataService.clear();
-            this.router.navigate(['/root']);
+            this.authService.logout();
+            this.router.navigate(['/login']);
           },
         },
       ],
@@ -66,9 +66,8 @@ export class ProfilePage implements OnInit {
         {
           text: 'Sim',
           handler: () => {
-            this.usersDataService.delete(this.userDataService.get());
-            this.petsDataService.deleteByUserId(this.userDataService.get().id);
-            this.router.navigate(['/root']);
+            this.authService.delete();
+            this.router.navigate(['/login']);
           },
         },
       ],

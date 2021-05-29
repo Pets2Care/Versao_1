@@ -8,36 +8,5 @@
 </ion-header>
 
 <ion-content>
-<form (ngSubmit)="postForm()">
-  <ion-col>
-    <ion-item>
-      <ion-label position="stacked">Nome:</ion-label>
-      <ion-input type="text" name="name"[(ngModel)]="newPet.name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Idade (meses):</ion-label>
-      <ion-input type="number" name="age"[(ngModel)]="newPet.age"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Cidade:</ion-label>
-      <ion-input type="text" name="place"[(ngModel)]="newPet.place"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Espécie:</ion-label>
-      <ion-select name="type" [(ngModel)]="newPet.type">
-        <ion-select-option value="cat">Gato</ion-select-option>
-        <ion-select-option value="dog">Cachorro</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Descrição:</ion-label>        
-      <ion-textarea name="description" [(ngModel)]="newPet.description" rows="5" placeholder="Descreva as principais características do animal"></ion-textarea> 
-   </ion-item>
-   <ion-item>
-    <ion-label position="stacked">Foto do Animal:</ion-label>
-    <ion-input type="file" name="images" (change)="uploadFiles($event)" multiple></ion-input>
-  </ion-item>
-  </ion-col>
-  <ion-button disabled={{isFormComplete()}} type="submit" >Confirmar</ion-button>
-</form>
+<app-donation-form></app-donation-form>
 </ion-content>

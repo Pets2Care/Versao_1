@@ -16,7 +16,7 @@ interface State {
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent {
   isLoading = false;
   uploadedAvatar = null;
   public selectedState = null;
@@ -33,16 +33,15 @@ export class RegisterFormComponent implements OnInit {
     private alertCtrl: AlertController,
   ) {}
 
-  ngOnInit(): void {}
-
   uploadFiles(event: any): void {
     const files = (event.target as HTMLInputElement).files;
     console.log('uploadFiles -> files = ', files);
 
-    this.uploadedAvatar = files[0];
+    this.uploadedAvatar = files;
+    console.log('uploadedAvatar = ', this.uploadedAvatar);
   }
 
-  authenticate(request: RegisterRequest): void {
+  authenticate(request: RegisterRequest, form: NgForm): void {
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Carregando...' })
@@ -54,8 +53,9 @@ export class RegisterFormComponent implements OnInit {
           resData => {
             console.log(resData);
             this.isLoading = false;
+            form.reset();
             loadingEl.dismiss();
-            this.router.navigateByUrl('/root/home/feed');
+            this.router.navigate(['root']);
           },
           errRes => {
             loadingEl.dismiss();
@@ -83,28 +83,27 @@ export class RegisterFormComponent implements OnInit {
     }
 
     const data: RegisterRequest = {
-      email: form.value.email,
-      password: form.value.password,
-      name: form.value.name,
-      gender: form.value.gender, //errado
-      cep: form.value.cep,
-      street: form.value.street,
-      number: form.value.number,
-      complement: form.value.complement,
-      neighborhood: form.value.neighborhood,
-      city: form.value.city,
-      state: form.value.state,
-      birthDate: form.value.birthDate,
-      telephone: form.value.telephone,
-      description: form.value.description,
+      email: form?.value?.email,
+      password: form?.value?.password,
+      name: form?.value?.name,
+      gender: form?.value?.gender, //errado
+      cep: form?.value?.cep,
+      street: form?.value?.street,
+      number: form?.value?.number,
+      complement: form?.value?.complement,
+      neighborhood: form?.value?.neighborhood,
+      city: form?.value?.city,
+      state: form?.value?.state,
+      birthDate: form?.value.birthDate?.split('T')[0],
+      telephone: form?.value?.telephone,
+      description: form?.value?.description,
       avatar: this.uploadedAvatar,
-      website: form.value.websiteUrl,
+      website: form?.value?.websiteUrl,
     };
 
     console.log('data = ', data);
 
-    this.authenticate(data);
-    form.reset();
+    this.authenticate(data, form);
   }
 
   private showAlert(header: string, message: string) {
