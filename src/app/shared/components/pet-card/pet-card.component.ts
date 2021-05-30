@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ModalController, NavController } from '@ionic/angular';
 
 import { Pet } from '../../models/pet.model';
 import { AuthService } from '../../services/auth.service';
 import { PetsDataService } from '../../services/pets.service';
+import { DonationFormComponent } from '../donation-form/donation-form.component';
+import { PetDetailsModalPage } from '../pet-details-modal/pet-details-modal.page';
 
 @Component({
   selector: 'app-pet-card',
@@ -12,11 +14,12 @@ import { PetsDataService } from '../../services/pets.service';
 })
 export class PetCardComponent implements OnInit {
   @Input() public item: Pet;
+  @Input() public isDonationPage = false;
 
   constructor(
     private authService: AuthService,
     private petsDataService: PetsDataService,
-    private router: Router,
+    private modalController: ModalController,
   ) {}
 
   ngOnInit() {}
@@ -26,14 +29,26 @@ export class PetCardComponent implements OnInit {
     return this.authService.getUser().id === this.item?.id;
   }
 
-  viewDonation(): void {
+  async viewDonation(): Promise<void> {
     console.log('viewDonation -> this.item.id = ', this.item?.id);
-    this.router.navigate(['/root/tabs/pet-details/', this.item?.id]);
+    const modal = await this.modalController.create({
+      component: PetDetailsModalPage,
+      componentProps: {
+        id: this.item?.id,
+      },
+    });
+    modal.present();
   }
 
-  editDonation(): void {
+  async editDonation(): Promise<void> {
     console.log('editDonation -> this.item.id = ', this.item?.id);
-    this.router.navigate(['/root/tabs/donate/edit-donation/', this.item?.id]);
+    const modal = await this.modalController.create({
+      component: DonationFormComponent,
+      componentProps: {
+        id: this.item?.id,
+      },
+    });
+    modal.present();
   }
 
   pauseDonation(): void {

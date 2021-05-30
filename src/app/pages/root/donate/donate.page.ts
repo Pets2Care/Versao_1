@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { ModalController } from '@ionic/angular';
+import { PetDetailsModalPage } from 'src/app/shared/components/pet-details-modal/pet-details-modal.page';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 import { Pet } from '../../../shared/models/pet.model';
 import { User } from '../../../shared/models/user.model';
 import { PetsDataService } from '../../../shared/services/pets.service';
-import { UserDataService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-donate',
@@ -21,9 +19,9 @@ export class DonatePage implements OnInit, OnDestroy {
   public petsData: Pet[];
 
   constructor(
-    private router: Router,
     private petsDataService: PetsDataService,
     private authService: AuthService,
+    private modalController: ModalController,
   ) {}
 
   ngOnInit(): void {}
@@ -33,7 +31,6 @@ export class DonatePage implements OnInit, OnDestroy {
     // this.subject.complete();
   }
 
-  //Preciso desse? Ele acaba dando um novo fetch toda vez que entra nessa tela
   ionViewWillEnter(): void {
     console.log('donate.page -> ionViewWillEnter');
     this.isLoading = true;
@@ -46,7 +43,10 @@ export class DonatePage implements OnInit, OnDestroy {
       });
   }
 
-  createNewDonation(): void {
-    this.router.navigate(['/root/tabs/donate/new-donation/']);
+  async createNewDonation(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: PetDetailsModalPage,
+    });
+    modal.present();
   }
 }

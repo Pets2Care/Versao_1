@@ -20,18 +20,6 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'pet-details',
-        children: [
-          {
-            path: ':id',
-            loadChildren: () =>
-              import('./pet-details/pet-details.module').then(
-                m => m.PetDetailsPageModule,
-              ),
-          },
-        ],
-      },
-      {
         path: 'search',
         children: [
           {

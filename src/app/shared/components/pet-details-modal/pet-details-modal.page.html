@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-button (click)="closeModal()">
+              <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+    <ion-title class="ion-text-center"> {{selectedPet.name}} - {{selectedPet.city}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p>coco: {{selectedPet | json}}</p>
+</ion-content>

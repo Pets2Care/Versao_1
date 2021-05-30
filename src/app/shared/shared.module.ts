@@ -6,7 +6,9 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { DonationFormComponent } from './components/donation-form/donation-form.component';
 import { PetCardComponent } from './components/pet-card/pet-card.component';
+import { PetDetailsModalPage } from './components/pet-details-modal/pet-details-modal.page';
 
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { FooterComponent } from './components/footer/footer.component';
@@ -20,6 +22,8 @@ import { PetCardComponent } from './components/pet-card/pet-card.component';
 @NgModule({
   declarations: [
     PetCardComponent,
+    PetDetailsModalPage,
+    DonationFormComponent,
     // HeaderComponent,
     // FooterComponent,
     // SpinningLoaderComponent,
@@ -38,6 +42,8 @@ import { PetCardComponent } from './components/pet-card/pet-card.component';
   ],
   exports: [
     PetCardComponent,
+    PetDetailsModalPage,
+    DonationFormComponent,
     // 	HeaderComponent,
     // 	FooterComponent,
     // 	SpinningLoaderComponent,

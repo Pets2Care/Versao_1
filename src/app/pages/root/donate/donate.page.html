@@ -5,6 +5,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-button expand="full" (click)="createNewDonation()">Criar nova doação</ion-button>
-  <app-pet-card [item]="i" *ngFor="let i of (petsData)"> </app-pet-card>  
+  <app-pet-card [item]="i" isDonationPage="true" *ngFor="let i of (petsData)"> </app-pet-card>  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="createNewDonation()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

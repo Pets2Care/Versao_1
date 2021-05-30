@@ -1,7 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController, AlertController } from '@ionic/angular';
+import {
+  LoadingController,
+  AlertController,
+  NavParams,
+  ModalController,
+} from '@ionic/angular';
 import { Pet } from 'src/app/shared/models/pet.model';
 import { PetRequest } from 'src/app/shared/models/petRequest.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -19,12 +24,14 @@ interface State {
   styleUrls: ['./donation-form.component.scss'],
 })
 export class DonationFormComponent implements OnInit {
-  @Input() isEdit = false;
-  @Input() petData: Pet = null;
+  public petId = null;
+  petData: Pet = null;
   isLoading = false;
   uploadedImages = null;
-  public selectedState = null;
 
+  @ViewChild('donationForm') donationForm: NgForm | undefined;
+
+  public selectedState = null;
   public isVaccinated = false;
   public isDewormed = false;
   public isCastrated = false;
@@ -41,11 +48,44 @@ export class DonationFormComponent implements OnInit {
     private router: Router,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
+    private navParams: NavParams,
+    private modalController: ModalController,
   ) {}
 
   ngOnInit(): void {
-    console.log('isEdit = ', this.isEdit);
-    console.log('petData = ', this.petData);
+    this.petId = this.navParams.get('id');
+
+    if (this.petId) {
+      console.log('petId = ', this.petId);
+      this.petsDataService.fetchById(this.petId).subscribe(result => {
+        this.petData = result;
+        console.log('this.petData = ', this.petData);
+        this.loadPetDataToForm(this.petData);
+      });
+    }
+  }
+
+  loadPetDataToForm(data: Pet): void {
+    this.donationForm.setValue({
+      name: data.name,
+      birthDate: data.birthDate,
+      gender: data.gender,
+      type: data.type,
+      breed: data.breed,
+      description: data.description,
+      vaccinated: data.vaccinated,
+      dewormed: data.dewormed,
+      castrated: data.castrated,
+      deficit: data.deficit,
+      cep: data.cep,
+      street: data.street,
+      number: data.number,
+      complement: data.complement,
+      neighborhood: data.neighborhood,
+      city: data.city,
+      state: data.state,
+      images: data.images,
+    });
   }
 
   uploadFiles(event: any): void {
@@ -56,14 +96,14 @@ export class DonationFormComponent implements OnInit {
     console.log('uploadedImages = ', this.uploadedImages);
   }
 
-  authenticate(request: PetRequest, form: NgForm): void {
+  authenticate(request: PetRequest): void {
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Carregando...' })
       .then(loadingEl => {
         loadingEl.present();
 
-        const authObs = this.isEdit
+        const authObs = this.petId
           ? this.petsDataService.update(request)
           : this.petsDataService.create(request);
 
@@ -71,7 +111,7 @@ export class DonationFormComponent implements OnInit {
           resData => {
             console.log(resData);
             this.isLoading = false;
-            form.reset();
+            this.donationForm.reset();
             loadingEl.dismiss();
             this.router.navigate(['root']);
           },
@@ -88,36 +128,36 @@ export class DonationFormComponent implements OnInit {
       });
   }
 
-  onSubmit(form: NgForm): void {
-    if (!form.valid) {
+  onSubmit(): void {
+    if (!this.donationForm.valid) {
       return;
     }
 
     const data: PetRequest = {
-      id: undefined, //this.petData?.id || undefined,
-      name: form?.value?.name,
-      birthDate: form?.value?.birthDate?.split('T')[0],
-      gender: form?.value?.gender,
-      type: form?.value?.type,
-      breed: form?.value?.breed,
-      description: form?.value?.description,
+      id: this.petData?.id || undefined,
+      name: this.donationForm?.value?.name,
+      birthDate: this.donationForm?.value?.birthDate?.split('T')[0],
+      gender: this.donationForm?.value?.gender,
+      type: this.donationForm?.value?.type,
+      breed: this.donationForm?.value?.breed,
+      description: this.donationForm?.value?.description,
       vaccinated: this.isVaccinated,
       dewormed: this.isDewormed,
       castrated: this.isCastrated,
       deficit: this.isDeficit,
       userId: this.authService.getUser()?.id,
-      cep: form?.value?.cep,
-      street: form?.value?.street,
-      number: form?.value?.number,
-      complement: form?.value?.complement,
-      neighborhood: form?.value?.neighborhood,
-      city: form?.value?.city,
-      state: form?.value?.state,
+      cep: this.donationForm?.value?.cep,
+      street: this.donationForm?.value?.street,
+      number: this.donationForm?.value?.number,
+      complement: this.donationForm?.value?.complement,
+      neighborhood: this.donationForm?.value?.neighborhood,
+      city: this.donationForm?.value?.city,
+      state: this.donationForm?.value?.state,
       images: this.uploadedImages,
     };
 
     console.log('data = ', data);
-    this.authenticate(data, form);
+    this.authenticate(data);
   }
 
   private showAlert(header: string, message: string) {
@@ -130,6 +170,10 @@ export class DonationFormComponent implements OnInit {
       .then(alertEl => {
         alertEl.present();
       });
+  }
+
+  closeModal(): void {
+    this.modalController.dismiss();
   }
 
   states: State[] = [

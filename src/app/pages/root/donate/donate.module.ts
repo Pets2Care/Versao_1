@@ -6,7 +6,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 import { DonatePageRoutingModule } from './donate-routing.module';
 import { DonatePage } from './donate.page';
-import { DonationItemComponent } from './donation-item/donation-item.component';
 
 @NgModule({
   imports: [
@@ -16,6 +15,6 @@ import { DonationItemComponent } from './donation-item/donation-item.component';
     DonatePageRoutingModule,
     SharedModule,
   ],
-  declarations: [DonatePage, DonationItemComponent],
+  declarations: [DonatePage],
 })
 export class DonatePageModule {}
