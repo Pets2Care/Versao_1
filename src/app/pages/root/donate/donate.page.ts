@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { DonationFormComponent } from 'src/app/shared/components/donation-form/donation-form.component';
 import { PetDetailsModalPage } from 'src/app/shared/components/pet-details-modal/pet-details-modal.page';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -34,18 +35,16 @@ export class DonatePage implements OnInit, OnDestroy {
   ionViewWillEnter(): void {
     console.log('donate.page -> ionViewWillEnter');
     this.isLoading = true;
-    this.petsDataService
-      .fetchByUserId(this.authService.getUser().id)
-      .subscribe(response => {
-        console.log('fetch pet response', response);
-        this.isLoading = false;
-        this.petsData = response;
-      });
+    this.petsDataService.fetchByUserId().subscribe(response => {
+      console.log('fetch pet response', response);
+      this.isLoading = false;
+      this.petsData = response;
+    });
   }
 
   async createNewDonation(): Promise<void> {
     const modal = await this.modalController.create({
-      component: PetDetailsModalPage,
+      component: DonationFormComponent,
     });
     modal.present();
   }

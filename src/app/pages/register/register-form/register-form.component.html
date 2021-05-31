@@ -85,7 +85,7 @@
         <div>
           <ion-item lines="inset">
             <ion-label position="floating">Data de Nascimento</ion-label>
-            <ion-datetime ngModel #birthDateCtrl="ngModel" name="birthDate" displayFormat="D MMM, YYYY" min="1990" max="2021" value="2020-01-01" required></ion-datetime>
+            <ion-datetime ngModel #birthDateCtrl="ngModel" name="birthDate" displayFormat="D MMM, YYYY" min="1900" max="2021" value="2001-01-01" required></ion-datetime>
           </ion-item>
           <ion-item lines="none" class="input-label" *ngIf="!birthDateCtrl.valid && birthDateCtrl.touched">
             <ion-note>
@@ -104,7 +104,7 @@
         <!-- WEBSITE URL -->
         <div>
           <ion-item lines="inset">
-            <ion-label position="floating">Website Pessoal</ion-label>
+            <ion-label position="floating">Website Pessoal (opcional)</ion-label>
             <ion-input ngModel #websiteUrlCtrl="ngModel" type="text" name="websiteUrl"
               pattern="(https?:\/\/)(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)">
             </ion-input>

@@ -12,9 +12,6 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  // user: User;
-  // token: string | undefined;
-
   constructor(private httpClient: HttpClient) {}
 
   register(registerRequest: RegisterRequest): Observable<User> {
@@ -40,7 +37,6 @@ export class AuthService {
           console.log('login response', response);
           const responseData = response; //this.parseJwt(response?.token);
           //console.log('parsed response', responseData);
-
           this.setResponseData(responseData);
         }),
       );
@@ -104,7 +100,10 @@ export class AuthService {
     formData.append('telephone', data?.telephone);
     formData.append('description', data?.description);
     formData.append('website', data?.website);
-    formData.append('avatar', Array.from(data?.avatar)[0]);
+    formData.append(
+      'avatar',
+      data?.avatar ? Array.from(data?.avatar)[0] : undefined,
+    );
 
     return formData;
   }
@@ -113,8 +112,6 @@ export class AuthService {
     console.log('logout');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    // delete this.user;
-    // delete this.token;
   }
 
   isLogged(): boolean {
@@ -122,37 +119,20 @@ export class AuthService {
   }
 
   setUser(user: User): void {
-    //this.user = user;
     localStorage.setItem('user', JSON.stringify(user));
   }
 
   setToken(token: string): void {
-    //this.token = token;
     localStorage.setItem('token', token);
   }
 
   getUser(): User {
-    // if (this.user) {
-    //   return this.user;
-    // }
-
     const localUser = JSON.parse(localStorage.getItem('user')) as User;
-    // if (localUser) {
-    //   this.user = localUser
-    // }
     return localUser;
   }
 
   getToken(): string | undefined {
-    // if (this.token) {
-    //   return this.token;
-    // }
-
     const localToken = localStorage.getItem('token');
-    // if (localToken) {
-    //   this.token = localToken;
-    // }
-
     return localToken;
   }
 

@@ -5,7 +5,6 @@ import { AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 import { PetsDataService } from '../../../shared/services/pets.service';
-import { UserDataService } from '../../../shared/services/user.service';
 import { UsersDataService } from '../../../shared/services/users.service';
 
 @Component({
@@ -13,17 +12,21 @@ import { UsersDataService } from '../../../shared/services/users.service';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage {
   constructor(
     private authService: AuthService,
-    private petsDataService: PetsDataService,
     private alertController: AlertController,
     private router: Router,
   ) {}
 
-  ngOnInit() {}
+  async presentModalUserEdit(): Promise<void> {
+    console.log('presentModalUserEdit');
+    //this.authService.getUser().id;
+    //TODO
+  }
 
-  async presentAlertLogout() {
+  async presentAlertLogout(): Promise<void> {
+    console.log('presentAlertLogout');
     const alert = await this.alertController.create({
       header: 'Atenção!',
       message: 'Deseja realmente sair?',
@@ -49,7 +52,8 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
-  async presentAlertDelete() {
+  async presentAlertDelete(): Promise<void> {
+    console.log('presentAlertDelete');
     const alert = await this.alertController.create({
       header: 'Atenção!',
       message:
@@ -73,13 +77,5 @@ export class ProfilePage implements OnInit {
       ],
     });
     await alert.present();
-  }
-
-  userLogout(): void {
-    this.presentAlertLogout();
-  }
-
-  userDelete(): void {
-    this.presentAlertDelete();
   }
 }

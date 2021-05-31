@@ -1,64 +1,48 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import { User } from '../../shared/models/user.model';
-import users from '../../users.js';
+import { environment } from '../../../environments/environment';
+import { User } from '../models/user.model';
+
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersDataService {
-  private data: User[] = [];
+  private dataStream = new BehaviorSubject<User[]>([]);
 
-  constructor(private storage: Storage) {
-    this.loadData();
+  public get(): Observable<User[]> {
+    return this.dataStream.asObservable();
   }
 
-  private async loadData() {
-    const storageData = (await this.storage.get('users')) as User[];
-    if (storageData) {
-      this.data.push(...storageData);
-    } else {
-      this.data.push(...users);
-    }
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  public fetchAll(): Observable<any> {
+    return this.http.get<any>(`${environment.API_URL}/users`).pipe(
+      tap(response => {
+        this.dataStream.next(response);
+      }),
+    );
   }
 
-  private storeData() {
-    this.storage.set('users', this.data);
+  public fetchById(id: number | string): Observable<User> {
+    return this.http.get<any>(`${environment.API_URL}/user/${id}`).pipe(
+      tap(response => {
+        this.dataStream.next(response);
+      }),
+    );
   }
 
-  public getAll(): Readonly<Readonly<User>[]> {
-    return this.data;
-  }
-
-  public getById(id: number): User {
-    return { ...this.data.find(i => i.id === id) };
-  }
-
-  public update(entry: User): number {
-    console.log('UsersDataService -> update, entry = ', entry);
-    const id = this.data.findIndex(i => i.id === entry.id);
-    if (id >= 0) {
-      this.data[id] = entry;
-      this.storeData();
-      console.log('UsersDataService -> update, was updated');
-    }
-    return id;
-  }
-
-  public create(entry: User): number {
-    const currentId = Math.max(...this.data.map(i => i.id)) + 1;
-    this.data.push({ ...entry, id: currentId });
-    this.storeData();
-    return currentId;
-  }
-
-  public delete(entry: User): number {
-    const id = this.data.findIndex(i => i.id === entry.id);
-    if (id >= 0) {
-      this.data.splice(id, 1);
-      this.storeData();
-    }
-    return id;
+  public fetchSelf(): Observable<User> {
+    return this.http
+      .get<any>(`${environment.API_URL}/user/${this.authService.getUser().id}`)
+      .pipe(
+        tap(response => {
+          this.dataStream.next(response);
+        }),
+      );
   }
 }

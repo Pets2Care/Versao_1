@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 import { Pet } from '../../models/pet.model';
 import { AuthService } from '../../services/auth.service';
+import { HelperService } from '../../services/helper.service';
 import { PetsDataService } from '../../services/pets.service';
 import { DonationFormComponent } from '../donation-form/donation-form.component';
 import { PetDetailsModalPage } from '../pet-details-modal/pet-details-modal.page';
@@ -16,11 +17,16 @@ export class PetCardComponent implements OnInit {
   @Input() public item: Pet;
   @Input() public isDonationPage = false;
 
+  public helperService: HelperService;
+
   constructor(
     private authService: AuthService,
     private petsDataService: PetsDataService,
     private modalController: ModalController,
-  ) {}
+    helperService: HelperService,
+  ) {
+    this.helperService = helperService;
+  }
 
   ngOnInit() {}
 
@@ -59,25 +65,5 @@ export class PetCardComponent implements OnInit {
   deleteDonation(): void {
     console.log('deleteDonation -> this.item.id = ', this.item?.id);
     this.petsDataService.delete(this.item.id);
-  }
-
-  getFormattedDate(): string {
-    return new Date(this.item?.createdAt).toLocaleDateString('pt-BR');
-  }
-
-  calculateAge(): string {
-    const today = new Date();
-    const birthDate = new Date(this.item?.birthDate);
-    //console.log('birthDate = ', birthDate);
-    const years = birthDate.getFullYear() - today.getFullYear();
-    const months = years * 12 - birthDate.getMonth() + today.getMonth();
-    //console.log('years = ', years);
-    //console.log('months = ', months);
-
-    const age =
-      (years > 0 ? `${years} Ano(s)` : '') +
-      (months > 0 ? `${months} Mes(es)` : 'Idade não disponível');
-
-    return age; // {{item.birthDate}} {{item.age > 1 ? 'Meses' : 'Mês'}}
   }
 }

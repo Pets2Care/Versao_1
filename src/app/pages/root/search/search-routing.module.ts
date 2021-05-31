@@ -8,13 +8,6 @@ const routes: Routes = [
     path: '',
     component: SearchPage,
   },
-  {
-    path: 'detail-donation',
-    loadChildren: () =>
-      import('./detail-donation/detail-donation.module').then(
-        m => m.DetailDonationPageModule,
-      ),
-  },
 ];
 
 @NgModule({

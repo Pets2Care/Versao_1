@@ -1,14 +1,33 @@
 <ion-header>
   <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-          <ion-button (click)="closeModal()">
-              <ion-icon name="arrow-back"></ion-icon>
-          </ion-button>
-      </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title class="ion-text-center"> {{selectedPet.name}} - {{selectedPet.city}} </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <p>coco: {{selectedPet | json}}</p>
+  <ion-item>
+    <ion-img class="cardImg" [src]="selectedPet?.images[0]?.url" alt={{selectedPet.name}}></ion-img>
+  </ion-item>
+  <ion-item>
+    <ion-title><strong>{{selectedPet?.name}}</strong></ion-title>
+  </ion-item>
+  <ion-item>
+    <ion-text><small>Anúncio criado em: {{helperService.getFormattedDate(selectedPet.createdAt)}}</small></ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text>Idade: {{helperService.getAge(selectedPet?.birthDate)}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text>Localização: {{selectedPet?.city}} - {{selectedPet?.state}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-item>Bairro: {{selectedPet?.neighborhood}}</ion-item>
+  </ion-item>
+  <ion-item>
+    <ion-text class="ion-text-wrap">{{selectedPet.description}}</ion-text>
+  </ion-item>
 </ion-content>

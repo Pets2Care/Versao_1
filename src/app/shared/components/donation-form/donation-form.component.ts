@@ -67,6 +67,7 @@ export class DonationFormComponent implements OnInit {
 
   loadPetDataToForm(data: Pet): void {
     this.donationForm.setValue({
+      id: data.id,
       name: data.name,
       birthDate: data.birthDate,
       gender: data.gender,

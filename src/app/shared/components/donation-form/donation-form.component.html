@@ -5,7 +5,7 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">{{this.petId ? 'Cadastrar Anúncio de Adoção' : 'Editar Anúncio de Adoção'}}</ion-title>
+    <ion-title class="ion-text-center">{{this.petId ? 'Editar Anúncio de Adoção': 'Cadastrar Anúncio de Adoção'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -34,8 +34,8 @@
           <div>
             <ion-item lines="inset">
               <ion-label position="floating">Data de Nascimento (aproximada)</ion-label>
-              <ion-datetime ngModel #birthDateCtrl="ngModel" name="birthDate" displayFormat="D MMM, YYYY" min="1990"
-                max="2021" value="2020-01-01"></ion-datetime>
+              <ion-datetime ngModel #birthDateCtrl="ngModel" name="birthDate" displayFormat="D MMM, YYYY" min="1900"
+                max="2021" value="2010-01-01"></ion-datetime>
             </ion-item>
             <ion-item lines="none" class="input-label" *ngIf="!birthDateCtrl.valid && birthDateCtrl.touched">
               <ion-note>
@@ -60,7 +60,7 @@
           </div>
           <!-- TYPE -->
           <div>
-            <ion-item>
+            <ion-item lines="inset">
               <ion-label position="floating">Tipo</ion-label>
               <ion-select ngModel #typeCtrl="ngModel" name="type" placeholder="Selecione um">
                 <ion-select-option value="dog">Cachorro</ion-select-option>

@@ -39,7 +39,7 @@ export class SearchPage implements OnInit, OnDestroy {
   //Preciso desse? Ele acaba dando um novo fetch toda vez que entra nessa tela
   ionViewWillEnter(): void {
     this.isLoading = true;
-    this.petsDataService.fetch().subscribe(() => {
+    this.petsDataService.fetchAll().subscribe(() => {
       this.isLoading = false;
     });
   }
