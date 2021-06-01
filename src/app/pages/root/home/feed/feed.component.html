@@ -1,9 +1,51 @@
-<div *ngIf="isLoading" class="ion-text-center">
+<!-- ion-refreser drag -->
+<div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+</div>
+<!-- loading spinner -->
+<div *ngIf="isLoadingPetsData || isLoadingUsersData" class="ion-text-center ion-justify-content-center">
   <ion-spinner color="primary"></ion-spinner>
 </div>
-<div *ngIf="!isLoading && petsData.length <= 0">
-  <p>Nenhum Anúncio Encontrado!</p>
+<!-- Carousel de Avisos, Patrocinadores, Merchans, etc -->
+<div>
+  <ion-item>
+    <ion-slides pager="true">
+      <ion-slide>
+        <h1>Slide 1</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>Slide 2</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>Slide 3</h1>
+      </ion-slide>
+    </ion-slides>
+  </ion-item>
 </div>
-<div *ngIf="!isLoading && petsData.length > 0">
-  <app-pet-card [item]="i" *ngFor="let i of petsData"> </app-pet-card>
-</div>   
+<!-- Carousel de Usuários em destaque -->
+<div>
+  <div *ngIf="!isLoadingUsersData && usersData?.length === 0">
+    <p class="ion-text-center">Nenhum Usuário Encontrado!</p>
+  </div>
+  <div *ngIf="!isLoadingUsersData && usersData?.length > 0">
+    <ion-slides pager="true">
+      <ion-slide>
+        <app-user-avatar [item]="i" *ngFor="let i of usersData"></app-user-avatar>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</div>
+<!-- Lista de Pets -->
+<div>
+  <ion-item>
+    <div *ngIf="!isLoadingPetsData && petsData?.length <= 0">
+      <p class="ion-text-center">Nenhum Anúncio Encontrado!</p>
+    </div>
+    <div *ngIf="!isLoadingPetsData && petsData?.length > 0">
+      <app-pet-card [item]="i" *ngFor="let i of petsData"> </app-pet-card>
+    </div>
+  </ion-item>
+</div>

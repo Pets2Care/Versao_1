@@ -6,9 +6,11 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { DonationFormComponent } from './components/donation-form/donation-form.component';
 import { PetCardComponent } from './components/pet-card/pet-card.component';
 import { PetDetailsModalPage } from './components/pet-details-modal/pet-details-modal.page';
+import { PetDonationFormComponent } from './components/pet-donation-form/pet-donation-form.component';
+import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
+import { UserRegisterFormComponent } from './components/user-register-form/user-register-form.component';
 
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { FooterComponent } from './components/footer/footer.component';
@@ -23,14 +25,9 @@ import { PetDetailsModalPage } from './components/pet-details-modal/pet-details-
   declarations: [
     PetCardComponent,
     PetDetailsModalPage,
-    DonationFormComponent,
-    // HeaderComponent,
-    // FooterComponent,
-    // SpinningLoaderComponent,
-    // MainLogoComponent,
-    // LoginFormComponent,
-    // SidebarComponent,
-    //SelectAccountPlanComponent
+    PetDonationFormComponent,
+    UserRegisterFormComponent,
+    UserAvatarComponent,
   ],
   imports: [
     CommonModule,
@@ -43,14 +40,9 @@ import { PetDetailsModalPage } from './components/pet-details-modal/pet-details-
   exports: [
     PetCardComponent,
     PetDetailsModalPage,
-    DonationFormComponent,
-    // 	HeaderComponent,
-    // 	FooterComponent,
-    // 	SpinningLoaderComponent,
-    // 	MainLogoComponent,
-    // 	LoginFormComponent,
-    // 	SidebarComponent,
-    // 	SelectAccountPlanComponent
+    PetDonationFormComponent,
+    UserRegisterFormComponent,
+    UserAvatarComponent,
   ],
 })
 export class SharedModule {}

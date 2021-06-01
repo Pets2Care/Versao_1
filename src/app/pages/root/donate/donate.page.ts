@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DonationFormComponent } from 'src/app/shared/components/donation-form/donation-form.component';
 import { PetDetailsModalPage } from 'src/app/shared/components/pet-details-modal/pet-details-modal.page';
+import { PetDonationFormComponent } from 'src/app/shared/components/pet-donation-form/pet-donation-form.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 import { Pet } from '../../../shared/models/pet.model';
@@ -21,7 +21,6 @@ export class DonatePage implements OnInit, OnDestroy {
 
   constructor(
     private petsDataService: PetsDataService,
-    private authService: AuthService,
     private modalController: ModalController,
   ) {}
 
@@ -44,7 +43,7 @@ export class DonatePage implements OnInit, OnDestroy {
 
   async createNewDonation(): Promise<void> {
     const modal = await this.modalController.create({
-      component: DonationFormComponent,
+      component: PetDonationFormComponent,
     });
     modal.present();
   }

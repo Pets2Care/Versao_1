@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { RegisterFormComponent } from './register-form/register-form.component';
 import { RegisterPageRoutingModule } from './register-routing.module';
 import { RegisterPage } from './register.page';
 
@@ -14,8 +13,8 @@ import { RegisterPage } from './register.page';
     FormsModule,
     IonicModule,
     RegisterPageRoutingModule,
-    SharedModule, //TODO: remover isso?
+    SharedModule,
   ],
-  declarations: [RegisterPage, RegisterFormComponent],
+  declarations: [RegisterPage],
 })
 export class RegisterPageModule {}

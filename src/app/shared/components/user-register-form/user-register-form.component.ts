@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
@@ -12,11 +12,11 @@ interface State {
 }
 
 @Component({
-  selector: 'app-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss'],
+  selector: 'app-user-register-form',
+  templateUrl: './user-register-form.component.html',
+  styleUrls: ['./user-register-form.component.scss'],
 })
-export class RegisterFormComponent {
+export class UserRegisterFormComponent {
   isLoading = false;
   uploadedAvatar = null;
   public selectedState = null;

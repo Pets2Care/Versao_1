@@ -31,20 +31,19 @@ export class PetDetailsModalPage implements OnInit {
     const passedId = this.navParams.get('id');
 
     if (passedId) {
-      console.log('selected Id = ', passedId);
+      //console.log('selected Id = ', passedId);
       this.petsDataService.fetchById(passedId).subscribe(result => {
+        //console.log('result = ', result);
         this.selectedPet = result;
+        //console.log('selectedPet = ', this.selectedPet);
+
+        this.usersDataService
+          .fetchById(1) //this.selectedPet.userId)
+          .subscribe(result => {
+            this.selectedUser = result;
+            //console.log('selectedUser = ', this.selectedUser);
+          });
       });
-
-      console.log('selectedPet = ', this.selectedPet);
-
-      this.usersDataService
-        .fetchById(this.selectedPet.userId)
-        .subscribe(result => {
-          this.selectedUser = result;
-        });
-
-      console.log('selectedUser = ', this.selectedUser);
     }
   }
 

@@ -19,11 +19,11 @@ interface State {
 }
 
 @Component({
-  selector: 'app-donation-form',
-  templateUrl: './donation-form.component.html',
-  styleUrls: ['./donation-form.component.scss'],
+  selector: 'pet-donation-form',
+  templateUrl: './pet-donation-form.component.html',
+  styleUrls: ['./pet-donation-form.component.scss'],
 })
-export class DonationFormComponent implements OnInit {
+export class PetDonationFormComponent implements OnInit {
   public petId = null;
   petData: Pet = null;
   isLoading = false;

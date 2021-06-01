@@ -12,6 +12,7 @@ import { UsersDataService } from 'src/app/shared/services/users.service';
   styleUrls: ['./custom-feed.component.scss'],
 })
 export class CustomFeedComponent implements OnInit {
+  @Input() isActive = false;
   private subject = new Subject();
   public isLoading = false;
   public userData: Readonly<User>;
@@ -19,23 +20,16 @@ export class CustomFeedComponent implements OnInit {
   constructor(private usersDataService: UsersDataService) {}
 
   ngOnInit(): void {
-    this.usersDataService
-      .get()
-      .pipe(takeUntil(this.subject))
-      .subscribe(data => {
-        this.userData = data[0];
+    console.log('custom feed tab');
+    if (this.isActive) {
+      console.log('feed -> ionViewWillEnter');
+      this.isLoading = true;
+
+      this.usersDataService.fetchSelf().subscribe(response => {
+        this.userData = response;
+        this.isLoading = false;
+        console.log(`feed -> onInit -> usersData = ${this.userData} `);
       });
-  }
-
-  ngOnDestroy(): void {
-    this.subject.next();
-    this.subject.complete();
-  }
-
-  //Preciso desse? Ele acaba dando um novo fetch toda vez que entra nessa tela
-  ionViewWillEnter(): void {
-    this.usersDataService.fetchSelf().subscribe(() => {
-      this.isLoading = false;
-    });
+    }
   }
 }

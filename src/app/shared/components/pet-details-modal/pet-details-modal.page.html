@@ -5,18 +5,13 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center"> {{selectedPet.name}} - {{selectedPet.city}} </ion-title>
+    <ion-title class="ion-text-center">{{selectedPet?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-item>
-    <ion-img class="cardImg" [src]="selectedPet?.images[0]?.url" alt={{selectedPet.name}}></ion-img>
-  </ion-item>
-  <ion-item>
-    <ion-title><strong>{{selectedPet?.name}}</strong></ion-title>
-  </ion-item>
-  <ion-item>
-    <ion-text><small>Anúncio criado em: {{helperService.getFormattedDate(selectedPet.createdAt)}}</small></ion-text>
+  <ion-img class="cardImg" [src]="selectedPet?.images[0]?.url" alt={{selectedPet?.name}}></ion-img>
+  <ion-item lines="none">
+    <ion-text><small>Anúncio criado em: {{helperService.getFormattedDate(selectedPet?.createdAt)}}</small></ion-text>
   </ion-item>
   <ion-item>
     <ion-text>Idade: {{helperService.getAge(selectedPet?.birthDate)}}</ion-text>
@@ -28,6 +23,18 @@
     <ion-item>Bairro: {{selectedPet?.neighborhood}}</ion-item>
   </ion-item>
   <ion-item>
-    <ion-text class="ion-text-wrap">{{selectedPet.description}}</ion-text>
+    <ion-text class="ion-text-wrap">{{selectedPet?.description}}</ion-text>
+  </ion-item>
+  <ion-item style="padding: 0px;">
+    <ion-col>
+      <ion-row>
+        <h2>{{selectedPet?.images?.length}} Foto(s)</h2>
+      </ion-row>
+      <ion-row>
+        <ion-img *ngFor="let image of selectedPet?.images; index as i" class="cardImg" [src]="selectedPet?.images[i]?.url"
+        alt={{selectedPet?.name}}></ion-img>
+      </ion-row>
+    </ion-col>
+
   </ion-item>
 </ion-content>

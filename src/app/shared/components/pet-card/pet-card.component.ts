@@ -5,8 +5,8 @@ import { Pet } from '../../models/pet.model';
 import { AuthService } from '../../services/auth.service';
 import { HelperService } from '../../services/helper.service';
 import { PetsDataService } from '../../services/pets.service';
-import { DonationFormComponent } from '../donation-form/donation-form.component';
 import { PetDetailsModalPage } from '../pet-details-modal/pet-details-modal.page';
+import { PetDonationFormComponent } from '../pet-donation-form/pet-donation-form.component';
 
 @Component({
   selector: 'app-pet-card',
@@ -49,7 +49,7 @@ export class PetCardComponent implements OnInit {
   async editDonation(): Promise<void> {
     console.log('editDonation -> this.item.id = ', this.item?.id);
     const modal = await this.modalController.create({
-      component: DonationFormComponent,
+      component: PetDonationFormComponent,
       componentProps: {
         id: this.item?.id,
       },

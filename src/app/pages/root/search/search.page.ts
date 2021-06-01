@@ -50,7 +50,7 @@ export class SearchPage implements OnInit, OnDestroy {
     if (type === 'all') {
       this.filteredPetsData = this.petsData;
     } else {
-      this.filteredPetsData = this.petsData.filter(i => i.type === type);
+      this.filteredPetsData = this.petsData?.filter(i => i.type === type);
       console.log('filtrados = ', this.filteredPetsData);
     }
     this.result = this.filteredPetsData;
@@ -61,7 +61,7 @@ export class SearchPage implements OnInit, OnDestroy {
     this.result = this.filteredPetsData;
     const val = ev.target.value;
     if (val && val.trim() !== '') {
-      this.result = this.result.filter(item => {
+      this.result = this.result?.filter(item => {
         return (
           //TODO: adicionar outros filtros válidos aqui também?
           //item.userName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||

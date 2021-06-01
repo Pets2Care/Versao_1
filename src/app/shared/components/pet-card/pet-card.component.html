@@ -1,19 +1,20 @@
 <ion-card>
   <div (click)="viewDonation()">
-    <ion-card-header style="padding-bottom: 0px;">
-      <ion-card-title class="ion-text-center"><strong>{{item?.name}} -
-        </strong>{{helperService.getAge(item?.birthDate)}}</ion-card-title>
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-card-subtitle slot="start">{{item?.city}} - {{item?.state}}</ion-card-subtitle>
-        <ion-card-subtitle slot="end">{{helperService.getFormattedDate(item?.createdAt)}}
-        </ion-card-subtitle>
-      </ion-item>
+    <ion-card-header  class="ion-no-padding" style="padding-bottom: 10px;">
+      <ion-img class="cardImg" [src]="item?.images[0]?.url" alt={{item.name}}></ion-img>
+      <ion-card-title class="ion-text-center"><strong>{{item?.name}}</strong></ion-card-title>
+      <ion-card-subtitle slot="end">{{helperService.getFormattedDate(item?.createdAt)}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content class="ion-no-padding">
-      <ion-img class="cardImg" [src]="item?.images[0]?.url" alt={{item.name}}></ion-img>
       <ion-item lines="none">
-        <ion-label class="ion-text-wrap">{{item.description}}</ion-label>
+        <ion-label class="ion-text-wrap">{{helperService.truncateWithEllipses(item.description, 100)}}</ion-label>
       </ion-item>
+      <ion-row>
+        <ion-chip class="chip-small" >{{helperService.getAge(item?.birthDate)}}</ion-chip>
+        <ion-chip class="chip-small">{{item?.neighborhood}}</ion-chip>
+        <ion-chip class="chip-small" >{{item?.city}}</ion-chip>
+        <ion-chip class="chip-small" >{{item?.state}}</ion-chip>
+      </ion-row>
     </ion-card-content>
   </div>
   <span [hidden]="!isDonationPage">
