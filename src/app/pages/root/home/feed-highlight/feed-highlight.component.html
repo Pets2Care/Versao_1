@@ -1,0 +1,15 @@
+<div (click)="viewHighlight()">
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img [src]="highlight?.image">
+        </ion-thumbnail>
+        <ion-label>
+          <h3>{{highlight?.title}}</h3>
+          <p>{{helperService.truncateWithEllipses(highlight?.content, 50)}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</div>

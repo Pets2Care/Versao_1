@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Highlight } from 'src/app/shared/models/highlight.model';
 import { User } from 'src/app/shared/models/user.model';
+import { HighlightsService } from 'src/app/shared/services/highlights.service';
 import { PetsDataService } from 'src/app/shared/services/pets.service';
 import { UsersDataService } from 'src/app/shared/services/users.service';
 
@@ -13,16 +15,18 @@ import { Pet } from '../../../../shared/models/pet.model';
   styleUrls: ['./feed.component.scss'],
 })
 export class FeedComponent implements OnInit {
-  //private subject = new Subject();
   @Input() isActive = false;
   public isLoadingPetsData = false;
   public isLoadingUsersData = false;
+  public isLoadingHighlights = false;
   public petsData: Readonly<Pet[]>;
   public usersData: Readonly<User[]>;
+  public highlightsData: Readonly<Highlight[]>;
 
   constructor(
     private petsDataService: PetsDataService,
     private usersDataService: UsersDataService,
+    private highligthsService: HighlightsService,
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +52,16 @@ export class FeedComponent implements OnInit {
     this.usersDataService.fetchAll().subscribe(response => {
       this.usersData = response;
       this.isLoadingUsersData = false;
+      if (event) {
+        (event.target as HTMLIonRefresherElement).complete();
+      }
+      console.log(`feed -> onInit -> usersData = ${this.usersData} `);
+    });
+
+    this.isLoadingHighlights = true;
+    this.highlightsService.fetchAll().subscribe(response => {
+      this.highlightsData = response;
+      this.isLoadingHighlights = false;
       if (event) {
         (event.target as HTMLIonRefresherElement).complete();
       }

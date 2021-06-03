@@ -7,27 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { PetCardComponent } from './components/pet-card/pet-card.component';
-import { PetDetailsModalPage } from './components/pet-details-modal/pet-details-modal.page';
+import { PetDetailsModalComponent } from './components/pet-details-modal/pet-details-modal.component';
 import { PetDonationFormComponent } from './components/pet-donation-form/pet-donation-form.component';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
+import { UserDetailsModalComponent } from './components/user-details-modal/user-details-modal.component';
 import { UserRegisterFormComponent } from './components/user-register-form/user-register-form.component';
-
-//import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-//import { FooterComponent } from './components/footer/footer.component';
-//import { HeaderComponent } from './components/header/header.component';
-//import { LoginFormComponent } from './components/login-form/login-form.component';
-//import { MainLogoComponent } from './components/main-logo/main-logo.component';
-//import { SelectAccountPlanComponent } from './components/select-account-plan/select-account-plan.component';
-//import { SidebarComponent } from './components/sidebar/sidebar.component';
-//import { SpinningLoaderComponent } from './components/spinning-loader/spinning-loader.component';
 
 @NgModule({
   declarations: [
     PetCardComponent,
-    PetDetailsModalPage,
+    PetDetailsModalComponent,
     PetDonationFormComponent,
     UserRegisterFormComponent,
     UserAvatarComponent,
+    UserDetailsModalComponent,
   ],
   imports: [
     CommonModule,
@@ -39,10 +32,11 @@ import { UserRegisterFormComponent } from './components/user-register-form/user-
   ],
   exports: [
     PetCardComponent,
-    PetDetailsModalPage,
+    PetDetailsModalComponent,
     PetDonationFormComponent,
     UserRegisterFormComponent,
     UserAvatarComponent,
+    UserDetailsModalComponent,
   ],
 })
 export class SharedModule {}

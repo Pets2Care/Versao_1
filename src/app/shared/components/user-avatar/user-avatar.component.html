@@ -1,3 +1,7 @@
-<p>
-  user-avatar works!
-</p>
+<div (click)="viewUser()">
+  <ion-avatar class="ion-margin-start">
+    <img [src]="item?.avatar">
+  </ion-avatar>
+  <ion-text><p>{{item?.name}}</p></ion-text>
+</div>
+

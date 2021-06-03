@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{selectedHighlight?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-img class="cardImg" [src]="selectedHighlight?.image?.url" alt={{selectedHighlight?.title}}></ion-img>
+  <ion-item lines="none">
+    <ion-text><small>Postado em: {{helperService.getFormattedDate(selectedHighlight?.createdAt)}}</small></ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text>
+      <p>{{selectedHighlight?.content}}</p>
+    </ion-text>
+  </ion-item>
+</ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PetDetailsModalPage } from 'src/app/shared/components/pet-details-modal/pet-details-modal.page';
+import { PetDetailsModalComponent } from 'src/app/shared/components/pet-details-modal/pet-details-modal.component';
 import { PetDonationFormComponent } from 'src/app/shared/components/pet-donation-form/pet-donation-form.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
 

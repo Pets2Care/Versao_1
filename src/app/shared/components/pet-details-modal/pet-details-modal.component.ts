@@ -9,10 +9,10 @@ import { UsersDataService } from '../../services/users.service';
 
 @Component({
   selector: 'app-pet-details-modal',
-  templateUrl: './pet-details-modal.page.html',
-  styleUrls: ['./pet-details-modal.page.scss'],
+  templateUrl: './pet-details-modal.component.html',
+  styleUrls: ['./pet-details-modal.component.scss'],
 })
-export class PetDetailsModalPage implements OnInit {
+export class PetDetailsModalComponent implements OnInit {
   selectedPet: Pet = null;
   selectedUser: User = null;
   helperService: HelperService;

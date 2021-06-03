@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{selectedUser?.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="isLoading">
+    <ion-spinner></ion-spinner>
+  </div>
+  <div *ngIf="!isLoading">
+    <ion-img class="cardImg" [src]="selectedUser?.avatar?.url" alt={{selectedUser?.name}}></ion-img>
+    <ion-item lines="none">
+      <ion-text><small>Usuário desde: {{helperService.getFormattedDate(selectedUser?.createdAt)}}</small></ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-text>Idade: {{helperService.getAge(selectedUser?.birthDate)}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-text>Localização: {{selectedUser?.city}} - {{selectedUser?.state}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-item>Bairro: {{selectedUser?.neighborhood}}</ion-item>
+    </ion-item>
+    <ion-item>
+      <ion-text class="ion-text-wrap">{{selectedUser?.description}}</ion-text>
+    </ion-item>
+  </div>
+</ion-content>
