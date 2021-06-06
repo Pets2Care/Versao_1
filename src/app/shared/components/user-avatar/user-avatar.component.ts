@@ -2,9 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 import { User } from '../../models/user.model';
-import { AuthService } from '../../services/auth.service';
-import { HelperService } from '../../services/helper.service';
-import { UsersDataService } from '../../services/users.service';
 import { UserDetailsModalComponent } from '../user-details-modal/user-details-modal.component';
 
 @Component({
@@ -13,16 +10,16 @@ import { UserDetailsModalComponent } from '../user-details-modal/user-details-mo
   styleUrls: ['./user-avatar.component.scss'],
 })
 export class UserAvatarComponent {
-  @Input() public item: User;
+  @Input() public user: User;
 
   constructor(private modalController: ModalController) {}
 
   async viewUser(): Promise<void> {
-    console.log('viewUser -> this.item.id = ', this.item?.id);
+    console.log('viewUser -> this.user.id = ', this.user?.id);
     const modal = await this.modalController.create({
       component: UserDetailsModalComponent,
       componentProps: {
-        id: this.item?.id,
+        id: this.user?.id,
       },
     });
     modal.present();

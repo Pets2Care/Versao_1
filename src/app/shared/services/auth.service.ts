@@ -85,6 +85,7 @@ export class AuthService {
 
   private formatFormData(data: RegisterRequest): FormData {
     const formData = new FormData();
+    data?.id && formData.append('id', data?.id?.toString());
     formData.append('email', data?.email);
     formData.append('password', data?.password);
     formData.append('name', data?.name);
@@ -100,10 +101,15 @@ export class AuthService {
     formData.append('telephone', data?.telephone);
     formData.append('description', data?.description);
     formData.append('website', data?.website);
-    formData.append(
-      'avatar',
-      data?.avatar ? Array.from(data?.avatar)[0] : undefined,
-    );
+    data?.isSpotlight &&
+      formData.append('isSpotlight', data?.isSpotlight?.toString());
+
+    if (data?.avatar) {
+      formData.append(
+        'avatar',
+        data?.avatar ? Array.from(data?.avatar)[0] : undefined,
+      );
+    }
 
     return formData;
   }

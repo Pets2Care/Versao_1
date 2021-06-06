@@ -9,13 +9,21 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-img class="cardImg" [src]="selectedHighlight?.image?.url" alt={{selectedHighlight?.title}}></ion-img>
-  <ion-item lines="none">
-    <ion-text><small>Postado em: {{helperService.getFormattedDate(selectedHighlight?.createdAt)}}</small></ion-text>
-  </ion-item>
-  <ion-item>
-    <ion-text>
-      <p>{{selectedHighlight?.content}}</p>
-    </ion-text>
-  </ion-item>
+  <ion-grid class="ion-align-items-center ion-no-padding">
+    <ion-col>
+      <ion-row>
+        <ion-img class="cardImg" [src]="selectedHighlight?.image" alt={{selectedHighlight?.title}}></ion-img>
+      </ion-row>
+      <ion-row>
+        <ion-item lines="none">
+          <ion-text><small>Postado em: {{helperService.getFormattedDate(selectedHighlight?.createdAt)}}</small></ion-text>
+        </ion-item>
+      </ion-row>
+      <ion-row class="ion-text-justify">
+        <ion-item lines="none">
+          <div class="imgContent" [innerHtml]="selectedHighlight?.content"></div>
+        </ion-item>
+      </ion-row>
+    </ion-col>
+  </ion-grid>
 </ion-content>

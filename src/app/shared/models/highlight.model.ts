@@ -4,4 +4,5 @@ export interface Highlight {
   content: string;
   image: string;
   createdAt: string;
+  isSpotlight?: boolean; //padrao false
 }

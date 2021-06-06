@@ -20,8 +20,8 @@ export class UsersDataService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  public fetchAll(): Observable<any> {
-    return this.http.get<any>(`${environment.API_URL}/users`).pipe(
+  public fetchAll(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.API_URL}/users`).pipe(
       tap(response => {
         this.dataStream.next(response);
       }),
@@ -29,20 +29,10 @@ export class UsersDataService {
   }
 
   public fetchById(id: number | string): Observable<User> {
-    return this.http.get<any>(`${environment.API_URL}/user/${id}`).pipe(
-      tap(response => {
-        this.dataStream.next(response);
-      }),
-    );
+    return this.http.get<User>(`${environment.API_URL}/spolights/user/${id}`);
   }
 
   public fetchSelf(): Observable<User> {
-    return this.http
-      .get<any>(`${environment.API_URL}/user/${this.authService.getUser().id}`)
-      .pipe(
-        tap(response => {
-          this.dataStream.next(response);
-        }),
-      );
+    return this.http.get<User>(`${environment.API_URL}/user/`);
   }
 }

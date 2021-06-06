@@ -11,7 +11,7 @@ import { FeedHighlightModalComponent } from '../feed-highlight-modal/feed-highli
   styleUrls: ['./feed-highlight.component.scss'],
 })
 export class FeedHighlightComponent {
-  @Input() item: Highlight = null;
+  @Input() highlight: Highlight = null;
   public helperService: HelperService;
 
   constructor(
@@ -22,13 +22,11 @@ export class FeedHighlightComponent {
   }
 
   async viewHighlight(): Promise<void> {
-    console.log('viewHighlight -> this.item.id = ', this.item?.id);
+    console.log('viewHighlight -> this.highlight.id = ', this.highlight?.id);
     const modal = await this.modalController.create({
       component: FeedHighlightModalComponent,
       componentProps: {
-        title: this.item?.title,
-        content: this.item?.content,
-        createdAt: this.item?.createdAt,
+        id: this.highlight?.id,
       },
     });
     modal.present();

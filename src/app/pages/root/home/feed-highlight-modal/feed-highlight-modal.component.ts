@@ -26,11 +26,10 @@ export class FeedHighlightModalComponent implements OnInit {
     const passedId = this.navParams.get('id');
 
     if (passedId) {
-      //console.log('selected Id = ', passedId);
+      console.log('selected Id = ', passedId);
       this.highlightsService.fetchById(passedId).subscribe(result => {
-        //console.log('result = ', result);
         this.selectedHighlight = result;
-        //console.log('selectedPet = ', this.selectedPet);
+        console.log('selectedHighlight = ', this.selectedHighlight);
       });
     }
   }

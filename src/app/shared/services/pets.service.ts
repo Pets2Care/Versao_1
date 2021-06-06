@@ -27,7 +27,18 @@ export class PetsDataService {
     );
   }
 
-  public fetchByUserId(): Observable<Pet[]> {
+  public fetchByUserId(id?: number | string): Observable<Pet[]> {
+    return this.http
+      .get<any>(`${environment.API_URL}/spotlights/advert/${id}`)
+      .pipe(
+        tap(response => {
+          this.dataStream.next(response);
+        }),
+      );
+  }
+
+  //TODO: verificar onde usava a fetchByUserId com os dados do proprio usuário e substituir por essa funcao
+  public fetchMyPets(): Observable<Pet[]> {
     return this.http.get<any>(`${environment.API_URL}/pets/user/`).pipe(
       tap(response => {
         this.dataStream.next(response);
@@ -36,7 +47,7 @@ export class PetsDataService {
   }
 
   public fetchById(id: number | string): Observable<Pet> {
-    return this.http.get<any>(`${environment.API_URL}/pets/${id}`).pipe(
+    return this.http.get<any>(`${environment.API_URL}/pet/${id}`).pipe(
       tap(response => {
         this.dataStream.next(response);
       }),
@@ -64,7 +75,9 @@ export class PetsDataService {
     formData.append('neighborhood', data?.neighborhood);
     formData.append('city', data?.city);
     formData.append('state', data?.state);
-    formData.append('isActive', 'true');
+    data?.isActive && formData.append('isActive', data?.isActive?.toString());
+    data?.isSpotlight &&
+      formData.append('isSpotlight', data?.isSpotlight?.toString());
 
     if (data?.images) {
       console.log('imagens anexadas, passando no for');
@@ -92,13 +105,14 @@ export class PetsDataService {
   public update(data: any): Observable<any> {
     console.log('petDataService -> update -> data = ', data);
     const formData = this.formatFormData(data);
-
-    return this.http.put<any>(`${environment.API_URL}/pets`, formData).pipe(
-      tap(response => {
-        console.log('update response = ', response);
-        this.fetchAll().subscribe();
-      }),
-    );
+    return this.http
+      .put<any>(`${environment.API_URL}/pet/${data?.id}`, formData)
+      .pipe(
+        tap(response => {
+          console.log('update response = ', response);
+          this.fetchAll().subscribe();
+        }),
+      );
   }
 
   public delete(id: number): Observable<any> {
@@ -107,31 +121,6 @@ export class PetsDataService {
     // return this.http.delete<any>(`${environment.API_URL}/pet/${id}`).pipe(
     //   tap(response => {
     //     console.log('delete response = ', response);
-    //     this.fetchAll().subscribe();
-    //   }),
-    // );
-  }
-
-  // provavelmete não precisa. Quando deleta o usuario o back já deleta também todos os seus anuncios
-  // public deleteByUserId(userId: number): Observable<any> {
-  //   console.log(
-  //     'PetsDataService -> deleteByUserId() -> chamou -> userId = ',
-  //     userId,
-  //   );
-  //   return this.http.delete<any>(`${environment.API_URL}/pets/${userId}`).pipe(
-  //     tap(response => {
-  //       console.log('delete response = ', response);
-  //       this.fetchAll().subscribe();
-  //     }),
-  //   );
-  // }
-
-  public pause(id: number | string): Observable<any> {
-    console.log('PetsDataService -> pause() -> petId = ', id);
-    return null;
-    // return this.http.put<any>(`${environment.API_URL}/pet/pause/`, id).pipe(
-    //   tap(response => {
-    //     console.log('update response = ', response);
     //     this.fetchAll().subscribe();
     //   }),
     // );

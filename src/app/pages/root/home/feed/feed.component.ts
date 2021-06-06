@@ -26,7 +26,7 @@ export class FeedComponent implements OnInit {
   constructor(
     private petsDataService: PetsDataService,
     private usersDataService: UsersDataService,
-    private highligthsService: HighlightsService,
+    private highlightsService: HighlightsService,
   ) {}
 
   ngOnInit(): void {
@@ -45,27 +45,29 @@ export class FeedComponent implements OnInit {
     this.petsDataService.fetchAll().subscribe(response => {
       this.petsData = response;
       this.isLoadingPetsData = false;
-      console.log(`feed -> onInit -> petsData = ${this.petsData}`);
+      // console.log(`feed -> loadData -> petsData = ${this.petsData}`);
     });
 
     this.isLoadingUsersData = true;
     this.usersDataService.fetchAll().subscribe(response => {
       this.usersData = response;
       this.isLoadingUsersData = false;
-      if (event) {
-        (event.target as HTMLIonRefresherElement).complete();
-      }
-      console.log(`feed -> onInit -> usersData = ${this.usersData} `);
+      // console.log(`feed -> loadData -> usersData = ${this.usersData} `);
     });
 
     this.isLoadingHighlights = true;
     this.highlightsService.fetchAll().subscribe(response => {
       this.highlightsData = response;
       this.isLoadingHighlights = false;
-      if (event) {
-        (event.target as HTMLIonRefresherElement).complete();
-      }
-      console.log(`feed -> onInit -> usersData = ${this.usersData} `);
+      // console.log(
+      //   `feed -> loadData -> highlightsData = ${JSON.stringify(
+      //     this.highlightsData,
+      //   )} `,
+      // );
     });
+
+    if (event) {
+      (event.target as HTMLIonRefresherElement).complete();
+    }
   }
 }

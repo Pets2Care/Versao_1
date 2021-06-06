@@ -59,7 +59,8 @@ export class PetCardComponent implements OnInit {
 
   pauseDonation(): void {
     console.log('pauseDonation -> this.item.id = ', this.item?.id);
-    this.petsDataService.pause(this.item.id);
+    const modifiedPet = { ...this.item, isActive: false };
+    this.petsDataService.update(modifiedPet);
   }
 
   deleteDonation(): void {
