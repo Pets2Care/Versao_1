@@ -22,4 +22,5 @@ export interface Pet {
   state: string;
   createdAt: string;
   images: PetImage[];
+  isActive: boolean;
 }

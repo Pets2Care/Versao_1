@@ -33,7 +33,7 @@
       <div *ngIf="!isLoadingUsersData && usersData?.length > 0">
         <ion-slides>
           <ion-slide *ngFor="let i of usersData">
-            <app-user-avatar [user]="i" ></app-user-avatar>
+            <app-user-avatar [user]="i" layout="vertical"></app-user-avatar>
           </ion-slide>
         </ion-slides>
       </div>

@@ -34,7 +34,7 @@ export class DonatePage implements OnInit, OnDestroy {
   ionViewWillEnter(): void {
     console.log('donate.page -> ionViewWillEnter');
     this.isLoading = true;
-    this.petsDataService.fetchByUserId(1).subscribe(response => {
+    this.petsDataService.fetchMyPets().subscribe(response => {
       console.log('fetch pet response', response);
       this.isLoading = false;
       this.petsData = response;

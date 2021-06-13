@@ -119,7 +119,7 @@
         <div>
           <ion-item lines="inset">
             <ion-label position="floating">Sobre mim (opcional)</ion-label>
-            <ion-textarea ngModel #descriptionCtrl="ngModel" autoGrow="true" name="description" pattern="^.{0,1000}$">
+            <ion-textarea ngModel #descriptionCtrl="ngModel" autoGrow="true" name="description" pattern="^[\s\S]{0,1000}$">
             </ion-textarea>
           </ion-item>
           <ion-item lines="none" class="input-label" *ngIf="!descriptionCtrl.valid && descriptionCtrl.touched">

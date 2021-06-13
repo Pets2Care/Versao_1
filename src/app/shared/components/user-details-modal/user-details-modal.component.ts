@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
 
 import { Pet } from '../../models/pet.model';
@@ -33,22 +33,19 @@ export class UserDetailsModalComponent implements OnInit {
   ngOnInit(): void {
     const passedId = this.navParams.get('id');
 
-    this.isLoadingUser = true;
     if (passedId) {
-      console.log('selected Id = ', passedId);
-      this.usersDataService.fetchById(1).subscribe(result => {
-        console.log('result = ', result);
+      this.isLoadingUser = true;
+
+      this.usersDataService.fetchById(passedId).subscribe(result => {
         this.user = result;
         this.isLoadingUser = false;
-        console.log('user = ', this.user);
       });
 
       this.isLoadingPets = true;
-      this.petsDataService.fetchByUserId(1).subscribe(result => {
-        console.log('result = ', result);
+
+      this.petsDataService.fetchByUserId(passedId).subscribe(result => {
         this.pets = result;
         this.isLoadingPets = false;
-        console.log('user = ', this.user);
       });
     }
   }

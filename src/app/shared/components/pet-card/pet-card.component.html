@@ -1,7 +1,7 @@
 <ion-card>
   <div (click)="viewDonation()">
     <ion-card-header  class="ion-no-padding" style="padding-bottom: 10px;">
-      <ion-img class="cardImg" [src]="item?.images[0]?.url" alt={{item.name}}></ion-img>
+      <ion-img class="cardImg" [src]="item?.images[0]?.url" alt={{item?.name}}></ion-img>
       <ion-card-title class="ion-text-center"><strong>{{item?.name}}</strong></ion-card-title>
       <ion-card-subtitle slot="end">{{helperService.getFormattedDate(item?.createdAt)}}</ion-card-subtitle>
     </ion-card-header>

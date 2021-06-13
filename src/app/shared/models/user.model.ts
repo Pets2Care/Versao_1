@@ -16,5 +16,6 @@ export interface User {
   website: string;
   avatar: string;
   createdAt: number;
+  isSpotlight: boolean;
   token: string;
 }

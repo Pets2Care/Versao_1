@@ -18,10 +18,10 @@ export class SearchPage implements OnInit, OnDestroy {
   public selectedSegment = 'all';
   public result: Readonly<Pet[]>;
 
-  constructor(private petsDataService: PetsDataService) {}
+  constructor(private petsService: PetsDataService) {}
 
   ngOnInit(): void {
-    this.petsDataService
+    this.petsService
       .get()
       .pipe(takeUntil(this.subject))
       .subscribe(data => {
@@ -36,17 +36,15 @@ export class SearchPage implements OnInit, OnDestroy {
     this.subject.complete();
   }
 
-  //Preciso desse? Ele acaba dando um novo fetch toda vez que entra nessa tela
   ionViewWillEnter(): void {
     this.isLoading = true;
-    this.petsDataService.fetchAll().subscribe(() => {
+    this.petsService.fetchAll().subscribe(() => {
       this.isLoading = false;
     });
   }
 
   applySegmentFilter(type: string): void {
     console.log('applySegmentFilter -> type = ', type);
-
     if (type === 'all') {
       this.filteredPetsData = this.petsData;
     } else {
@@ -64,15 +62,18 @@ export class SearchPage implements OnInit, OnDestroy {
       this.result = this.result?.filter(item => {
         return (
           //TODO: adicionar outros filtros válidos aqui também?
-          //item.userName.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.city.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.neighborhood.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.breed.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.description.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     } else {
       return this.filteredPetsData;
     }
+  }
+
+  applyCheckbox(name: string, value: boolean): void {
+    this.result = this.result?.filter(item => item[name] === value);
   }
 }

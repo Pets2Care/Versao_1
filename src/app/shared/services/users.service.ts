@@ -28,8 +28,18 @@ export class UsersDataService {
     );
   }
 
+  public fetchAllSpotlight(): Observable<User[]> {
+    return this.http
+      .get<User[]>(`${environment.API_URL}/spotlights/users`)
+      .pipe(
+        tap(response => {
+          this.dataStream.next(response);
+        }),
+      );
+  }
+
   public fetchById(id: number | string): Observable<User> {
-    return this.http.get<User>(`${environment.API_URL}/spolights/user/${id}`);
+    return this.http.get<User>(`${environment.API_URL}/user/${id}`);
   }
 
   public fetchSelf(): Observable<User> {

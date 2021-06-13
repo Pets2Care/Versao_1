@@ -11,6 +11,7 @@ import { UserDetailsModalComponent } from '../user-details-modal/user-details-mo
 })
 export class UserAvatarComponent {
   @Input() public user: User;
+  @Input() public layout: string;
 
   constructor(private modalController: ModalController) {}
 

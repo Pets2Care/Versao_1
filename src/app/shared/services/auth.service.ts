@@ -43,13 +43,11 @@ export class AuthService {
   }
 
   delete(): Observable<any> {
-    return this.httpClient
-      .delete(`${environment.API_URL}/user/${this.getUser().id}`)
-      .pipe(
-        tap(() => {
-          this.logout();
-        }),
-      );
+    return this.httpClient.delete(`${environment.API_URL}/user`).pipe(
+      tap(() => {
+        this.logout();
+      }),
+    );
   }
 
   setResponseData(responseData: User): void {
@@ -72,6 +70,7 @@ export class AuthService {
         website: responseData?.website,
         avatar: responseData?.avatar,
         createdAt: responseData?.createdAt,
+        isSpotlight: responseData?.isSpotlight,
         token: responseData?.token,
       };
 

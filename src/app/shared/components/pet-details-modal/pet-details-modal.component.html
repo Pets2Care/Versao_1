@@ -5,36 +5,80 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">{{selectedPet?.name}}</ion-title>
+    <ion-title class="ion-text-center">{{pet?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-img class="cardImg" [src]="selectedPet?.images[0]?.url" alt={{selectedPet?.name}}></ion-img>
-  <ion-item lines="none">
-    <ion-text><small>Anúncio criado em: {{helperService.getFormattedDate(selectedPet?.createdAt)}}</small></ion-text>
-  </ion-item>
-  <ion-item>
-    <ion-text>Idade: {{helperService.getAge(selectedPet?.birthDate)}}</ion-text>
-  </ion-item>
-  <ion-item>
-    <ion-text>Localização: {{selectedPet?.city}} - {{selectedPet?.state}}</ion-text>
-  </ion-item>
-  <ion-item>
-    <ion-item>Bairro: {{selectedPet?.neighborhood}}</ion-item>
-  </ion-item>
-  <ion-item>
-    <ion-text class="ion-text-wrap">{{selectedPet?.description}}</ion-text>
-  </ion-item>
-  <ion-item style="padding: 0px;">
-    <ion-col>
-      <ion-row>
-        <h2>{{selectedPet?.images?.length}} Foto(s)</h2>
-      </ion-row>
-      <ion-row>
-        <ion-img *ngFor="let image of selectedPet?.images; index as i" class="cardImg" [src]="selectedPet?.images[i]?.url"
-        alt={{selectedPet?.name}}></ion-img>
-      </ion-row>
-    </ion-col>
-
-  </ion-item>
+  <div *ngIf="isLoadingPet || isLoadingUser">
+    <ion-spinner></ion-spinner>
+  </div>
+  <div *ngIf="!isLoadingPet && !isLoadingUser">
+    <ion-grid class="ion-align-items-center ion-no-padding">
+      <ion-col>
+        <ion-row>
+          <ion-img class="cardImg" [src]="pet?.images[0].url" alt={{pet?.name}}></ion-img>
+        </ion-row>
+        <div class="ion-padding ion-text-justify">
+          <ion-row>
+            <h1 class="details-modal-title">Informações do Pet</h1>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Criador do anúncio:</strong></p>
+          </ion-row>
+          <ion-row>
+            <app-user-avatar style="width: 100%;" [user]="user" layout="horizontal"></app-user-avatar>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Anúncio criado em:</strong>{{pet?.createdAt}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Localização:</strong> {{pet?.neighborhood}} em {{pet?.city}} -
+              {{pet?.state}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Espécie:</strong> {{pet?.type}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Idade:</strong> {{pet?.birthDate}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Sexo:</strong> {{pet?.gender}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Raça:</strong> {{pet?.breed}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Vacinado:</strong> {{pet?.vaccinated ? 'Sim' : 'Não'}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Vermifugado:</strong> {{pet?.vaccinated ? 'Sim' : 'Não'}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Castrado:</strong> {{pet?.vaccinated ? 'Sim' : 'Não'}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Déficit:</strong> {{pet?.deficit ? 'Sim' : 'Não'}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Sobre o pet:</strong></p>
+          </ion-row>
+          <ion-row>
+            <p class="ion-text-justify ion-text-wrap ion-no-margin">{{pet?.description}}</p>
+          </ion-row>
+          <ion-row>
+            <h2>{{pet?.images?.length}} Foto(s)</h2>
+          </ion-row>
+          <ion-row>
+            <ion-img *ngFor="let image of pet?.images; index as i" class="cardImg" [src]="pet?.images[i]?.url"
+              alt={{pet?.name}}></ion-img>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-grid>
+  </div>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger" (click)="requestPetInformation()">
+      <ion-icon name="heart"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -1,13 +1,36 @@
-<div (click)="viewUser()" class="ion-text-center" >
-  <ion-col class="ion-no-padding">
-    <ion-row class="ion-justify-content-center">
-      <ion-avatar>
-        <ion-img [src]="user?.avatar" alt={{user?.name}}></ion-img>
-      </ion-avatar>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-text class="ion-text-wrap" style="width: 100px;"><p><small>{{user?.name}}</small></p></ion-text>
-    </ion-row>
-  </ion-col>
-</div>
+<span>
+  <div *ngIf="layout === 'horizontal'">
+    <div (click)="viewUser()">
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="3">
+          <ion-avatar>
+            <ion-img [src]="user?.avatar" alt={{user?.name}}></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col>
+          <p>{{user?.name}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div *ngIf="layout === 'vertical'">
+    <div (click)="viewUser()" class="ion-text-center" >
+      <ion-col class="ion-no-padding">
+        <ion-row class="ion-justify-content-center">
+          <ion-avatar>
+            <ion-img [src]="user?.avatar" alt={{user?.name}}></ion-img>
+          </ion-avatar>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-text class="ion-text-wrap" style="width: 100px;"><p><small>{{user?.name}}</small></p></ion-text>
+        </ion-row>
+      </ion-col>
+    </div>
+  </div>
+</span>
+
+
+
+
+
 

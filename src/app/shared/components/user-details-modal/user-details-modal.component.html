@@ -18,35 +18,38 @@
         <ion-row>
           <ion-img class="cardImg" [src]="user?.avatar" alt={{user?.name}}></ion-img>
         </ion-row>
-        <ion-row>
-          <ion-label><small>Usuário desde: {{helperService.getFormattedDate(user?.createdAt)}}</small></ion-label>
-        </ion-row>
-        <ion-row>
-          <ion-list>
-            <ion-list-header>
-              <ion-label>
-                <h1>Informações públicas</h1>
-              </ion-label>
-            </ion-list-header>
-            <ion-item lines="inset">
-              <ion-label>Localização: {{user?.neighborhood}} em {{user?.city}} - {{user?.state}}</ion-label>
-            </ion-item>
-            <ion-item lines="full">
-              <ion-label>Idade: {{helperService.getAge(user?.birthDate)}}</ion-label>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-label class="ion-text-justify ion-text-wrap">{{user?.description}}</ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-row>
-        <ion-row>
+        <div class="ion-padding ion-text-justify">
+          <ion-row>
+            <h1 class="details-modal-title">Informações públicas</h1>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Nome:</strong> {{user?.name}}</p>
+          </ion-row>
+          <ion-row >
+            <p class="details-modal-list-row"><strong>Idade:</strong> {{helperService.getAgeYears(user?.birthDate)}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Usuário desde:</strong> {{helperService.getFormattedDate(user?.createdAt)}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Localização:</strong> {{user?.neighborhood}} em {{user?.city}} - {{user?.state}}</p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row"><strong>Sobre:</strong></p>
+          </ion-row>
+          <ion-row>
+            <p class="details-modal-list-row ion-no-margin">{{user?.description}}</p>
+          </ion-row>
           <!-- lista dos anuncios desse user -->
-          <ion-item>
+          <ion-row>
+            <h2>Anúncios publicados</h2>
+          </ion-row>
+          <ion-row>
             <div *ngIf="!isLoadingPets && pets?.length > 0">
               <app-pet-card [item]="i" *ngFor="let i of pets"> </app-pet-card>
             </div>
-          </ion-item>
-        </ion-row>
+          </ion-row>
+        </div>
       </ion-col>
     </ion-grid>
   </div>

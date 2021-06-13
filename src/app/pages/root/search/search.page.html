@@ -12,6 +12,7 @@
       </ion-segment-button>
     </ion-segment>
     <ion-searchbar class="no-padding" (ionInput)="filterArray($event)" placeholder="Buscar animal"></ion-searchbar>
+    <ion-checkbox (ionChange)="applyCheckbox('vacinado', $event.target.value)">Vacinado</ion-checkbox>
   </ion-toolbar>
 </ion-header>
 

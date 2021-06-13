@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+  NavParams,
+} from '@ionic/angular';
 
 import { Pet } from '../../models/pet.model';
 import { User } from '../../models/user.model';
@@ -13,8 +18,10 @@ import { UsersDataService } from '../../services/users.service';
   styleUrls: ['./pet-details-modal.component.scss'],
 })
 export class PetDetailsModalComponent implements OnInit {
-  selectedPet: Pet = null;
-  selectedUser: User = null;
+  isLoadingPet = false;
+  pet: Pet = null;
+  isLoadingUser = false;
+  user: User = null;
   helperService: HelperService;
 
   constructor(
@@ -22,6 +29,8 @@ export class PetDetailsModalComponent implements OnInit {
     private modalController: ModalController,
     private petsDataService: PetsDataService,
     private usersDataService: UsersDataService,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
     helperService: HelperService,
   ) {
     this.helperService = helperService;
@@ -31,27 +40,108 @@ export class PetDetailsModalComponent implements OnInit {
     const passedId = this.navParams.get('id');
 
     if (passedId) {
-      //console.log('selected Id = ', passedId);
-      this.petsDataService.fetchById(passedId).subscribe(result => {
-        //console.log('result = ', result);
-        this.selectedPet = result;
-        //console.log('selectedPet = ', this.selectedPet);
+      this.isLoadingPet = true;
+      this.isLoadingUser = true;
 
-        this.usersDataService
-          .fetchById(1) //this.selectedPet.userId)
-          .subscribe(result => {
-            this.selectedUser = result;
-            //console.log('selectedUser = ', this.selectedUser);
-          });
+      this.petsDataService.fetchById(passedId).subscribe(result => {
+        this.pet = this.helperService.formatPet(result);
+        this.isLoadingPet = false;
+
+        this.usersDataService.fetchById(this.pet.userId).subscribe(result => {
+          this.user = this.helperService.formatUser(result);
+          this.isLoadingUser = false;
+        });
       });
     }
   }
 
-  // talvez esse?
-  // ionViewWillEnter(): void {
-  // }
-
   closeModal(): void {
     this.modalController.dismiss();
+  }
+
+  async requestPetInformation(): Promise<void> {
+    console.log('usario quer saber mais a respeito do pet');
+    //abrir alerta com dois botões: "guardar nos favoritos" e "quero adotar!"
+    const alert = await this.alertController.create({
+      header: 'Escolha a ação',
+      buttons: [
+        {
+          text: 'Falar com doador',
+          handler: () => {
+            console.log('Confirm Ok');
+            this.loadingController
+              .create({ keyboardClose: true, message: 'Carregando...' })
+              .then(loadingEl => {
+                loadingEl.present();
+                const response = this.petsDataService.contactDonor();
+                response.subscribe(
+                  resData => {
+                    loadingEl.dismiss();
+                    console.log('succRes', resData);
+                    this.showAlert('Sucesso', resData);
+                  },
+                  errRes => {
+                    loadingEl.dismiss();
+                    console.log('errRes', errRes);
+                    this.showAlert(
+                      'Falha na Requisição',
+                      errRes?.error?.message || 'erro não identificado',
+                    );
+                  },
+                );
+              });
+          },
+        },
+        {
+          text: 'Salvar nos favoritos',
+          handler: () => {
+            console.log('Confirm favorited');
+            this.loadingController
+              .create({ keyboardClose: true, message: 'Carregando...' })
+              .then(loadingEl => {
+                loadingEl.present();
+                const response = this.petsDataService.saveFavorite();
+                response.subscribe(
+                  resData => {
+                    loadingEl.dismiss();
+                    console.log('succRes', resData);
+                    this.showAlert('Sucesso', resData);
+                  },
+                  errRes => {
+                    loadingEl.dismiss();
+                    console.log('errRes', errRes);
+                    this.showAlert(
+                      'Falha na Requisição',
+                      errRes?.error?.message || 'erro não identificado',
+                    );
+                  },
+                );
+              });
+          },
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  private showAlert(header: string, message: string) {
+    this.alertController
+      .create({
+        header: header,
+        message: message,
+        buttons: ['Entendi'],
+      })
+      .then(alertEl => {
+        alertEl.present();
+      });
   }
 }
