@@ -62,8 +62,11 @@ export class PetDonationFormComponent implements OnInit {
   }
 
   loadPetDataToForm(data: Pet): void {
+    console.log('petDonationForm -> loadPetDataToForm -> data =', data);
+
+    this.selectState(data?.state);
+
     this.donationForm.setValue({
-      id: data?.id,
       name: data?.name,
       birthDate: data?.birthDate,
       gender: data?.gender,
@@ -81,7 +84,7 @@ export class PetDonationFormComponent implements OnInit {
       neighborhood: data?.neighborhood,
       city: data?.city,
       state: data?.state,
-      images: data?.images,
+      images: [],
     });
   }
 

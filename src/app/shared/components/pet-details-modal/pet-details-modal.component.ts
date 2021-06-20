@@ -73,7 +73,7 @@ export class PetDetailsModalComponent implements OnInit {
               .create({ keyboardClose: true, message: 'Carregando...' })
               .then(loadingEl => {
                 loadingEl.present();
-                const response = this.petsDataService.contactDonor();
+                const response = this.petsDataService.contactDonor(this.pet.id);
                 response.subscribe(
                   resData => {
                     loadingEl.dismiss();
@@ -100,7 +100,7 @@ export class PetDetailsModalComponent implements OnInit {
               .create({ keyboardClose: true, message: 'Carregando...' })
               .then(loadingEl => {
                 loadingEl.present();
-                const response = this.petsDataService.saveFavorite();
+                const response = this.petsDataService.saveFavorite(this.pet.id);
                 response.subscribe(
                   resData => {
                     loadingEl.dismiss();

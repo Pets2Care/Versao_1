@@ -1,4 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 
 import { Pet } from '../../models/pet.model';
@@ -13,7 +20,7 @@ import { PetDonationFormComponent } from '../pet-donation-form/pet-donation-form
   templateUrl: './pet-card.component.html',
   styleUrls: ['./pet-card.component.scss'],
 })
-export class PetCardComponent {
+export class PetCardComponent implements OnChanges {
   @Input() public item: Pet;
   @Input() public isDonationPage = false;
 
@@ -27,6 +34,11 @@ export class PetCardComponent {
     helperService: HelperService,
   ) {
     this.helperService = helperService;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.item =
+      this.helperService.formatPet(changes.item.currentValue) || undefined;
   }
 
   isPetOwner(): boolean {
@@ -68,7 +80,7 @@ export class PetCardComponent {
   async presentAlertPauseDonation(isActive: boolean): Promise<void> {
     console.log('presentAlertPauseDonation');
     const alert = await this.alertController.create({
-      header: isActive ? 'Parar Anúncio' : 'Retomar Anúncio',
+      header: isActive ? 'Pausar Anúncio' : 'Retomar Anúncio',
       message: isActive
         ? 'Ao pausar um anúncio de adoção ele ficará invisível para outros usuários.'
         : 'Assim que o anúncio for retomado ele ficará visível a todos os usuários.',
@@ -85,8 +97,10 @@ export class PetCardComponent {
           text: 'Sim',
           handler: () => {
             console.log('Confirma Operação de pausa ->', isActive);
-            const modifiedPet = { ...this.item, isActive: !isActive };
-            this.petsDataService.update(modifiedPet);
+            const modifiedPet = { id: this.item?.id, isActive: !isActive };
+            this.petsDataService
+              .update(modifiedPet)
+              .subscribe(() => console.log('pet isActive = ', isActive));
           },
         },
       ],
@@ -113,7 +127,9 @@ export class PetCardComponent {
           text: 'Sim',
           handler: () => {
             console.log('Confirma Operação de deleção');
-            this.petsDataService.delete(this.item.id);
+            this.petsDataService
+              .delete(this.item.id)
+              .subscribe(() => console.log('pet deletado'));
           },
         },
       ],

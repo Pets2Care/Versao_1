@@ -1,19 +1,14 @@
-  <div style="width: 300px;" (click)="viewHighlight()">
-    <ion-card>
-      <ion-card-content>
-        <ion-row>
-          <ion-col>
-            <ion-thumbnail slot="start">
-              <ion-img [src]="highlight?.image" alt={{highlight?.title}}></ion-img>
-            </ion-thumbnail>
-          </ion-col>
-          <ion-col>
-            <ion-label>
-              <h3><strong>{{highlight?.title}}</strong></h3><br>
-              <div [innerHtml]="helperService.truncateWithEllipses(highlight?.content, 50)"></div>
-            </ion-label>
-          </ion-col>
+<div style="width: 300px;" (click)="viewHighlight()">
+  <ion-card>
+    <ion-card-content class="ion-no-padding">
+      <ion-col class="ion-no-padding">
+        <ion-row class="ion-no-padding">
+          <h3><strong>{{highlight?.title}}</strong></h3>
         </ion-row>
-      </ion-card-content>
-    </ion-card>
-  </div>
+        <ion-row>
+            <ion-img [src]="highlight?.image" alt={{highlight?.title}}></ion-img>
+        </ion-row>
+      </ion-col>
+    </ion-card-content>
+  </ion-card>
+</div>

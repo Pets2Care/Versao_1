@@ -45,14 +45,14 @@ export class FeedComponent implements OnInit {
     this.petsDataService.fetchAll().subscribe(response => {
       this.petsData = response;
       this.isLoadingPetsData = false;
-      // console.log(`feed -> loadData -> petsData = ${this.petsData}`);
+      console.log('feed -> loadData -> petsData =', this.petsData);
     });
 
     this.isLoadingUsersData = true;
     this.usersDataService.fetchAll().subscribe(response => {
       this.usersData = response;
       this.isLoadingUsersData = false;
-      // console.log(`feed -> loadData -> usersData = ${this.usersData} `);
+      //console.log('feed -> loadData -> usersData =', this.usersData);
     });
 
     this.isLoadingHighlights = true;

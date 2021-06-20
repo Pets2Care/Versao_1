@@ -37,6 +37,14 @@ export class PetsDataService {
       );
   }
 
+  public fetchFavorites(): Observable<Pet[]> {
+    return this.http.get<Pet[]>(`${environment.API_URL}/favorites`).pipe(
+      tap(response => {
+        this.dataStream.next(response);
+      }),
+    );
+  }
+
   public fetchByUserId(id?: number | string): Observable<Pet[]> {
     return this.http.get<any>(`${environment.API_URL}/pets/user/${id}`).pipe(
       tap(response => {
@@ -62,9 +70,54 @@ export class PetsDataService {
     );
   }
 
+  private formatEditFormData(data: PetRequest): FormData {
+    console.log('formatFormData -> isActive? ', data?.isActive);
+    const formData = new FormData();
+    data?.name !== undefined && formData.append('name', data?.name);
+    data?.birthDate !== undefined &&
+      formData.append('birthDate', data?.birthDate);
+    data?.gender !== undefined && formData.append('gender', data?.gender);
+    data?.type !== undefined && formData.append('type', data?.type);
+    data?.breed !== undefined && formData.append('breed', data?.breed);
+    data?.description !== undefined &&
+      formData.append('description', data?.description);
+    data?.vaccinated !== undefined &&
+      formData.append('vaccinated', data?.vaccinated?.toString());
+    data?.dewormed !== undefined &&
+      formData.append('dewormed', data?.dewormed?.toString());
+    data?.castrated !== undefined &&
+      formData.append('castrated', data?.castrated?.toString());
+    data?.deficit !== undefined &&
+      formData.append('deficit', data?.deficit?.toString());
+    data?.userId !== undefined &&
+      formData.append('userId', data?.userId?.toString());
+    data?.cep !== undefined && formData.append('cep', data?.cep);
+    data?.street !== undefined && formData.append('street', data?.street);
+    data?.number !== undefined && formData.append('number', data?.number);
+    data?.complement !== undefined &&
+      formData.append('complement', data?.complement);
+    data?.neighborhood !== undefined &&
+      formData.append('neighborhood', data?.neighborhood);
+    data?.city !== undefined && formData.append('city', data?.city);
+    data?.state !== undefined && formData.append('state', data?.state);
+    data?.isActive !== undefined &&
+      formData.append('isActive', data?.isActive?.toString());
+    data?.isSpotlight !== undefined &&
+      formData.append('isSpotlight', data?.isSpotlight?.toString());
+
+    if (data?.images) {
+      console.log('imagens anexadas, passando no for');
+      for (const image of Array.from(data.images)) {
+        console.log('image = ', image);
+        formData.append('images', image);
+      }
+    }
+
+    return formData;
+  }
+
   private formatFormData(data: PetRequest): FormData {
     const formData = new FormData();
-    data?.id && formData.append('id', data?.id?.toString());
     formData.append('name', data?.name);
     formData.append('birthDate', data?.birthDate);
     formData.append('gender', data?.gender);
@@ -83,9 +136,6 @@ export class PetsDataService {
     formData.append('neighborhood', data?.neighborhood);
     formData.append('city', data?.city);
     formData.append('state', data?.state);
-    data?.isActive && formData.append('isActive', data?.isActive?.toString());
-    data?.isSpotlight &&
-      formData.append('isSpotlight', data?.isSpotlight?.toString());
 
     if (data?.images) {
       console.log('imagens anexadas, passando no for');
@@ -112,7 +162,7 @@ export class PetsDataService {
 
   public update(data: any): Observable<any> {
     console.log('petDataService -> update -> data = ', data);
-    const formData = this.formatFormData(data);
+    const formData = this.formatEditFormData(data);
     return this.http
       .put<any>(`${environment.API_URL}/pet/${data?.id}`, formData)
       .pipe(
@@ -123,23 +173,33 @@ export class PetsDataService {
       );
   }
 
+  //TODO: VER ESSA PORCARIA DEPOIS
   public delete(id: number): Observable<any> {
     console.log('PetsDataService -> delete() -> chamou -> id = ', id);
+    console.log('nwiiwiheowheiuh');
     return this.http.delete<any>(`${environment.API_URL}/pet/${id}`).pipe(
       tap(response => {
-        console.log('delete response = ', response);
-        this.fetchAll().subscribe();
+        console.log('cu', response);
       }),
     );
   }
 
-  public saveFavorite(): Observable<any> {
-    console.log('saveFavorite');
-    return of('sucesso save favorite');
+  public saveFavorite(id: number): Observable<any> {
+    console.log('PetsDataService -> saveFavorite() -> chamou -> id = ', id);
+    return this.http.post<any>(`${environment.API_URL}/favorite/${id}`, { id });
+    //return of('sucesso saveFavorite');
   }
 
-  public contactDonor(): Observable<any> {
-    console.log('contactDonor');
-    return of('sucesso contact donor');
+  //id do anuncio
+  public contactDonor(id: number): Observable<any> {
+    console.log('PetsDataService -> contactDonor() -> chamou -> id = ', id);
+    return this.http.post<any>(`${environment.API_URL}/donation/${id}`, { id });
+    //return of('sucesso contactDonor');
+  }
+
+  public acceptOffer(): Observable<any> {
+    console.log('PetsDataService -> accept offer');
+    //return this.http.post<any>(`${environment.API_URL}/donation/accept`, {id});
+    return of('sucesso accept offer');
   }
 }

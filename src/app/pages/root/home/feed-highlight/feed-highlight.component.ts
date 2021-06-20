@@ -1,4 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Highlight } from 'src/app/shared/models/highlight.model';
 import { HelperService } from 'src/app/shared/services/helper.service';
@@ -10,7 +16,7 @@ import { FeedHighlightModalComponent } from '../feed-highlight-modal/feed-highli
   templateUrl: './feed-highlight.component.html',
   styleUrls: ['./feed-highlight.component.scss'],
 })
-export class FeedHighlightComponent {
+export class FeedHighlightComponent implements OnChanges {
   @Input() highlight: Highlight = null;
   public helperService: HelperService;
 
@@ -19,6 +25,11 @@ export class FeedHighlightComponent {
     helperService: HelperService,
   ) {
     this.helperService = helperService;
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.highlight = this.helperService.formatHighlight(
+      changes.highlight.currentValue,
+    );
   }
 
   async viewHighlight(): Promise<void> {

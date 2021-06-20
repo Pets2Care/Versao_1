@@ -16,10 +16,14 @@
       </ion-row>
       <ion-row>
         <ion-item lines="none">
-          <ion-text><small>Postado em: {{helperService.getFormattedDate(selectedHighlight?.createdAt)}}</small></ion-text>
+          <ion-text><small>Postado em: {{helperService.getFormattedDate(selectedHighlight?.createdAt)}}</small>
+          </ion-text>
         </ion-item>
       </ion-row>
-      <ion-row class="ion-text-justify">
+      <ion-row style="margin: 0px 20px 0px 20px">
+        <h3 class="ion-text-center">{{selectedHighlight?.title}}</h3>
+      </ion-row>
+      <ion-row>
         <ion-item lines="none">
           <div class="imgContent" [innerHtml]="selectedHighlight?.content"></div>
         </ion-item>

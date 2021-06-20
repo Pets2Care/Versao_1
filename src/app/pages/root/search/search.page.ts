@@ -11,12 +11,28 @@ import { PetsDataService } from '../../../shared/services/pets.service';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit, OnDestroy {
+  private appliedFilters = {
+    searchbox: '',
+    birthDay: '',
+    gender: 'all',
+    type: 'all',
+    vaccinated: false,
+    dewormed: false,
+    castrated: false,
+    deficit: false,
+    city: '',
+    state: '',
+    createdAt: '', //ordenar por data de criação
+  };
+
   private subject = new Subject();
   public isLoading = false;
+  isAdvancedFiltersOpen = false;
   public petsData: Readonly<Pet[]>;
-  public filteredPetsData: Readonly<Pet[]>;
+  public filteredPetsData: Readonly<Pet[]> = [];
+  public result: Readonly<Pet[]> = [];
+
   public selectedSegment = 'all';
-  public result: Readonly<Pet[]>;
 
   constructor(private petsService: PetsDataService) {}
 
@@ -27,8 +43,6 @@ export class SearchPage implements OnInit, OnDestroy {
       .subscribe(data => {
         this.petsData = data;
       });
-
-    this.applySegmentFilter(this.selectedSegment);
   }
 
   ngOnDestroy(): void {
@@ -40,40 +54,83 @@ export class SearchPage implements OnInit, OnDestroy {
     this.isLoading = true;
     this.petsService.fetchAll().subscribe(() => {
       this.isLoading = false;
+      console.log('ionviewwillenter');
+      this.onSegmentChange(this.selectedSegment);
     });
   }
 
-  applySegmentFilter(type: string): void {
+  onSegmentChange(type: string): void {
     console.log('applySegmentFilter -> type = ', type);
     if (type === 'all') {
       this.filteredPetsData = this.petsData;
     } else {
       this.filteredPetsData = this.petsData?.filter(i => i.type === type);
+      this.selectedSegment = type;
       console.log('filtrados = ', this.filteredPetsData);
     }
+
     this.result = this.filteredPetsData;
   }
 
-  filterArray(ev: any): Readonly<Pet[]> {
-    console.log('filterArray -> ev.target.value = ', ev.target.value);
-    this.result = this.filteredPetsData;
-    const val = ev.target.value;
-    if (val && val.trim() !== '') {
-      this.result = this.result?.filter(item => {
-        return (
-          //TODO: adicionar outros filtros válidos aqui também?
-          item.name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.neighborhood.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.breed.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-          item.description.toLowerCase().indexOf(val.toLowerCase()) > -1
-        );
-      });
-    } else {
-      return this.filteredPetsData;
-    }
+  onSearchboxChange(value: string): void {
+    console.log('onSearchboxChange -> value = ', value);
+    this.appliedFilters.searchbox = value;
+    console.log('appliedFilters = ', this.appliedFilters);
   }
 
-  applyCheckbox(name: string, value: boolean): void {
-    this.result = this.result?.filter(item => item[name] === value);
+  onCheckboxChange(name: string, value: boolean): void {
+    console.log(`applyCheckbox -> name = ${name} | value = ${value}`);
+    this.appliedFilters[name] = value;
+    console.log('appliedFilters = ', this.appliedFilters);
+  }
+
+  onSelectChange(name: string, value: string): void {
+    console.log('onSelectChange -> value = ', value);
+    this.appliedFilters[name] = value;
+    console.log('appliedFilters = ', this.appliedFilters);
+  }
+
+  applyFilters(): void {
+    console.log('applyFilters');
+    console.log('filteredPetsData =', this.filteredPetsData);
+    const tempResult = this.filteredPetsData?.filter(item => {
+      return (
+        //filtros searchbox
+        (item.name
+          .toLowerCase()
+          .indexOf(this.appliedFilters.searchbox.toLowerCase()) > -1 ||
+          item.neighborhood
+            .toLowerCase()
+            .indexOf(this.appliedFilters.searchbox.toLowerCase()) > -1 ||
+          item.breed
+            .toLowerCase()
+            .indexOf(this.appliedFilters.searchbox.toLowerCase()) > -1 ||
+          item.description
+            .toLowerCase()
+            .indexOf(this.appliedFilters.searchbox.toLowerCase()) > -1 ||
+          item.city
+            .toLowerCase()
+            .indexOf(this.appliedFilters.searchbox.toLowerCase()) > -1) &&
+        (this.appliedFilters.vaccinated
+          ? item.vaccinated === this.appliedFilters.vaccinated
+          : true) &&
+        (this.appliedFilters.dewormed
+          ? item.dewormed === this.appliedFilters.dewormed
+          : true) &&
+        (this.appliedFilters.castrated
+          ? item.castrated === this.appliedFilters.castrated
+          : true) &&
+        (this.appliedFilters.deficit
+          ? item.deficit === this.appliedFilters.deficit
+          : true) &&
+        (this.appliedFilters.gender !== 'all'
+          ? item.gender === this.appliedFilters.gender
+          : true)
+      );
+    });
+
+    console.log('tempResult = ', tempResult);
+
+    this.result = tempResult;
   }
 }

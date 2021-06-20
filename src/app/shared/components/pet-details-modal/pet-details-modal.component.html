@@ -51,10 +51,10 @@
             <p class="details-modal-list-row"><strong>Vacinado:</strong> {{pet?.vaccinated ? 'Sim' : 'Não'}}</p>
           </ion-row>
           <ion-row>
-            <p class="details-modal-list-row"><strong>Vermifugado:</strong> {{pet?.vaccinated ? 'Sim' : 'Não'}}</p>
+            <p class="details-modal-list-row"><strong>Vermifugado:</strong> {{pet?.dewormed ? 'Sim' : 'Não'}}</p>
           </ion-row>
           <ion-row>
-            <p class="details-modal-list-row"><strong>Castrado:</strong> {{pet?.vaccinated ? 'Sim' : 'Não'}}</p>
+            <p class="details-modal-list-row"><strong>Castrado:</strong> {{pet?.castrated ? 'Sim' : 'Não'}}</p>
           </ion-row>
           <ion-row>
             <p class="details-modal-list-row"><strong>Déficit:</strong> {{pet?.deficit ? 'Sim' : 'Não'}}</p>
@@ -76,9 +76,11 @@
       </ion-col>
     </ion-grid>
   </div>
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button color="danger" (click)="requestPetInformation()">
-      <ion-icon name="heart"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <div *ngIf="pet?.userId !== user?.id">
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button color="danger" (click)="requestPetInformation()">
+        <ion-icon name="heart"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
 </ion-content>

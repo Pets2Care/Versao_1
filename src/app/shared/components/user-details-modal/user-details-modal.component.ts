@@ -37,7 +37,7 @@ export class UserDetailsModalComponent implements OnInit {
       this.isLoadingUser = true;
 
       this.usersDataService.fetchById(passedId).subscribe(result => {
-        this.user = result;
+        this.user = this.helperService.formatUser(result);
         this.isLoadingUser = false;
       });
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { Highlight } from '../models/highlight.model';
 import { Pet } from '../models/pet.model';
 import { User } from '../models/user.model';
 
@@ -17,15 +18,16 @@ export class HelperService {
     const birthDate = new Date(date);
     //console.log('birthDate = ', birthDate);
     const years = HelperService.today.getFullYear() - birthDate.getFullYear();
-    const months = HelperService.today.getMonth() - birthDate.getMonth();
-    const days = HelperService.today.getDate() - birthDate.getDate();
-    //console.log('years = ', years);
-    //console.log('months = ', months);
+    const months = birthDate.getMonth() - HelperService.today.getMonth();
+    const days = birthDate.getDate() - HelperService.today.getDate();
+    console.log('years = ', years);
+    console.log('months = ', months);
+    console.log('days = ', days);
 
     const age =
       (years > 0 ? `${years} Ano${years < 2 ? '' : 's'}` : '') +
       (months > 0 ? `, ${months} Mes${months < 2 ? '' : 'es'}` : '') +
-      (days > 0 ? `, ${days} Dia${days < 2 ? '' : 's'}` : 'não disponível');
+      (days > 0 ? `, ${days} Dia${days < 2 ? '' : 's'}` : '');
 
     return age;
   }
@@ -35,8 +37,7 @@ export class HelperService {
     //console.log('birthDate = ', birthDate);
     const years = HelperService.today.getFullYear() - birthDate.getFullYear();
     //console.log('years = ', years);
-    const age =
-      years > 0 ? `${years} Ano${years < 2 ? '' : 's'}` : 'não disponível';
+    const age = years > 0 ? `${years} Ano${years < 2 ? '' : 's'}` : '';
 
     return age;
   }
@@ -60,8 +61,20 @@ export class HelperService {
   getPetType(type: string): string {
     return type === 'dog' ? 'Cachorro' : 'Gato';
   }
+
   getPetGender(gender: string): string {
     return gender === 'male' ? 'Macho' : 'Fêmea';
+  }
+
+  getUserGender(gender: string): string {
+    switch (gender) {
+      case 'male':
+        return 'Masculina';
+      case 'female':
+        return 'Feminina';
+      default:
+        return 'Não informado';
+    }
   }
 
   formatPet(pet: Pet): Pet {
@@ -72,7 +85,6 @@ export class HelperService {
       gender: this.getPetGender(pet?.gender),
       type: this.getPetType(pet?.type),
       breed: this.capitalizeFirstLetterEachWord(pet?.breed),
-      description: this.capitalizeFirstLetter(pet?.description),
       street: this.capitalizeFirstLetterEachWord(pet?.street),
       neighborhood: this.capitalizeFirstLetterEachWord(pet?.neighborhood),
       createdAt: this.getFormattedDate(pet?.createdAt),
@@ -81,6 +93,24 @@ export class HelperService {
   }
 
   formatUser(user: User): User {
-    return user;
+    const formattedUser = {
+      ...user,
+      name: this.capitalizeFirstLetterEachWord(user?.name),
+      birthDate: this.getAgeYears(user?.birthDate),
+      gender: this.getUserGender(user?.gender),
+      street: this.capitalizeFirstLetterEachWord(user?.street),
+      neighborhood: this.capitalizeFirstLetterEachWord(user?.neighborhood),
+      createdAt: this.getFormattedDate(user?.createdAt),
+    };
+    return formattedUser;
+  }
+
+  formatHighlight(highlight: Highlight): Highlight {
+    const formattedHighlight = {
+      ...highlight,
+      title: this.capitalizeFirstLetterEachWord(highlight?.title),
+      createdAt: this.getFormattedDate(highlight?.createdAt),
+    };
+    return formattedHighlight;
   }
 }

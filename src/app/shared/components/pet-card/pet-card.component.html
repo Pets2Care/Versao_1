@@ -3,21 +3,21 @@
     <ion-card-header  class="ion-no-padding" style="padding-bottom: 10px;">
       <ion-img class="cardImg" [src]="item?.images[0]?.url" alt={{item?.name}}></ion-img>
       <ion-card-title class="ion-text-center"><strong>{{item?.name}}</strong></ion-card-title>
-      <ion-card-subtitle slot="end">{{helperService.getFormattedDate(item?.createdAt)}}</ion-card-subtitle>
+      <ion-card-subtitle slot="end">{{item?.createdAt}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content class="ion-no-padding">
       <ion-item lines="none">
-        <ion-label class="ion-text-wrap">{{helperService.truncateWithEllipses(item.description, 100)}}</ion-label>
+        <ion-label class="ion-text-wrap">{{item.description}}</ion-label>
       </ion-item>
       <ion-row>
-        <ion-chip class="chip-small" >{{helperService.getAge(item?.birthDate)}}</ion-chip>
-        <ion-chip class="chip-small">{{item?.neighborhood}}</ion-chip>
-        <ion-chip class="chip-small" >{{item?.city}}</ion-chip>
-        <ion-chip class="chip-small" >{{item?.state}}</ion-chip>
+        <ion-chip color="primary" class="chip-small" >{{item?.birthDate}}</ion-chip>
+        <ion-chip color="primary" class="chip-small">{{item?.neighborhood}}</ion-chip>
+        <ion-chip color="primary" class="chip-small" >{{item?.city}}</ion-chip>
+        <ion-chip color="primary" class="chip-small" >{{item?.state}}</ion-chip>
       </ion-row>
     </ion-card-content>
   </div>
-  <span [hidden]="!isDonationPage">
+  <div *ngIf="isDonationPage">
     <ion-row class="ion-justify-content-between">
       <ion-col class="ion-text-center">
         <ion-button fill="clear" (click)="editDonation()">
@@ -28,12 +28,22 @@
         </ion-button>
       </ion-col>
       <ion-col class="ion-text-center">
-        <ion-button fill="clear" (click)="pauseDonation()">
-          <span>
-            <ion-icon slot="icon-only" name="create-outline"></ion-icon><br>
-            <small>Pausar</small>
-          </span>
-        </ion-button>
+        <div *ngIf="item?.isActive">
+          <ion-button fill="clear" (click)="pauseDonation()">
+            <span>
+              <ion-icon slot="icon-only" name="pause-outline"></ion-icon><br>
+              <small>Pausar</small>
+            </span>
+          </ion-button>
+        </div>
+        <div *ngIf="!item?.isActive">
+          <ion-button fill="clear" (click)="pauseDonation()">
+            <span>
+              <ion-icon slot="icon-only" name="play-outline"></ion-icon><br>
+              <small>Retomar</small>
+            </span>
+          </ion-button>
+        </div>
       </ion-col>
       <ion-col class="ion-text-center">
         <ion-button fill="clear" (click)="deleteDonation()">
@@ -44,5 +54,5 @@
         </ion-button>
       </ion-col>
     </ion-row>
-  </span>
+  </div>
 </ion-card>

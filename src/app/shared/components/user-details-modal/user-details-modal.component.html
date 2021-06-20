@@ -26,13 +26,19 @@
             <p class="details-modal-list-row"><strong>Nome:</strong> {{user?.name}}</p>
           </ion-row>
           <ion-row >
-            <p class="details-modal-list-row"><strong>Idade:</strong> {{helperService.getAgeYears(user?.birthDate)}}</p>
+            <p class="details-modal-list-row"><strong>Idade:</strong> {{user?.birthDate}}</p>
+          </ion-row>
+          <ion-row >
+            <p class="details-modal-list-row"><strong>Identidade de Gênero:</strong> {{user?.gender}}</p>
           </ion-row>
           <ion-row>
-            <p class="details-modal-list-row"><strong>Usuário desde:</strong> {{helperService.getFormattedDate(user?.createdAt)}}</p>
+            <p class="details-modal-list-row"><strong>Usuário desde:</strong> {{user?.createdAt}}</p>
           </ion-row>
           <ion-row>
             <p class="details-modal-list-row"><strong>Localização:</strong> {{user?.neighborhood}} em {{user?.city}} - {{user?.state}}</p>
+          </ion-row>
+          <ion-row [hidden]="!user?.website">
+            <p class="details-modal-list-row"><strong>Website:</strong> {{user?.website}}</p>
           </ion-row>
           <ion-row>
             <p class="details-modal-list-row"><strong>Sobre:</strong></p>

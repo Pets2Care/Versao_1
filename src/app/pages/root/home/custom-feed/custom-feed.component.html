@@ -1,3 +1,24 @@
-<ion-item lines="none">
-  conteúdo custom do usuário {{userData?.name}}
-</ion-item>
+<div>
+  <!-- ion-refreser drag -->
+  <div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content>
+      </ion-refresher-content>
+    </ion-refresher>
+  </div>
+  <!-- loading spinner -->
+  <div *ngIf="isLoadingPetsData" class="ion-text-center"
+    style="padding-top: 30px;">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <!-- Lista de Pets -->
+  <div>
+    <h1>Meus Favoritos</h1>
+    <div *ngIf="!isLoadingPetsData && petsData?.length <= 0">
+      <p class="ion-text-center">Nenhum Anúncio Encontrado!</p>
+    </div>
+    <div *ngIf="!isLoadingPetsData && petsData?.length > 0">
+      <app-pet-card [item]="i" *ngFor="let i of petsData"> </app-pet-card>
+    </div>
+  </div>
+</div>

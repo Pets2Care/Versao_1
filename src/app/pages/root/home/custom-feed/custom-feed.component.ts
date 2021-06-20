@@ -1,10 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { Pet } from 'src/app/shared/models/pet.model';
-import { User } from 'src/app/shared/models/user.model';
 import { PetsDataService } from 'src/app/shared/services/pets.service';
-import { UsersDataService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'app-custom-feed',
@@ -13,23 +9,28 @@ import { UsersDataService } from 'src/app/shared/services/users.service';
 })
 export class CustomFeedComponent implements OnInit {
   @Input() isActive = false;
-  private subject = new Subject();
-  public isLoading = false;
-  public userData: Readonly<User>;
+  public isLoadingPetsData = false;
+  public petsData: Readonly<Pet[]>;
 
-  constructor(private usersDataService: UsersDataService) {}
+  constructor(private petsDataService: PetsDataService) {}
 
   ngOnInit(): void {
-    console.log('custom feed tab');
+    console.log('custom feed');
     if (this.isActive) {
-      console.log('feed -> ionViewWillEnter');
-      this.isLoading = true;
-
-      this.usersDataService.fetchSelf().subscribe(response => {
-        this.userData = response;
-        this.isLoading = false;
-        console.log(`feed -> onInit -> usersData = ${this.userData} `);
-      });
+      this.loadData();
     }
+  }
+
+  doRefresh(event: CustomEvent): void {
+    this.loadData(event);
+  }
+
+  loadData(event?: CustomEvent): void {
+    this.isLoadingPetsData = true;
+    this.petsDataService.fetchFavorites().subscribe(response => {
+      this.petsData = response;
+      this.isLoadingPetsData = false;
+      console.log('petsData = ', this.petsData);
+    });
   }
 }
