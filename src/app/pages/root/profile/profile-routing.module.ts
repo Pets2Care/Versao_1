@@ -10,23 +10,9 @@ const routes: Routes = [
     component: ProfilePage,
   },
   {
-    path: 'user-data',
+    path: 'equipe',
     loadChildren: () =>
-      import('./user-data/user-data.module').then(m => m.UserDataPageModule),
-  },
-  {
-    path: 'user-password',
-    loadChildren: () =>
-      import('./user-password/user-password.module').then(
-        m => m.UserPasswordPageModule,
-      ),
-  },
-  {
-    path: 'user-config',
-    loadChildren: () =>
-      import('./user-config/user-config.module').then(
-        m => m.UserConfigPageModule,
-      ),
+      import('../profile/equipe/equipe.module').then(m => m.EquipePageModule),
   },
   {
     path: 'help',
@@ -39,20 +25,21 @@ const routes: Routes = [
       import('./privacy/privacy.module').then(m => m.PrivacyPageModule),
   },
   {
-    path: 'legal',
+    path: 'sobre',
     loadChildren: () =>
-      import('./legal/legal.module').then(m => m.LegalPageModule),
+      import('../profile/sobre/sobre.module').then(m => m.SobrePageModule),
   },
   {
-    path: 'user-logout',
+    path: 'user-config',
     loadChildren: () =>
-      import('./user-logout/user-logout.module').then(
-        m => m.UserLogoutPageModule,
+      import('./user-config/user-config.module').then(
+        m => m.UserConfigPageModule,
       ),
   },
   {
-    path: 'user-delete',
-    loadChildren: () => import('./user-delete/user-delete.module').then( m => m.UserDeletePageModule)
+    path: 'user-data',
+    loadChildren: () =>
+      import('./user-data/user-data.module').then(m => m.UserDataPageModule),
   },
 ];
 

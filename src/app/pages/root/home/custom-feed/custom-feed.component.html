@@ -9,13 +9,17 @@
   <!-- loading spinner -->
   <div *ngIf="isLoadingPetsData" class="ion-text-center"
     style="padding-top: 30px;">
-    <ion-spinner color="primary"></ion-spinner>
+    <ion-spinner color="secondary"></ion-spinner>
   </div>
   <!-- Lista de Pets -->
   <div>
-    <h1>Meus Favoritos</h1>
+    <h1 class="ion-padding">Meus Favoritos</h1>
     <div *ngIf="!isLoadingPetsData && petsData?.length <= 0">
-      <p class="ion-text-center">Nenhum Anúncio Encontrado!</p>
+      <ion-text color="secondary">
+        <h1 class="ion-text-center">
+          Nenhum Anúncio Encontrado!
+        </h1>
+      </ion-text>
     </div>
     <div *ngIf="!isLoadingPetsData && petsData?.length > 0">
       <app-pet-card [item]="i" *ngFor="let i of petsData"> </app-pet-card>

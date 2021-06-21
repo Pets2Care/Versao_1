@@ -59,21 +59,25 @@ export class HelperService {
   }
 
   getPetType(type: string): string {
-    return type === 'dog' ? 'Cachorro' : 'Gato';
+    return type.toLowerCase() === 'dog' ? 'Cachorro' : 'Gato';
   }
 
   getPetGender(gender: string): string {
-    return gender === 'male' ? 'Macho' : 'Fêmea';
+    return gender.toLowerCase() === 'male' ? 'Macho' : 'Fêmea';
   }
 
+  // getTelephone(tel: string): string {
+  //   return `(${tel.split(0, 1)}) ${tel.split(2,4)}-`;
+  // }
+
   getUserGender(gender: string): string {
-    switch (gender) {
+    switch (gender.toLowerCase()) {
       case 'male':
         return 'Masculina';
       case 'female':
         return 'Feminina';
       default:
-        return 'Não informado';
+        return 'Não informada';
     }
   }
 

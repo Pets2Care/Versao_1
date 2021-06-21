@@ -26,6 +26,7 @@ export class FeedHighlightComponent implements OnChanges {
   ) {
     this.helperService = helperService;
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     this.highlight = this.helperService.formatHighlight(
       changes.highlight.currentValue,

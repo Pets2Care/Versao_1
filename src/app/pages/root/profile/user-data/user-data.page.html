@@ -1,36 +1,11 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="root/tabs/profile"></ion-back-button>
+      <ion-back-button color="light" defaultHref="root/tabs/profile"></ion-back-button>
     </ion-buttons>
-    <ion-title>Dados Pessoais</ion-title>
+    <ion-title color="light">Alterar Dados</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-col>
-    <ion-item>
-      <ion-label position="fixed">Nome:</ion-label>
-      <ion-icon slot="end" name="pencil-outline"></ion-icon>
-      <ion-label>Manuel Costa</ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="fixed">Email:</ion-label>
-      <ion-icon slot="end" name="pencil-outline"></ion-icon>
-      <ion-label>Manuel.costa@gmail.com</ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="fixed">Cidade:</ion-label>
-      <ion-icon slot="end" name="pencil-outline"></ion-icon>
-      <ion-label>Guarulhos</ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="fixed">Estado:</ion-label>
-      <ion-icon slot="end" name="pencil-outline"></ion-icon>
-      <ion-label>Sao Paulo</ion-label>
-    </ion-item>
-  </ion-col>
+  <app-user-register-form [user]='getUser()'></app-user-register-form>
 </ion-content>

@@ -1,0 +1,29 @@
+<ion-card color="medium">
+  <ion-card-header class="ion-no-padding" style="padding-bottom: 10px;">
+    <ion-grid>
+      <ion-row class="ion-text-center ion-justify-content-center">
+        <ion-card-title class="ion-padding"> {{ getCardTitle()}} </ion-card-title>
+      </ion-row>
+      <ion-row>
+        <app-user-avatar layout="horizontal" [user]="getOtherUser()"></app-user-avatar>
+      </ion-row>
+      <ion-row>
+        <app-pet-card [item]="item?.advertId"></app-pet-card>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+  <ion-card-content class="ion-no-padding">
+  </ion-card-content>
+  <ion-row class="ion-justify-content-between">
+    <ion-col class="ion-text-center">
+      <ion-button [disabled]="item.accepted !== null" size="small" color="success" (click)="acceptOffer()">
+        <ion-text color="light"><strong>Aceitar</strong></ion-text>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button [disabled]="item.accepted !== null" size="small" color="danger" (click)="denyOffer()">
+        <ion-text color="light"><strong>Recusar</strong></ion-text>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-card>

@@ -1,5 +1,6 @@
 import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-user-data',
@@ -7,11 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-data.page.scss'],
 })
 export class UserDataPage implements OnInit {
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {}
 
-  ionViewWillEnter() {
-    console.log('cu');
+  getUser(): number {
+    return this.authService.getUser().id;
   }
 }

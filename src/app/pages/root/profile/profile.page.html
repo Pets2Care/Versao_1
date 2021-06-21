@@ -1,34 +1,43 @@
-<ion-header> </ion-header>
+<ion-header>
+  <ion-toolbar color="primary">
+  <ion-title color="light">Meu Perfil e Preferências</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 
 <ion-content>
   <ion-list>
-    <ion-item (click)="presentModalUserEdit()">
-      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
-      <ion-label>Visualizar e Alterar Dados Pessoais</ion-label>
+    <ion-item [routerLink]="['user-data']">
+      <ion-icon color="primary" slot="start" name="person-circle-outline"></ion-icon>
+      <ion-label>Alterar Dados Pessoais</ion-label>
     </ion-item>
     <ion-item [routerLink]="['user-config']">
-      <ion-icon slot="start" name="settings-outline"></ion-icon>
+      <ion-icon color="primary" slot="start" name="settings-outline"></ion-icon>
       <ion-label>Configurações do Usuário</ion-label>
     </ion-item>
+    <ion-item (click)="presentAlertLogout()">
+      <ion-icon color="primary" slot="start" name="exit-outline"></ion-icon>
+      <ion-label>Sair da Conta</ion-label>
+    </ion-item>
     <ion-item [routerLink]="['help']">
-      <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+      <ion-icon color="primary" slot="start" name="help-circle-outline"></ion-icon>
       <ion-label>Ajuda ao Usuário</ion-label>
     </ion-item>
     <ion-item [routerLink]="['privacy']">
-      <ion-icon slot="start" name="document-text-outline"></ion-icon>
+      <ion-icon color="primary" slot="start" name="document-text-outline"></ion-icon>
       <ion-label>Política de Privacidade</ion-label>
     </ion-item>
-    <ion-item [routerLink]="['legal']">
-      <ion-icon slot="start" name="information-circle-outline"></ion-icon>
-      <ion-label>Informações Legais</ion-label>
+    <ion-item [routerLink]="['sobre']">
+      <ion-icon color="primary" slot="start" name="information-circle-outline"></ion-icon>
+      <ion-label>Sobre a Pet<ion-text color="secondary">S2</ion-text>Care</ion-label>
     </ion-item>
-    <ion-item (click)="presentAlertLogout()">
-      <ion-icon slot="start" name="exit-outline"></ion-icon>
-      <ion-label>Sair da Conta</ion-label>
+    <ion-item [routerLink]="['equipe']">
+      <ion-icon color="primary" slot="start" name="people-outline"></ion-icon>
+      <ion-label>Nossa Equipe</ion-label>
     </ion-item>
     <ion-item (click)="presentAlertDelete()">
-      <ion-icon slot="start" name="trash-outline"></ion-icon>
-      <ion-label>Excluir Conta</ion-label>
+      <ion-icon color="primary" slot="start" name="trash-outline"></ion-icon>
+      <ion-label color="danger">Excluir Conta</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

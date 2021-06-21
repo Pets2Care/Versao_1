@@ -2,9 +2,6 @@
   <ion-grid>
     <ion-row color="primary" class="ion-justify-content-center">
       <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-        <div class="ion-text-center">
-          <h3>Registrar Conta</h3>
-        </div>
         <!-- E-MAIL -->
         <div>
           <ion-item lines="inset">
@@ -109,7 +106,7 @@
               pattern="(https?:\/\/)(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)">
             </ion-input>
           </ion-item>
-          <ion-item lines="none" class="input-label" *ngIf="!telephoneCtrl.valid && telephoneCtrl.touched">
+          <ion-item lines="none" class="input-label" *ngIf="!websiteUrlCtrl.valid && websiteUrlCtrl.touched">
             <ion-note>
               Endereço Inválido.
             </ion-note>
@@ -159,7 +156,7 @@
           <ion-item lines="inset">
             <ion-label position="floating">Endereço</ion-label>
             <ion-input ngModel #streetCtrl="ngModel" type="text" name="street" required
-              pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]{1,100}$"></ion-input>
+              pattern="^[\s\S]{0,1000}$"></ion-input>
           </ion-item>
           <ion-item lines="none" class="input-label" *ngIf="!streetCtrl.valid && streetCtrl.touched">
             <ion-note>
@@ -242,9 +239,9 @@
           </ion-item>
         </div>
         <div class="ion-padding">
-          <ion-button type="submit" color="primary" expand="block"
+          <ion-button type="submit" color="secondary" expand="block"
             [disabled]="!f.valid || isLoading || !(confirmPasswordCtrl.value === passwordCtrl.value)">
-            Registrar
+            <ion-text color="light"><strong>Registrar</strong></ion-text>
           </ion-button>
         </div>
         <div class="ion-padding">

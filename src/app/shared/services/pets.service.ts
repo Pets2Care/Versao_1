@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { Message } from '../models/message.model';
 import { Pet } from '../models/pet.model';
 import { PetRequest } from '../models/petRequest.model';
 
@@ -197,9 +198,18 @@ export class PetsDataService {
     //return of('sucesso contactDonor');
   }
 
-  public acceptOffer(): Observable<any> {
+  public acceptOffer(id: number, accept: boolean): Observable<any> {
     console.log('PetsDataService -> accept offer');
-    //return this.http.post<any>(`${environment.API_URL}/donation/accept`, {id});
-    return of('sucesso accept offer');
+    return this.http.post<any>(`${environment.API_URL}/donation/accept/${id}`, {
+      accept: accept.toString(),
+    });
+  }
+
+  public fetchMessages(): Observable<Message[]> {
+    return this.http.get<any>(`${environment.API_URL}/donations/`).pipe(
+      tap(response => {
+        this.dataStream.next(response);
+      }),
+    );
   }
 }

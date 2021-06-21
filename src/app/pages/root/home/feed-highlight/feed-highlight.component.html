@@ -2,11 +2,11 @@
   <ion-card>
     <ion-card-content class="ion-no-padding">
       <ion-col class="ion-no-padding">
-        <ion-row class="ion-no-padding">
-          <h3><strong>{{highlight?.title}}</strong></h3>
-        </ion-row>
         <ion-row>
             <ion-img [src]="highlight?.image" alt={{highlight?.title}}></ion-img>
+        </ion-row>
+        <ion-row class="ion-padding">
+          <h3>{{highlight?.title}}</h3>
         </ion-row>
       </ion-col>
     </ion-card-content>

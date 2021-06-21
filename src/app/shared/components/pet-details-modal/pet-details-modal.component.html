@@ -2,15 +2,15 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="closeModal()">
-        <ion-icon name="arrow-back"></ion-icon>
+        <ion-icon color="light" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">{{pet?.name}}</ion-title>
+    <ion-title color="light" class="ion-text-center">{{pet?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <div *ngIf="isLoadingPet || isLoadingUser">
-    <ion-spinner></ion-spinner>
+    <ion-spinner color="secondary"></ion-spinner>
   </div>
   <div *ngIf="!isLoadingPet && !isLoadingUser">
     <ion-grid class="ion-align-items-center ion-no-padding">
@@ -57,7 +57,7 @@
             <p class="details-modal-list-row"><strong>Castrado:</strong> {{pet?.castrated ? 'Sim' : 'Não'}}</p>
           </ion-row>
           <ion-row>
-            <p class="details-modal-list-row"><strong>Déficit:</strong> {{pet?.deficit ? 'Sim' : 'Não'}}</p>
+            <p class="details-modal-list-row"><strong>Necessidades Especiais:</strong> {{pet?.deficit ? 'Sim' : 'Não'}}</p>
           </ion-row>
           <ion-row>
             <p class="details-modal-list-row"><strong>Sobre o pet:</strong></p>
@@ -66,7 +66,7 @@
             <p class="ion-text-justify ion-text-wrap ion-no-margin">{{pet?.description}}</p>
           </ion-row>
           <ion-row>
-            <h2>{{pet?.images?.length}} Foto(s)</h2>
+            <h1 class="ion-padding">{{pet?.images?.length}} Foto(s)</h1>
           </ion-row>
           <ion-row>
             <ion-img *ngFor="let image of pet?.images; index as i" class="cardImg" [src]="pet?.images[i]?.url"
@@ -76,7 +76,7 @@
       </ion-col>
     </ion-grid>
   </div>
-  <div *ngIf="pet?.userId !== user?.id">
+  <div *ngIf="!verifyOwner()">
     <ion-fab vertical="top" horizontal="end" slot="fixed">
       <ion-fab-button color="danger" (click)="requestPetInformation()">
         <ion-icon name="heart"></ion-icon>

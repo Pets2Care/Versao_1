@@ -136,7 +136,7 @@ export class PetDonationFormComponent implements OnInit {
     const data: PetRequest = {
       id: this.petData?.id || undefined,
       name: this.donationForm?.value?.name,
-      birthDate: this.donationForm?.value?.birthDate?.split('T')[0],
+      birthDate: this.donationForm?.value?.birthDate,
       gender: this.donationForm?.value?.gender,
       type: this.donationForm?.value?.type,
       breed: this.donationForm?.value?.breed,

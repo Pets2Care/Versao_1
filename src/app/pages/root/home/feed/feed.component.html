@@ -8,13 +8,17 @@
     </div>
     <!-- loading spinner -->
     <div *ngIf="isLoadingPetsData || isLoadingUsersData || isLoadingHighlights" class="ion-text-center" style="padding-top: 30px;">
-      <ion-spinner color="primary"></ion-spinner>
+      <ion-spinner color="secondary"></ion-spinner>
     </div>
     <!-- Carousel de Avisos, Patrocinadores, Merchans, etc -->
     <div>
-      <h1>Notícias</h1>
+      <h1 class="ion-padding">Notícias</h1>
       <div *ngIf="!isLoadingHighlights && highlightsData?.length === 0">
-        <p class="ion-text-center">Nenhum Destaque Encontrado!</p>
+        <ion-text color="secondary">
+          <h1 class="ion-text-center">
+            Nenhum Destaque Encontrado!
+          </h1>
+        </ion-text>
       </div>
       <div *ngIf="!isLoadingHighlights && highlightsData?.length > 0">
         <ion-slides [pager]="true">
@@ -26,9 +30,13 @@
     </div>
     <!-- Carousel de Usuários -->
     <div>
-      <h1>Usuários</h1>
+      <h1 class="ion-padding">Usuários</h1>
       <div *ngIf="!isLoadingUsersData && usersData?.length === 0">
-        <p class="ion-text-center">Nenhum Usuário Encontrado!</p>
+        <ion-text color="secondary">
+          <h1 class="ion-text-center">
+            Nenhum Usuário Encontrado!
+          </h1>
+        </ion-text>
       </div>
       <div *ngIf="!isLoadingUsersData && usersData?.length > 0">
         <ion-slides>
@@ -40,9 +48,13 @@
     </div>
     <!-- Lista de Pets -->
     <div>
-      <h1>Anúncios</h1>
+      <h1 class="ion-padding">Anúncios</h1>
       <div *ngIf="!isLoadingPetsData && petsData?.length <= 0">
-        <p class="ion-text-center">Nenhum Anúncio Encontrado!</p>
+        <ion-text color="secondary">
+          <h1 class="ion-text-center">
+            Nenhum Anúncio Encontrado!
+          </h1>
+        </ion-text>
       </div>
       <div *ngIf="!isLoadingPetsData && petsData?.length > 0">
         <app-pet-card [item]="i" *ngFor="let i of petsData"> </app-pet-card>

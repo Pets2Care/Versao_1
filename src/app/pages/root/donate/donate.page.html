@@ -1,14 +1,14 @@
 <ion-header>
-  <ion-toolbar>
-  <ion-title>Minhas Doações ({{ petsData?.length || 0}})</ion-title>
+  <ion-toolbar color="primary">
+  <ion-title color="light">Minhas Doações ({{ petsData?.length || 0}})</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <app-pet-card [item]="i" isDonationPage="true" *ngFor="let i of (petsData)"> </app-pet-card>  
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="createNewDonation()">
-      <ion-icon name="add"></ion-icon>
+    <ion-fab-button color="secondary" (click)="createNewDonation()">
+      <ion-icon color="light" name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

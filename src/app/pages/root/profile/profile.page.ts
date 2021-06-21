@@ -1,11 +1,7 @@
-import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/shared/services/auth.service';
-
-import { PetsDataService } from '../../../shared/services/pets.service';
-import { UsersDataService } from '../../../shared/services/users.service';
 
 @Component({
   selector: 'app-profile',

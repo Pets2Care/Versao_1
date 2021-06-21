@@ -8,6 +8,7 @@ import {
 
 import { Pet } from '../../models/pet.model';
 import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 import { HelperService } from '../../services/helper.service';
 import { PetsDataService } from '../../services/pets.service';
 import { UsersDataService } from '../../services/users.service';
@@ -29,6 +30,7 @@ export class PetDetailsModalComponent implements OnInit {
     private modalController: ModalController,
     private petsDataService: PetsDataService,
     private usersDataService: UsersDataService,
+    private authService: AuthService,
     private alertController: AlertController,
     private loadingController: LoadingController,
     helperService: HelperService,
@@ -55,18 +57,22 @@ export class PetDetailsModalComponent implements OnInit {
     }
   }
 
+  verifyOwner(): boolean {
+    return this.pet?.userId === this.authService.getUser()?.id;
+  }
+
   closeModal(): void {
     this.modalController.dismiss();
   }
 
   async requestPetInformation(): Promise<void> {
-    console.log('usario quer saber mais a respeito do pet');
+    console.log('usuario quer saber mais a respeito do pet');
     //abrir alerta com dois botões: "guardar nos favoritos" e "quero adotar!"
     const alert = await this.alertController.create({
       header: 'Escolha a ação',
       buttons: [
         {
-          text: 'Falar com doador',
+          text: 'Tenho Interesse',
           handler: () => {
             console.log('Confirm Ok');
             this.loadingController
@@ -77,8 +83,8 @@ export class PetDetailsModalComponent implements OnInit {
                 response.subscribe(
                   resData => {
                     loadingEl.dismiss();
-                    console.log('succRes', resData);
-                    this.showAlert('Sucesso', resData);
+                    console.log('succRes', resData?.message);
+                    this.showAlert('Sucesso', resData?.message);
                   },
                   errRes => {
                     loadingEl.dismiss();

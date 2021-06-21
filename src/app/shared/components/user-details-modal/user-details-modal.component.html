@@ -2,15 +2,15 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="closeModal()">
-        <ion-icon name="arrow-back"></ion-icon>
+        <ion-icon color="light" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">{{user?.name}}</ion-title>
+    <ion-title color="light" class="ion-text-center">{{user?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <div *ngIf="isLoadingPets || isLoadingUser">
-    <ion-spinner></ion-spinner>
+    <ion-spinner color="secondary"></ion-spinner>
   </div>
   <div *ngIf="!isLoadingPets && !isLoadingUser">
     <ion-grid class="ion-align-items-center ion-no-padding">
@@ -20,11 +20,25 @@
         </ion-row>
         <div class="ion-padding ion-text-justify">
           <ion-row>
-            <h1 class="details-modal-title">Informações públicas</h1>
+            <h1 class="details-modal-title">Informações</h1>
           </ion-row>
           <ion-row>
             <p class="details-modal-list-row"><strong>Nome:</strong> {{user?.name}}</p>
           </ion-row>
+          <div>
+            <ion-row *ngIf="user?.email && (user?.email !== 'Sem permissão para visualizar')">
+              <p class="details-modal-list-row"><strong>E-mail:</strong> {{user?.email}}</p>
+            </ion-row>
+            <ion-row *ngIf="user?.telephone && (user?.telephone !== 'Sem permissão para visualizar')">
+              <p class="details-modal-list-row"><strong>Telefone:</strong> {{user?.telephone}}</p>
+            </ion-row> 
+            <ion-row *ngIf="user?.cep && (user?.cep !== 'Sem permissão para visualizar')">
+              <p class="details-modal-list-row"><strong>CEP:</strong> {{user?.cep}}</p>
+            </ion-row>  
+            <ion-row *ngIf="user?.street && user?.number && (user?.street !== 'Sem permissão para visualizar') && (user?.number !== 'Sem permissão para visualizar')">
+              <p class="details-modal-list-row"><strong>Endereço:</strong> {{user?.street}}, {{user?.number}}, {{user?.complement}}</p>
+            </ion-row>
+          </div>
           <ion-row >
             <p class="details-modal-list-row"><strong>Idade:</strong> {{user?.birthDate}}</p>
           </ion-row>
@@ -48,7 +62,7 @@
           </ion-row>
           <!-- lista dos anuncios desse user -->
           <ion-row>
-            <h2>Anúncios publicados</h2>
+            <h1 class="ion-padding">Anúncios publicados</h1>
           </ion-row>
           <ion-row>
             <div *ngIf="!isLoadingPets && pets?.length > 0">

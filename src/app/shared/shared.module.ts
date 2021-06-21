@@ -11,6 +11,7 @@ import { PetDetailsModalComponent } from './components/pet-details-modal/pet-det
 import { PetDonationFormComponent } from './components/pet-donation-form/pet-donation-form.component';
 import { UserAvatarComponent } from './components/user-avatar/user-avatar.component';
 import { UserDetailsModalComponent } from './components/user-details-modal/user-details-modal.component';
+import { UserMessageCardComponent } from './components/user-message-card/user-message-card.component';
 import { UserRegisterFormComponent } from './components/user-register-form/user-register-form.component';
 
 @NgModule({
@@ -21,6 +22,7 @@ import { UserRegisterFormComponent } from './components/user-register-form/user-
     UserRegisterFormComponent,
     UserAvatarComponent,
     UserDetailsModalComponent,
+    UserMessageCardComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,7 @@ import { UserRegisterFormComponent } from './components/user-register-form/user-
     UserRegisterFormComponent,
     UserAvatarComponent,
     UserDetailsModalComponent,
+    UserMessageCardComponent,
   ],
 })
 export class SharedModule {}

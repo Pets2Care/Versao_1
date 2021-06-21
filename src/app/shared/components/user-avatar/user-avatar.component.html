@@ -2,13 +2,13 @@
   <div *ngIf="layout === 'horizontal'">
     <div (click)="viewUser()">
       <ion-row class="ion-justify-content-center ion-align-items-center">
-        <ion-col size="3">
+        <ion-col style="min-width: 80px;" size="3">
           <ion-avatar>
             <ion-img [src]="user?.avatar" alt={{user?.name}}></ion-img>
           </ion-avatar>
         </ion-col>
         <ion-col>
-          <p>{{user?.name}}</p>
+          <h3>{{user?.name}}</h3>
         </ion-col>
       </ion-row>
     </div>
